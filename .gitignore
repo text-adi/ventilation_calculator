@@ -1,0 +1,115 @@
+﻿# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+build/
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio files
+*.suo
+*.user
+*.sln.docstates
+*.userprefs
+*.vs/
+*.vssscc
+*.vspscc
+
+# Resharper files
+_ReSharper*/
+*.resharper
+*.DotSettings.user
+
+# Build Results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa]ny/[Aa]ny/
+[Ll]og/
+
+# NuGet Packages Directory
+## TODO: If you have NuGet Package Restore enabled, uncomment the next line
+#packages/
+
+# MSTest test Results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+bin/
+obj/
+
+# Build results
+[Bb]uild/
+[Nn]ode_modules/
+*/wwwroot/lib/
+*/node_modules/
+*.log
+npm-debug.log*
+
+# TypeScript
+*.tsbuildinfo
+*.js.map
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Office Interop
+# Uncomment the following line if you have code that interacts with Microsoft Office Interop
+# release/*.exd
+
+# StyleCop
+StyleCopReport.xml
+
+# Unity generated files
+Temp/
+obj/
+UnityGenerated/
+Library/
+Assets/AssetStoreTools*
+
+# Rider
+.idea/
+*.sln.iml
+
+# User-specific files
+*.user
+*.userprefs
+*.suo
+*.sln.docstates
+*.cache
+*.vspscc
+*.vssscc
+/Service References/
+*.log
+*.vspx
+
+# Build and publish output
+bin/
+obj/
+*.cache
+*.dll
+*.exe
+*.pdb
+*.dll.config
+*.exe.config
+*.log
+
+# .NET Core
+/.dotnet/
+/global.json
+/obj/
+/project.lock.json
+/Tools/
+
+# Visual Studio 2017 cache/options directory
+.vs/
+# Uncomment if you have tasks that create the project's static files in wwwroot
+#wwwroot/
