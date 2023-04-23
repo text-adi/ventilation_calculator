@@ -35,7 +35,7 @@ namespace VentilationCalculator.Components
         /// </summary>
         /// <param name="countHeat"></param>
         /// <returns></returns>
-        public static double Solar(double countHeat, DuoNormatile<Enum, Enum> inletTempWindow, Normatile<Enum> k, bool exist)
+        public static double Solar(double countHeat, DuoNormatile<DifficultWork, double> inletTempWindow, Normatile<DifficultWork> k, bool exist)
         {
             double OUTPUT_HEAT = 0.9;
             if (exist) 
@@ -165,7 +165,7 @@ namespace VentilationCalculator.Components
 
         public void GetResult()
         {
-            int countPeople = 20;
+/*            int countPeople = 20;
             //1 
             Room office = new Room();
             Room server = new Room();
@@ -202,7 +202,7 @@ namespace VentilationCalculator.Components
 
 
             double HeatExchangeRateOffice = AirExchange.GetHeatExchangeRate(QSumOffice, p, c, outputH, inputH);
-            double HeatExchangeRateServer = AirExchange.GetHeatExchangeRate(QSumServer, p, c, outputH, inputH);
+            double HeatExchangeRateServer = AirExchange.GetHeatExchangeRate(QSumServer, p, c, outputH, inputH);*/
 
 
             //5
