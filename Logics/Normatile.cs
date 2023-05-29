@@ -1,52 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
 /// Подивится, чи є аналог super().func() як в python тільки C#
-namespace VentilationCalculator.Components
+namespace VentilationCalculator.Logic
 {
-    interface INormatile
-    {
-        double GetComplexityValue();
-    }
     /// <summary>
     /// Рівні складності
     /// </summary>
     public enum DifficultWork
     {
-        Default=0,
-        Easy=1,
-        Normal=2,
-        Hard=3
+        Default = 0,
+        Easy = 1,
+        Normal = 2,
+        Hard = 3
     }
     /// <summary>
     /// Базовий клас, який зберігає відповідні значення при відповідній складності роботи
     /// </summary>
-    public class Normatile<T> : INormatile where T : struct, Enum 
+    public class Normatile<T, V>  where T: struct
 
     {
         /// <summary>
         /// Комбінує рівень складності та відповідних значень при відповідній складності роботи
         /// </summary>
-        public Dictionary<T, double> Table { get;  }
-        public T VerticalColumn { get; protected set; }
+        public Dictionary<T, V> Table { get; }
+        public T VerticalColumn { get;  set; }
 
-        protected Normatile()
-        {
-            throw new NotImplementedException();    
-        }
-        public Normatile(Dictionary<T, double> table)
+        public Normatile(Dictionary<T, V> table)
         {
             Table = table;
         }
 
-        public Normatile(Dictionary<T, double> table, T verticalColumn) : this(table) 
-        {
-            SetVerticalColumn(verticalColumn);
-        }
-        protected void SetVerticalColumn(T verticalColumn)
+
+        public void SetVerticalColumn(T verticalColumn)
         {
             if (!CheckVerticalColumn(verticalColumn))
             {
@@ -58,9 +42,9 @@ namespace VentilationCalculator.Components
         {
             return new KeyNotFoundException($"Даний ключ '{verticalColumn}' відстуній в списку вертикальних доступних ключів.");
         }
-        protected bool CheckVerticalColumn(T verticalColumn)
+        public bool CheckVerticalColumn(T verticalColumn)
         {
-            if (Table.ContainsKey(verticalColumn)) 
+            if (Table.ContainsKey(verticalColumn))
             {
                 return true;
             }
@@ -71,11 +55,11 @@ namespace VentilationCalculator.Components
         /// Отримати базове значення для відповідного рівня складності роботи встановлене при інцілізації конструктора
         /// </summary>
         /// <returns></returns>
-        public double GetComplexityValue()
+        public V GetComplexityValue()
         {
             return Table[VerticalColumn];
         }
-        public double GetComplexityValue(T verticalColumn)
+        public V GetComplexityValue(T verticalColumn)
         {
             if (!CheckVerticalColumn(verticalColumn))
             {
@@ -85,39 +69,46 @@ namespace VentilationCalculator.Components
         }
     }
 
-    public class DuoNormatile<T, Q>: Normatile<T> where T : struct, Enum where Q : struct
+    public class DuoNormatile<T, Q ,V> where Q: struct
     {
         /// Дописати код який працює із двух вимірним масивом класа. Також продумати усі варіанти конструкторів
-        public new Dictionary<T, Dictionary<Q,double>> Table { get; }
-        public Q HorizontalColumn { get; protected set; }
+        public Dictionary<T, Dictionary<Q, V>> Table { get; }
+        public Q HorizontalColumn { get; set; }
+        public T VerticalColumn { get; set; }
 
-        protected DuoNormatile() : base()
+
+        public DuoNormatile()
         {
-
         }
-
-        public DuoNormatile(Dictionary<T, Dictionary<Q, double>> table)
+        public DuoNormatile(Dictionary<T, Dictionary<Q, V>> table)
         {
             Table = table;
         }
-        public DuoNormatile(Dictionary<T, Dictionary<Q, double>> table, T verticalColumn, Q horizontalColumn) : this(table)
-        {
-            SetVerticalColumn(verticalColumn);
-            SetHorizontalColumn(verticalColumn, horizontalColumn);
-        }
-        protected KeyNotFoundException ThrowHorazontalKeyNotFoundException(Q horizontalColumn)
+
+
+        public KeyNotFoundException ThrowHorazontalKeyNotFoundException(Q horizontalColumn)
         {
             return new KeyNotFoundException($"Даний ключ '{horizontalColumn}' відстуній в списку горизонтальних доступних ключів.");
         }
-        protected void SetHorizontalColumn(T verticalColumn, Q horizontalColumn)
+        public void SetHorizontalColumn(T verticalColumn, Q horizontalColumn)
         {
             if (!CheckHorizontalColumn(verticalColumn, horizontalColumn))
             {
                 throw ThrowHorazontalKeyNotFoundException(horizontalColumn);
             }
             VerticalColumn = verticalColumn;
+            HorizontalColumn = horizontalColumn;
         }
-        protected bool CheckHorizontalColumn(T verticalColumn, Q horizontalColumn)
+
+            public bool CheckVerticalColumn(T verticalColumn)
+        {
+            if (Table.ContainsKey(verticalColumn))
+            {
+                return true;
+            }
+            return false;
+        }
+            public bool CheckHorizontalColumn(T verticalColumn, Q horizontalColumn)
         {
             if (CheckVerticalColumn(verticalColumn) && Table[verticalColumn].ContainsKey(horizontalColumn))
             {
@@ -127,11 +118,15 @@ namespace VentilationCalculator.Components
 
         }
 
-        public new double GetComplexityValue()
+        public V GetComplexityValue()
         {
             return Table[VerticalColumn][HorizontalColumn];
         }
-        public double GetComplexityValue(T verticalColumn, Q horizontalColumn)
+        protected KeyNotFoundException ThrowVerticalKeyNotFoundException(T verticalColumn)
+        {
+            return new KeyNotFoundException($"Даний ключ '{verticalColumn}' відстуній в списку вертикальних доступних ключів.");
+        }
+        public V GetComplexityValue(T verticalColumn, Q horizontalColumn)
         {
             if (!CheckVerticalColumn(verticalColumn))
             {
