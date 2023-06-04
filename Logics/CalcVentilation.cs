@@ -29,16 +29,14 @@
         /// </summary>
         /// <param name="countHeat"></param>
         /// <returns></returns>
-        public static double Solar(double countHeat, DuoNormatile<int, int, double> inletTempWindow, Normatile<int, double> k, bool exist)
+        public static double Solar(double countHeat, double inletTempWindow, double k, bool exist)
         {
             double OUTPUT_HEAT = 0.9;
             if (exist)
             {
                 OUTPUT_HEAT = 0.8;
             }
-            var inletTempWindowV = inletTempWindow.GetComplexityValue();
-            var kV = k.GetComplexityValue();
-            return (countHeat * inletTempWindowV * kV * OUTPUT_HEAT) / 3600;
+            return (countHeat * inletTempWindow * k * OUTPUT_HEAT) / 3600;
 
 
 

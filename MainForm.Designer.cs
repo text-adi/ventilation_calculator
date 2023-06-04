@@ -50,39 +50,41 @@
             tabPageInputData = new TabPage();
             splitContainer3 = new SplitContainer();
             groupBox2 = new GroupBox();
+            textBoxkTypeFrame = new TextBox();
+            label18 = new Label();
             textBox12 = new TextBox();
             label17 = new Label();
-            textBox11 = new TextBox();
-            label16 = new Label();
             groupBox5 = new GroupBox();
             textBox10 = new TextBox();
             label15 = new Label();
+            textBoxSZask = new TextBox();
             comboBox4 = new ComboBox();
+            label16 = new Label();
             label14 = new Label();
             label5 = new Label();
             comboBox2 = new ComboBox();
             groupBox4 = new GroupBox();
-            textBox9 = new TextBox();
-            textBox8 = new TextBox();
-            textBox7 = new TextBox();
+            textBoxQEEquiment = new TextBox();
+            textBoxQETV = new TextBox();
+            textBoxQEpc = new TextBox();
             label13 = new Label();
-            textBox6 = new TextBox();
+            textBoxQpeople = new TextBox();
             label12 = new Label();
             groupBox3 = new GroupBox();
-            textBox3 = new TextBox();
+            textBoxGCO2 = new TextBox();
             label10 = new Label();
             label11 = new Label();
-            textBox2 = new TextBox();
+            textBoxCO2InLetAirConcentrationLimit = new TextBox();
             label9 = new Label();
             comboBox3 = new ComboBox();
-            textBox1 = new TextBox();
+            textBoxCO2AirConcentrationLimit = new TextBox();
             label8 = new Label();
             comboBox1 = new ComboBox();
             label4 = new Label();
             textBox4 = new TextBox();
             label6 = new Label();
             checkBox1 = new CheckBox();
-            textBox5 = new TextBox();
+            textBoxQZask = new TextBox();
             label7 = new Label();
             groupBox1 = new GroupBox();
             textBoxAirNormaltileBetween = new TextBox();
@@ -353,17 +355,17 @@
             // 
             // groupBox2
             // 
+            groupBox2.Controls.Add(textBoxkTypeFrame);
+            groupBox2.Controls.Add(label18);
             groupBox2.Controls.Add(textBox12);
             groupBox2.Controls.Add(label17);
-            groupBox2.Controls.Add(textBox11);
-            groupBox2.Controls.Add(label16);
             groupBox2.Controls.Add(groupBox5);
             groupBox2.Controls.Add(groupBox4);
             groupBox2.Controls.Add(groupBox3);
             groupBox2.Controls.Add(textBox4);
             groupBox2.Controls.Add(label6);
             groupBox2.Controls.Add(checkBox1);
-            groupBox2.Controls.Add(textBox5);
+            groupBox2.Controls.Add(textBoxQZask);
             groupBox2.Controls.Add(label7);
             groupBox2.Controls.Add(groupBox1);
             groupBox2.Dock = DockStyle.Fill;
@@ -373,6 +375,24 @@
             groupBox2.TabIndex = 0;
             groupBox2.TabStop = false;
             groupBox2.Text = "Додаткові дані";
+            // 
+            // textBoxkTypeFrame
+            // 
+            textBoxkTypeFrame.Location = new Point(1554, 862);
+            textBoxkTypeFrame.Name = "textBoxkTypeFrame";
+            textBoxkTypeFrame.Size = new Size(208, 47);
+            textBoxkTypeFrame.TabIndex = 63;
+            textBoxkTypeFrame.Text = "0";
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            label18.Location = new Point(912, 865);
+            label18.Name = "label18";
+            label18.Size = new Size(496, 41);
+            label18.TabIndex = 63;
+            label18.Text = "k - що залежить від характеру заск";
             // 
             // textBox12
             // 
@@ -391,34 +411,19 @@
             label17.TabIndex = 63;
             label17.Text = "Значення із Таблиці А18";
             // 
-            // textBox11
-            // 
-            textBox11.Location = new Point(1545, 813);
-            textBox11.Name = "textBox11";
-            textBox11.Size = new Size(208, 47);
-            textBox11.TabIndex = 62;
-            textBox11.Text = "0";
-            // 
-            // label16
-            // 
-            label16.AutoSize = true;
-            label16.Location = new Point(912, 813);
-            label16.Name = "label16";
-            label16.Size = new Size(526, 41);
-            label16.TabIndex = 61;
-            label16.Text = "Теплонадходження від сонячної рад.";
-            // 
             // groupBox5
             // 
             groupBox5.Controls.Add(textBox10);
             groupBox5.Controls.Add(label15);
+            groupBox5.Controls.Add(textBoxSZask);
             groupBox5.Controls.Add(comboBox4);
+            groupBox5.Controls.Add(label16);
             groupBox5.Controls.Add(label14);
             groupBox5.Controls.Add(label5);
             groupBox5.Controls.Add(comboBox2);
             groupBox5.Location = new Point(902, 532);
             groupBox5.Name = "groupBox5";
-            groupBox5.Size = new Size(883, 257);
+            groupBox5.Size = new Size(883, 319);
             groupBox5.TabIndex = 60;
             groupBox5.TabStop = false;
             groupBox5.Text = "Таблиці А20 - дані";
@@ -441,6 +446,14 @@
             label15.TabIndex = 54;
             label15.Text = "Координати";
             // 
+            // textBoxSZask
+            // 
+            textBoxSZask.Location = new Point(655, 254);
+            textBoxSZask.Name = "textBoxSZask";
+            textBoxSZask.Size = new Size(208, 47);
+            textBoxSZask.TabIndex = 62;
+            textBoxSZask.Text = "0";
+            // 
             // comboBox4
             // 
             comboBox4.Anchor = AnchorStyles.Top | AnchorStyles.Right;
@@ -450,6 +463,16 @@
             comboBox4.Size = new Size(262, 49);
             comboBox4.TabIndex = 53;
             comboBox4.Text = "Не вибрано";
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label16.Location = new Point(15, 257);
+            label16.Name = "label16";
+            label16.Size = new Size(566, 41);
+            label16.TabIndex = 61;
+            label16.Text = "Теплонадходження від сонячної рад.";
             // 
             // label14
             // 
@@ -481,11 +504,11 @@
             // 
             // groupBox4
             // 
-            groupBox4.Controls.Add(textBox9);
-            groupBox4.Controls.Add(textBox8);
-            groupBox4.Controls.Add(textBox7);
+            groupBox4.Controls.Add(textBoxQEEquiment);
+            groupBox4.Controls.Add(textBoxQETV);
+            groupBox4.Controls.Add(textBoxQEpc);
             groupBox4.Controls.Add(label13);
-            groupBox4.Controls.Add(textBox6);
+            groupBox4.Controls.Add(textBoxQpeople);
             groupBox4.Controls.Add(label12);
             groupBox4.Location = new Point(896, 64);
             groupBox4.Name = "groupBox4";
@@ -494,69 +517,71 @@
             groupBox4.TabStop = false;
             groupBox4.Text = "4. Кількість теплоти, що виділяється ";
             // 
-            // textBox9
+            // textBoxQEEquiment
             // 
-            textBox9.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            textBox9.Location = new Point(666, 220);
-            textBox9.Name = "textBox9";
-            textBox9.Size = new Size(208, 47);
-            textBox9.TabIndex = 63;
-            textBox9.Text = "0";
+            textBoxQEEquiment.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            textBoxQEEquiment.Location = new Point(666, 220);
+            textBoxQEEquiment.Name = "textBoxQEEquiment";
+            textBoxQEEquiment.Size = new Size(208, 47);
+            textBoxQEEquiment.TabIndex = 63;
+            textBoxQEEquiment.Text = "0";
             // 
-            // textBox8
+            // textBoxQETV
             // 
-            textBox8.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            textBox8.Location = new Point(665, 167);
-            textBox8.Name = "textBox8";
-            textBox8.Size = new Size(208, 47);
-            textBox8.TabIndex = 62;
-            textBox8.Text = "0";
+            textBoxQETV.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            textBoxQETV.Location = new Point(665, 167);
+            textBoxQETV.Name = "textBoxQETV";
+            textBoxQETV.Size = new Size(208, 47);
+            textBoxQETV.TabIndex = 62;
+            textBoxQETV.Text = "0";
             // 
-            // textBox7
+            // textBoxQEpc
             // 
-            textBox7.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            textBox7.Location = new Point(665, 114);
-            textBox7.Name = "textBox7";
-            textBox7.Size = new Size(208, 47);
-            textBox7.TabIndex = 61;
-            textBox7.Text = "0";
+            textBoxQEpc.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            textBoxQEpc.Location = new Point(665, 114);
+            textBoxQEpc.Name = "textBoxQEpc";
+            textBoxQEpc.Size = new Size(208, 47);
+            textBoxQEpc.TabIndex = 61;
+            textBoxQEpc.Text = "0";
             // 
             // label13
             // 
             label13.AutoSize = true;
+            label13.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label13.Location = new Point(6, 101);
             label13.Name = "label13";
-            label13.Size = new Size(318, 164);
+            label13.Size = new Size(342, 164);
             label13.TabIndex = 60;
             label13.Text = "Від обладнання Qобл:\r\n - комп'ютер\r\n - телевізор\r\n - інша дрібна техніка";
             // 
-            // textBox6
+            // textBoxQpeople
             // 
-            textBox6.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            textBox6.Location = new Point(665, 46);
-            textBox6.Name = "textBox6";
-            textBox6.Size = new Size(208, 47);
-            textBox6.TabIndex = 60;
-            textBox6.Text = "0";
+            textBoxQpeople.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            textBoxQpeople.Location = new Point(665, 46);
+            textBoxQpeople.Name = "textBoxQpeople";
+            textBoxQpeople.Size = new Size(208, 47);
+            textBoxQpeople.TabIndex = 60;
+            textBoxQpeople.Text = "0";
             // 
             // label12
             // 
             label12.AutoSize = true;
+            label12.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label12.Location = new Point(6, 43);
             label12.Name = "label12";
-            label12.Size = new Size(174, 41);
+            label12.Size = new Size(190, 41);
             label12.TabIndex = 58;
             label12.Text = "людьми Qл";
             // 
             // groupBox3
             // 
-            groupBox3.Controls.Add(textBox3);
+            groupBox3.Controls.Add(textBoxGCO2);
             groupBox3.Controls.Add(label10);
             groupBox3.Controls.Add(label11);
-            groupBox3.Controls.Add(textBox2);
+            groupBox3.Controls.Add(textBoxCO2InLetAirConcentrationLimit);
             groupBox3.Controls.Add(label9);
             groupBox3.Controls.Add(comboBox3);
-            groupBox3.Controls.Add(textBox1);
+            groupBox3.Controls.Add(textBoxCO2AirConcentrationLimit);
             groupBox3.Controls.Add(label8);
             groupBox3.Controls.Add(comboBox1);
             groupBox3.Controls.Add(label4);
@@ -567,41 +592,43 @@
             groupBox3.TabStop = false;
             groupBox3.Text = "3. Визначення повітрообміну, залежно від гранично допустимої концентрації вуглекислого газу";
             // 
-            // textBox3
+            // textBoxGCO2
             // 
-            textBox3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            textBox3.Location = new Point(645, 387);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(208, 47);
-            textBox3.TabIndex = 59;
-            textBox3.Text = "0";
+            textBoxGCO2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            textBoxGCO2.Location = new Point(645, 387);
+            textBoxGCO2.Name = "textBoxGCO2";
+            textBoxGCO2.Size = new Size(208, 47);
+            textBoxGCO2.TabIndex = 59;
+            textBoxGCO2.Text = "0";
             // 
             // label10
             // 
             label10.AutoSize = true;
+            label10.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label10.Location = new Point(25, 315);
             label10.Name = "label10";
-            label10.Size = new Size(597, 41);
+            label10.Size = new Size(646, 41);
             label10.TabIndex = 61;
             label10.Text = "Концетрація повітря для цього типу міста ";
             // 
             // label11
             // 
             label11.AutoSize = true;
+            label11.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label11.Location = new Point(25, 387);
             label11.Name = "label11";
-            label11.Size = new Size(596, 41);
+            label11.Size = new Size(621, 41);
             label11.TabIndex = 58;
-            label11.Text = "G-CO2 - гранично допустима концетрація\r\n";
+            label11.Text = "GCO2 - гранично допустима концетрація\r\n";
             // 
-            // textBox2
+            // textBoxCO2InLetAirConcentrationLimit
             // 
-            textBox2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            textBox2.Location = new Point(645, 309);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(208, 47);
-            textBox2.TabIndex = 60;
-            textBox2.Text = "0";
+            textBoxCO2InLetAirConcentrationLimit.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            textBoxCO2InLetAirConcentrationLimit.Location = new Point(645, 309);
+            textBoxCO2InLetAirConcentrationLimit.Name = "textBoxCO2InLetAirConcentrationLimit";
+            textBoxCO2InLetAirConcentrationLimit.Size = new Size(208, 47);
+            textBoxCO2InLetAirConcentrationLimit.TabIndex = 60;
+            textBoxCO2InLetAirConcentrationLimit.Text = "0";
             // 
             // label9
             // 
@@ -622,21 +649,22 @@
             comboBox3.TabIndex = 59;
             comboBox3.Text = "Не вибрано";
             // 
-            // textBox1
+            // textBoxCO2AirConcentrationLimit
             // 
-            textBox1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            textBox1.Location = new Point(645, 104);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(208, 47);
-            textBox1.TabIndex = 58;
-            textBox1.Text = "0";
+            textBoxCO2AirConcentrationLimit.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            textBoxCO2AirConcentrationLimit.Location = new Point(645, 104);
+            textBoxCO2AirConcentrationLimit.Name = "textBoxCO2AirConcentrationLimit";
+            textBoxCO2AirConcentrationLimit.Size = new Size(208, 47);
+            textBoxCO2AirConcentrationLimit.TabIndex = 58;
+            textBoxCO2AirConcentrationLimit.Text = "0";
             // 
             // label8
             // 
             label8.AutoSize = true;
+            label8.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label8.Location = new Point(25, 104);
             label8.Name = "label8";
-            label8.Size = new Size(563, 41);
+            label8.Size = new Size(604, 41);
             label8.TabIndex = 53;
             label8.Text = "В місцях тимчасового перебуваннях л...";
             // 
@@ -679,27 +707,28 @@
             // checkBox1
             // 
             checkBox1.AutoSize = true;
-            checkBox1.Location = new Point(912, 885);
+            checkBox1.Location = new Point(912, 928);
             checkBox1.Name = "checkBox1";
             checkBox1.Size = new Size(498, 45);
             checkBox1.TabIndex = 54;
             checkBox1.Text = "Сонце захисті пристрої присутні";
             checkBox1.UseVisualStyleBackColor = true;
             // 
-            // textBox5
+            // textBoxQZask
             // 
-            textBox5.Location = new Point(1546, 438);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(208, 47);
-            textBox5.TabIndex = 53;
-            textBox5.Text = "0";
+            textBoxQZask.Location = new Point(1546, 438);
+            textBoxQZask.Name = "textBoxQZask";
+            textBoxQZask.Size = new Size(208, 47);
+            textBoxQZask.TabIndex = 53;
+            textBoxQZask.Text = "0";
             // 
             // label7
             // 
             label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label7.Location = new Point(912, 432);
             label7.Name = "label7";
-            label7.Size = new Size(466, 82);
+            label7.Size = new Size(511, 82);
             label7.TabIndex = 52;
             label7.Text = "Кількість теплоти, що надходить \r\nQзаск\r\n";
             // 
@@ -731,9 +760,10 @@
             // label3
             // 
             label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label3.Location = new Point(25, 180);
             label3.Name = "label3";
-            label3.Size = new Size(298, 41);
+            label3.Size = new Size(322, 41);
             label3.TabIndex = 16;
             label3.Text = "При виділені вологи\r\n";
             // 
@@ -758,18 +788,20 @@
             // label2
             // 
             label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label2.Location = new Point(25, 117);
             label2.Name = "label2";
-            label2.Size = new Size(153, 41);
+            label2.Size = new Size(158, 41);
             label2.TabIndex = 1;
             label2.Text = "Серверна";
             // 
             // label1
             // 
             label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label1.Location = new Point(25, 70);
             label1.Name = "label1";
-            label1.Size = new Size(83, 41);
+            label1.Size = new Size(88, 41);
             label1.TabIndex = 0;
             label1.Text = "Офіс";
             // 
@@ -866,27 +898,30 @@
             // labelOutputAir
             // 
             labelOutputAir.AutoSize = true;
+            labelOutputAir.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             labelOutputAir.Location = new Point(16, 161);
             labelOutputAir.Name = "labelOutputAir";
-            labelOutputAir.Size = new Size(356, 41);
+            labelOutputAir.Size = new Size(386, 41);
             labelOutputAir.TabIndex = 11;
             labelOutputAir.Text = "Повітря, що видаляється";
             // 
             // labelInputAir
             // 
             labelInputAir.AutoSize = true;
+            labelInputAir.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             labelInputAir.Location = new Point(16, 97);
             labelInputAir.Name = "labelInputAir";
-            labelInputAir.Size = new Size(315, 41);
+            labelInputAir.Size = new Size(337, 41);
             labelInputAir.TabIndex = 9;
             labelInputAir.Text = "Припливного повітря";
             // 
             // labelLengthServerRoom
             // 
             labelLengthServerRoom.AutoSize = true;
+            labelLengthServerRoom.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             labelLengthServerRoom.Location = new Point(19, 297);
             labelLengthServerRoom.Name = "labelLengthServerRoom";
-            labelLengthServerRoom.Size = new Size(256, 41);
+            labelLengthServerRoom.Size = new Size(278, 41);
             labelLengthServerRoom.TabIndex = 7;
             labelLengthServerRoom.Text = "Довжина кімнати";
             // 
@@ -902,9 +937,10 @@
             // labelWidthServerRoom
             // 
             labelWidthServerRoom.AutoSize = true;
+            labelWidthServerRoom.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             labelWidthServerRoom.Location = new Point(19, 233);
             labelWidthServerRoom.Name = "labelWidthServerRoom";
-            labelWidthServerRoom.Size = new Size(242, 41);
+            labelWidthServerRoom.Size = new Size(263, 41);
             labelWidthServerRoom.TabIndex = 5;
             labelWidthServerRoom.Text = "Ширина кімнати";
             // 
@@ -920,9 +956,10 @@
             // labelCountServer
             // 
             labelCountServer.AutoSize = true;
+            labelCountServer.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             labelCountServer.Location = new Point(19, 166);
             labelCountServer.Name = "labelCountServer";
-            labelCountServer.Size = new Size(435, 41);
+            labelCountServer.Size = new Size(466, 41);
             labelCountServer.TabIndex = 3;
             labelCountServer.Text = "Кількість серверів у серверній";
             // 
@@ -938,9 +975,10 @@
             // labelCountPrinterProcent
             // 
             labelCountPrinterProcent.AutoSize = true;
+            labelCountPrinterProcent.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             labelCountPrinterProcent.Location = new Point(19, 103);
             labelCountPrinterProcent.Name = "labelCountPrinterProcent";
-            labelCountPrinterProcent.Size = new Size(558, 41);
+            labelCountPrinterProcent.Size = new Size(611, 41);
             labelCountPrinterProcent.TabIndex = 1;
             labelCountPrinterProcent.Text = "Кількість принтерів у % від кількості ПК";
             // 
@@ -976,9 +1014,10 @@
             // labelAverageRoomTemperature
             // 
             labelAverageRoomTemperature.AutoSize = true;
+            labelAverageRoomTemperature.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             labelAverageRoomTemperature.Location = new Point(32, 364);
             labelAverageRoomTemperature.Name = "labelAverageRoomTemperature";
-            labelAverageRoomTemperature.Size = new Size(430, 41);
+            labelAverageRoomTemperature.Size = new Size(461, 41);
             labelAverageRoomTemperature.TabIndex = 17;
             labelAverageRoomTemperature.Text = "Середня температура кімнати";
             // 
@@ -994,9 +1033,10 @@
             // labelCountWorkPlaceOfficeRoom
             // 
             labelCountWorkPlaceOfficeRoom.AutoSize = true;
+            labelCountWorkPlaceOfficeRoom.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             labelCountWorkPlaceOfficeRoom.Location = new Point(32, 297);
             labelCountWorkPlaceOfficeRoom.Name = "labelCountWorkPlaceOfficeRoom";
-            labelCountWorkPlaceOfficeRoom.Size = new Size(346, 41);
+            labelCountWorkPlaceOfficeRoom.Size = new Size(378, 41);
             labelCountWorkPlaceOfficeRoom.TabIndex = 15;
             labelCountWorkPlaceOfficeRoom.Text = "Кількість робочих місць";
             // 
@@ -1012,9 +1052,10 @@
             // labelHeigthOfficeRoom
             // 
             labelHeigthOfficeRoom.AutoSize = true;
+            labelHeigthOfficeRoom.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             labelHeigthOfficeRoom.Location = new Point(32, 233);
             labelHeigthOfficeRoom.Name = "labelHeigthOfficeRoom";
-            labelHeigthOfficeRoom.Size = new Size(223, 41);
+            labelHeigthOfficeRoom.Size = new Size(242, 41);
             labelHeigthOfficeRoom.TabIndex = 13;
             labelHeigthOfficeRoom.Text = "Висота кімнати";
             // 
@@ -1030,9 +1071,10 @@
             // labelLengthOfficeRoom
             // 
             labelLengthOfficeRoom.AutoSize = true;
+            labelLengthOfficeRoom.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             labelLengthOfficeRoom.Location = new Point(32, 166);
             labelLengthOfficeRoom.Name = "labelLengthOfficeRoom";
-            labelLengthOfficeRoom.Size = new Size(256, 41);
+            labelLengthOfficeRoom.Size = new Size(278, 41);
             labelLengthOfficeRoom.TabIndex = 11;
             labelLengthOfficeRoom.Text = "Довжина кімнати";
             // 
@@ -1048,9 +1090,10 @@
             // labelWidthOfficeRoom
             // 
             labelWidthOfficeRoom.AutoSize = true;
+            labelWidthOfficeRoom.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             labelWidthOfficeRoom.Location = new Point(32, 102);
             labelWidthOfficeRoom.Name = "labelWidthOfficeRoom";
-            labelWidthOfficeRoom.Size = new Size(242, 41);
+            labelWidthOfficeRoom.Size = new Size(263, 41);
             labelWidthOfficeRoom.TabIndex = 9;
             labelWidthOfficeRoom.Text = "Ширина кімнати";
             // 
@@ -1542,32 +1585,32 @@
         private TextBox textBox4;
         private Label label6;
         internal CheckBox checkBox1;
-        private TextBox textBox5;
+        private TextBox textBoxQZask;
         private Label label7;
         private ComboBox comboBox2;
         private Label label5;
         private Button buttonWriteData;
         private GroupBox groupBox4;
-        private TextBox textBox9;
-        private TextBox textBox8;
-        private TextBox textBox7;
+        private TextBox textBoxQEEquiment;
+        private TextBox textBoxQETV;
+        private TextBox textBoxQEpc;
         private Label label13;
-        private TextBox textBox6;
+        private TextBox textBoxQpeople;
         private Label label12;
         private GroupBox groupBox3;
-        private TextBox textBox3;
+        private TextBox textBoxGCO2;
         private Label label10;
         private Label label11;
-        private TextBox textBox2;
+        private TextBox textBoxCO2InLetAirConcentrationLimit;
         private Label label9;
         private ComboBox comboBox3;
-        private TextBox textBox1;
+        private TextBox textBoxCO2AirConcentrationLimit;
         private Label label8;
         private ComboBox comboBox1;
         private Label label4;
         private TextBox textBox12;
         private Label label17;
-        private TextBox textBox11;
+        private TextBox textBoxSZask;
         private Label label16;
         private GroupBox groupBox5;
         private TextBox textBox10;
@@ -1575,5 +1618,7 @@
         private ComboBox comboBox4;
         private Label label14;
         private ListBox listBox1;
+        private TextBox textBoxkTypeFrame;
+        private Label label18;
     }
 }

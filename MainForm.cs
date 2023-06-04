@@ -27,7 +27,7 @@ namespace VentilationCalculator
             textBoxCountWorkPlace.Text = Convert.ToString(20);
             textBoxAverageRoomTemperature.Text = Convert.ToString(0);
 
-            var airNormal = new Dictionary<int, string>
+           /* var airNormal = new Dictionary<int, string>
                 {
                     { 1, "20-25"},
                     { 2, "45"},
@@ -47,7 +47,7 @@ namespace VentilationCalculator
             var test2 = new DuoNormatile<int, int, double>(inletTempWindowDict);
             test2.SetHorizontalColumn(1, 1);
             var result2 = inletTempWindowDict[selectValue][selectValue];
-            var r2 = result2;
+            var r2 = result2;*/
         }
 
         /// <summary>
@@ -173,7 +173,7 @@ namespace VentilationCalculator
         {
 
             //коефіцієнти
-            int selectCategoryWork = (int)DifficultWork.Easy;
+            //int selectCategoryWork = (int)DifficultWork.Easy;
             int selectVariant = Convert.ToInt32(numericUpDownVariant.Value); // вибраний варіант
 
             int CountPrinterProcent = Convert.ToInt32(textBoxCountPrinter.Text);
@@ -220,13 +220,14 @@ namespace VentilationCalculator
                 */
                 var airNormal = "20-25"; // не використовується
 
+                // при виділені вологи
                 double airNormaltileBetween = Convert.ToDouble(textBoxAirNormaltileBetween.Text); // значення, вибране при відповідній роботі відповідних межах
                 double AirMoistureExchangeOffce = AirExchange.GetAirMoistureExchange(airNormaltileBetween, CountWorkPlace);
 
                 //3
-                double CO2AirConcentrationLimit = 1.25; // Винести із БД.
+                double CO2AirConcentrationLimit = Convert.ToDouble(textBoxCO2AirConcentrationLimit.Text); // Винести із БД.
                 // Хмельницький | місто | до 300 тис .
-                double CO2InLetAirConcentrationLimit = 0.4; // Значення брати із таблиці міст. Залежить, яке місто вибрано. В даному випадку, Хмельницький. Потрібно також знати кількість населення(чи село, чи місто). Розмір населення, < 300000 осіб. 
+                double CO2InLetAirConcentrationLimit = Convert.ToDouble(textBoxCO2InLetAirConcentrationLimit.Text); // Значення брати із таблиці міст. Залежить, яке місто вибрано. В даному випадку, Хмельницький. Потрібно також знати кількість населення(чи село, чи місто). Розмір населення, < 300000 осіб. 
 
                 // заповнимо харкодом Normatile
                 /*var categoryWork = new Dictionary<int, double>
@@ -238,7 +239,7 @@ namespace VentilationCalculator
                 var CO2CategoryWork = new Normatile<int, double>(categoryWork);
                 CO2CategoryWork.SetVerticalColumn(selectCategoryWork);
 */
-                double CO2CategoryWork = 14.25;
+                double CO2CategoryWork = Convert.ToDouble(textBoxGCO2.Text);
                 double AirExchangeFromCO2Concentration = AirExchange.GetAirExchangeFromCO2Concentration(
                     CO2CategoryWork, CountWorkPlace, CO2AirConcentrationLimit, CO2InLetAirConcentrationLimit
                 );
@@ -251,20 +252,20 @@ namespace VentilationCalculator
 
                 int countTV = 1 + (selectVariant % 2); // парні - 2 телевізора, непарні - 1 телевізор
 
-                double QpeopleOffice = Heat.HumanBody(new Heatile() { Heat = 524, Count = CountWorkPlace }); // значення беруться із таблиці 19
+                double QpeopleOffice = Heat.HumanBody(new Heatile() { Heat = Convert.ToDouble(textBoxQpeople.Text), Count = CountWorkPlace }); // значення беруться із таблиці 19
 
                 double QequirementOffice = Heat.Equipment(
-                    new Heatile() { Heat = 0.3, Count = CountWorkPlace }, //значення із ЛР та кількість ПК. Мабуть, кількість ПК, це кількість робочих місць
-                    new Heatile() { Heat = 0.2, Count = countTV }, // винести значення HEAT окремо в БД, щоб можна було записувати. Потрібно врахувати, що кількість телевізорів залежить від вибраного варіанту. На початку ЛР це пише
-                    new Heatile() { Heat = 0.1, Count = Convert.ToInt32(Math.Floor(CountWorkPlace * (CountPrinterProcent / 100.0))) }
+                    new Heatile() { Heat = Convert.ToDouble(textBoxQEpc.Text), Count = CountWorkPlace }, //значення із ЛР та кількість ПК. Мабуть, кількість ПК, це кількість робочих місць
+                    new Heatile() { Heat = Convert.ToDouble(textBoxQETV.Text), Count = countTV }, // винести значення HEAT окремо в БД, щоб можна було записувати. Потрібно врахувати, що кількість телевізорів залежить від вибраного варіанту. На початку ЛР це пише
+                    new Heatile() { Heat = Convert.ToDouble(textBoxQEEquiment.Text), Count = Convert.ToInt32(Math.Floor(CountWorkPlace * (CountPrinterProcent / 100.0))) }
                     );
 
 
                 //----//
-                double QZask = Convert.ToDouble(textBox5.Text);
+                double QZask = Convert.ToDouble(textBoxQZask.Text);
                 bool existSaveTool = checkBox1.Checked;
 
-                var inletTempWindowDict = new Dictionary<int, Dictionary<int, double>>
+                /*var inletTempWindowDict = new Dictionary<int, Dictionary<int, double>>
                 {
                     {
                         1, new Dictionary< int, double>
@@ -279,15 +280,15 @@ namespace VentilationCalculator
                     { 1, 1.0},
                     { 2, 1.15},
                     { 3, 1.45},
-                };
-                var typeRame = new Normatile<int, double>(typeFrame);
-                typeRame.SetVerticalColumn(2);
-                var inletTempWindow = new DuoNormatile<int, int, double>(inletTempWindowDict);
-                inletTempWindow.SetHorizontalColumn(1, 1);
+                };*/
+                //var typeRame = new Normatile<int, double>(typeFrame);
+                //typeRame.SetVerticalColumn(2);
+                var inletTempWindow = Convert.ToDouble(textBoxSZask.Text);
+                //inletTempWindow.SetHorizontalColumn(1, 1);
                 double QaverageOffice = Heat.Solar(
                     countHeat: QZask,
                     inletTempWindow: inletTempWindow, // із таблиці 20. Потрібна таблиця
-                    k: typeRame, // тип рами, береться із БД
+                    k: Convert.ToDouble(textBoxkTypeFrame.Text), // тип рами, береться із БД
                     exist: existSaveTool // значення вхідне. Це галочка
                     );
 
@@ -351,10 +352,8 @@ namespace VentilationCalculator
 
         private void ToolStripMenuCreateMenu_Click(object sender, EventArgs e)
         {
-            using (var context = new SystemContext())
-            {
-                context.Database.Migrate();
-            }
+            using var context = new SystemContext();
+            context.Database.Migrate();
         }
     }
 }
