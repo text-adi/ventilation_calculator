@@ -93,9 +93,9 @@
         /// </param>
         /// <param name="countPeople">Кількість людей в приміщені</param>
         /// <returns></returns>
-        public static double GetAirExchangeFromCO2Concentration(Normatile<int, double> CO2EmissionsPerPerson, int countPeople, double CO2AirConcentrationLimit, double CO2InLetAirConcentrationLimit)
+        public static double GetAirExchangeFromCO2Concentration(double CO2EmissionsPerPerson, int countPeople, double CO2AirConcentrationLimit, double CO2InLetAirConcentrationLimit)
         {
-            double peopleAirNormal = CO2EmissionsPerPerson.GetComplexityValue() * countPeople;
+            double peopleAirNormal = CO2EmissionsPerPerson * countPeople;
             return peopleAirNormal / (CO2AirConcentrationLimit - CO2InLetAirConcentrationLimit);
 
         }

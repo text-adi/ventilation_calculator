@@ -1,6 +1,8 @@
 using VentilationCalculator.Components;
 using VentilationCalculator.Models;
 using VentilationCalculator.Logic;
+using VentilationCalculator.Text;
+using Microsoft.EntityFrameworkCore;
 
 namespace VentilationCalculator
 {
@@ -169,6 +171,7 @@ namespace VentilationCalculator
 
         private void buttonCalculator_Click(object sender, EventArgs e)
         {
+
             //коефіцієнти
             int selectCategoryWork = (int)DifficultWork.Easy;
             int selectVariant = Convert.ToInt32(numericUpDownVariant.Value); // вибраний варіант
@@ -187,12 +190,12 @@ namespace VentilationCalculator
             int CountWorkPlace = Convert.ToInt32(textBoxCountWorkPlace.Text);
             double AverageRoomTemperature = Convert.ToDouble(textBoxAverageRoomTemperature.Text);
 
-            using (SystemContext db = new SystemContext())
+            using (SystemContext db = new())
             {
 
                 //1 
-                Room office = new Room(WidthOfficeRoom, LengthOfficeRoom, HeigthOfficeRoom);
-                Room server = new Room(WidthServerRoom, LengthServerRoom, HeigthOfficeRoom);
+                Room office = new(WidthOfficeRoom, LengthOfficeRoom, HeigthOfficeRoom);
+                Room server = new(WidthServerRoom, LengthServerRoom, HeigthOfficeRoom);
 
                 double Voffice = office.GetVolume();
                 double Vserver = server.GetVolume();
@@ -206,7 +209,7 @@ namespace VentilationCalculator
 
                 // тут цікава річ, так, що є відповідні категорії робіт. В цих робіт, є свої значення, які мають входити в межу допустимого.
                 // приклад
-                var airNormal = new Dictionary<int, string>
+                /*var airNormal = new Dictionary<int, string>
                 {
                     { 1, "20-25"},
                     { 2, "45"},
@@ -214,6 +217,9 @@ namespace VentilationCalculator
                 };
                 var airNormaltile = new Normatile<int, string>(airNormal); // пакуємо словарь. Ці значення використовуються для отримання межі
                 airNormaltile.SetVerticalColumn(selectCategoryWork);
+                */
+                var airNormal = "20-25"; // не використовується
+
                 double airNormaltileBetween = Convert.ToDouble(textBoxAirNormaltileBetween.Text); // значення, вибране при відповідній роботі відповідних межах
                 double AirMoistureExchangeOffce = AirExchange.GetAirMoistureExchange(airNormaltileBetween, CountWorkPlace);
 
@@ -223,7 +229,7 @@ namespace VentilationCalculator
                 double CO2InLetAirConcentrationLimit = 0.4; // Значення брати із таблиці міст. Залежить, яке місто вибрано. В даному випадку, Хмельницький. Потрібно також знати кількість населення(чи село, чи місто). Розмір населення, < 300000 осіб. 
 
                 // заповнимо харкодом Normatile
-                var categoryWork = new Dictionary<int, double>
+                /*var categoryWork = new Dictionary<int, double>
                 {
                     { 1, 14.25},
                     { 2, 19.8},
@@ -231,11 +237,11 @@ namespace VentilationCalculator
                 };
                 var CO2CategoryWork = new Normatile<int, double>(categoryWork);
                 CO2CategoryWork.SetVerticalColumn(selectCategoryWork);
-
-
+*/
+                double CO2CategoryWork = 14.25;
                 double AirExchangeFromCO2Concentration = AirExchange.GetAirExchangeFromCO2Concentration(
                     CO2CategoryWork, CountWorkPlace, CO2AirConcentrationLimit, CO2InLetAirConcentrationLimit
-                    );
+                );
 
                 //4
                 double p = 1.162; // таблиця 18.
@@ -320,27 +326,34 @@ namespace VentilationCalculator
                 // дописати
 
                 //Result
-                string templateText = "{INT_VALUE}";
                 //1
-
-                labelVolumeOffice.Text = labelVolumeOffice.Text.Replace(templateText, Voffice.ToString());
-                labelVolumeServerRoom.Text = labelVolumeServerRoom.Text.Replace(templateText, Vserver.ToString());
+                string templateText = ResultText.TEMPLATETEXT;
+                labelVolumeOffice.Text = ResultText.labelVolumeOffice.Replace(templateText, Voffice.ToString());
+                labelVolumeServerRoom.Text = ResultText.labelVolumeServerRoom.Replace(templateText, Vserver.ToString());
                 //2
-                labelAirExchangeRateOffice.Text = labelAirExchangeRateOffice.Text.Replace(templateText, Loffice.ToString());
-                labelAirExchangeRateServerRoom.Text = labelAirExchangeRateServerRoom.Text.Replace(templateText, LServer.ToString());
-                labelAirMoistureExchangeOffce.Text = labelAirMoistureExchangeOffce.Text.Replace(templateText, AirMoistureExchangeOffce.ToString());
+                labelAirExchangeRateOffice.Text = ResultText.labelAirExchangeRateOffice.Replace(templateText, Loffice.ToString());
+                labelAirExchangeRateServerRoom.Text = ResultText.labelAirExchangeRateServerRoom.Replace(templateText, LServer.ToString());
+                labelAirMoistureExchangeOffce.Text = ResultText.labelAirMoistureExchangeOffce.Replace(templateText, AirMoistureExchangeOffce.ToString());
                 //3
-                labelAirExchangeFromCO2Concentration.Text = labelAirExchangeFromCO2Concentration.Text.Replace(templateText, AirExchangeFromCO2Concentration.ToString());
+                labelAirExchangeFromCO2Concentration.Text = ResultText.labelAirExchangeFromCO2Concentration.Replace(templateText, AirExchangeFromCO2Concentration.ToString());
                 //4
-                labelQpeopleOffice.Text = labelQpeopleOffice.Text.Replace(templateText, QpeopleOffice.ToString());
-                labelQequirementOffice.Text = labelQequirementOffice.Text.Replace(templateText, QequirementOffice.ToString());
-                labelQaverageOffice.Text = labelQaverageOffice.Text.Replace(templateText, QaverageOffice.ToString());
+                labelQpeopleOffice.Text = ResultText.labelQpeopleOffice.Replace(templateText, QpeopleOffice.ToString());
+                labelQequirementOffice.Text = ResultText.labelQequirementOffice.Replace(templateText, QequirementOffice.ToString());
+                labelQaverageOffice.Text = ResultText.labelQaverageOffice.Replace(templateText, QaverageOffice.ToString());
 
-                labelQSumOffice.Text = labelQSumOffice.Text.Replace(templateText, QSumOffice.ToString());
-                labelQoblServerRoom.Text = labelQoblServerRoom.Text.Replace(templateText, QSumServer.ToString());
+                labelQSumOffice.Text = ResultText.labelQSumOffice.Replace(templateText, QSumOffice.ToString());
+                labelQoblServerRoom.Text = ResultText.labelQoblServerRoom.Replace(templateText, QSumServer.ToString());
 
-                labelNeedWatOffice.Text = labelNeedWatOffice.Text.Replace(templateText, NeedWatOffice.ToString());
-                labelNeedWatServerRoom.Text = labelNeedWatServerRoom.Text.Replace(templateText, NeedWatServerRoom.ToString());
+                labelNeedWatOffice.Text = ResultText.labelNeedWatOffice.Replace(templateText, NeedWatOffice.ToString());
+                labelNeedWatServerRoom.Text = ResultText.labelNeedWatServerRoom.Replace(templateText, NeedWatServerRoom.ToString());
+            }
+        }
+
+        private void ToolStripMenuCreateMenu_Click(object sender, EventArgs e)
+        {
+            using (var context = new SystemContext())
+            {
+                context.Database.Migrate();
             }
         }
     }

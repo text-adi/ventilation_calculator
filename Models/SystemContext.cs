@@ -21,7 +21,6 @@ public partial class SystemContext : DbContext
 
     public virtual DbSet<AirExchangeRatioTable> AirExchangeRatioTables { get; set; }
 
-
     public virtual DbSet<Co2LevelTable> Co2LevelTables { get; set; }
 
     public virtual DbSet<FrameType> FrameTypes { get; set; }

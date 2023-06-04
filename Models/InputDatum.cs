@@ -1,5 +1,6 @@
 ﻿namespace VentilationCalculator.Models;
 
+//Таблиця вхідних даних
 public partial class InputDatum
 {
     public long Id { get; set; }
