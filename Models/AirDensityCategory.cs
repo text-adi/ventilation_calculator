@@ -1,4 +1,4 @@
-﻿ namespace VentilationCalculator.Models;
+﻿namespace VentilationCalculator.Models;
 
 public partial class AirDensityCategory
 {

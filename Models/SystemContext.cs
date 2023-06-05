@@ -98,7 +98,7 @@ public partial class SystemContext : DbContext
             entity.Property(e => e.CategoryWorkId).HasColumnName("CategoryWorkID");
             entity.Property(e => e.TempWorkId).HasColumnName("TempWorkID");
 
-            
+
 
             entity.HasOne(d => d.TempWork).WithMany(p => p.PeopleHeatOutputs)
                 .HasForeignKey(d => d.TempWorkId)

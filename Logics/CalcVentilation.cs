@@ -21,7 +21,7 @@
         /// <param name="another"></param>
         /// <returns></returns>
         public static double Equipment(Heatile computer, Heatile tv, Heatile another)
-        { 
+        {
             return computer.Total() + tv.Total() + another.Total();
         }
         /// <summary>

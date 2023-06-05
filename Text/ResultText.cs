@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.Design.Serialization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace VentilationCalculator.Text
+﻿namespace VentilationCalculator.Text
 {
     public static class ResultText
     {
@@ -32,6 +25,6 @@ namespace VentilationCalculator.Text
         public const string labelNeedWatOffice = "Вентиляція в офісі повинна забезпечувати \r\n{INT_VALUE} м^3/год";
         public const string labelNeedWatServerRoom = "Вентиляція в серверній повинна забезпечувати \r\n{INT_VALUE} м^3/год";
 
- 
+
     }
 }

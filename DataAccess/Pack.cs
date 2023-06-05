@@ -36,6 +36,6 @@ namespace VentilationCalculator.DataAccess
             return connect_db.InputData.ToList();
         }
 
-     
+
     }
 }

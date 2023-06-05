@@ -50,9 +50,11 @@
             tabPageInputData = new TabPage();
             splitContainer3 = new SplitContainer();
             groupBox2 = new GroupBox();
+            textBoxС = new TextBox();
+            label19 = new Label();
             textBoxkTypeFrame = new TextBox();
             label18 = new Label();
-            textBox12 = new TextBox();
+            textBoxValueFromTable18 = new TextBox();
             label17 = new Label();
             groupBox5 = new GroupBox();
             textBox10 = new TextBox();
@@ -64,6 +66,7 @@
             label5 = new Label();
             comboBox2 = new ComboBox();
             groupBox4 = new GroupBox();
+            textBoxQEServer = new TextBox();
             textBoxQEEquiment = new TextBox();
             textBoxQETV = new TextBox();
             textBoxQEpc = new TextBox();
@@ -81,7 +84,7 @@
             label8 = new Label();
             comboBox1 = new ComboBox();
             label4 = new Label();
-            textBox4 = new TextBox();
+            textBoxPAir = new TextBox();
             label6 = new Label();
             checkBox1 = new CheckBox();
             textBoxQZask = new TextBox();
@@ -319,7 +322,7 @@
             tabControlData.Location = new Point(0, 0);
             tabControlData.Name = "tabControlData";
             tabControlData.SelectedIndex = 0;
-            tabControlData.Size = new Size(1798, 1831);
+            tabControlData.Size = new Size(1798, 1938);
             tabControlData.TabIndex = 0;
             // 
             // tabPageInputData
@@ -329,7 +332,7 @@
             tabPageInputData.Location = new Point(10, 58);
             tabPageInputData.Name = "tabPageInputData";
             tabPageInputData.Padding = new Padding(3);
-            tabPageInputData.Size = new Size(1778, 1763);
+            tabPageInputData.Size = new Size(1778, 1870);
             tabPageInputData.TabIndex = 0;
             tabPageInputData.Text = "Вхідні дані";
             tabPageInputData.UseVisualStyleBackColor = true;
@@ -349,20 +352,22 @@
             // 
             splitContainer3.Panel2.Controls.Add(buttonWriteData);
             splitContainer3.Panel2.Controls.Add(buttonCalculator);
-            splitContainer3.Size = new Size(1772, 1105);
-            splitContainer3.SplitterDistance = 990;
+            splitContainer3.Size = new Size(1772, 1212);
+            splitContainer3.SplitterDistance = 1085;
             splitContainer3.TabIndex = 3;
             // 
             // groupBox2
             // 
+            groupBox2.Controls.Add(textBoxС);
+            groupBox2.Controls.Add(label19);
             groupBox2.Controls.Add(textBoxkTypeFrame);
             groupBox2.Controls.Add(label18);
-            groupBox2.Controls.Add(textBox12);
+            groupBox2.Controls.Add(textBoxValueFromTable18);
             groupBox2.Controls.Add(label17);
             groupBox2.Controls.Add(groupBox5);
             groupBox2.Controls.Add(groupBox4);
             groupBox2.Controls.Add(groupBox3);
-            groupBox2.Controls.Add(textBox4);
+            groupBox2.Controls.Add(textBoxPAir);
             groupBox2.Controls.Add(label6);
             groupBox2.Controls.Add(checkBox1);
             groupBox2.Controls.Add(textBoxQZask);
@@ -371,10 +376,29 @@
             groupBox2.Dock = DockStyle.Fill;
             groupBox2.Location = new Point(0, 0);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(1772, 990);
+            groupBox2.Size = new Size(1772, 1085);
             groupBox2.TabIndex = 0;
             groupBox2.TabStop = false;
             groupBox2.Text = "Додаткові дані";
+            // 
+            // textBoxС
+            // 
+            textBoxС.Location = new Point(651, 986);
+            textBoxС.Name = "textBoxС";
+            textBoxС.Size = new Size(208, 47);
+            textBoxС.TabIndex = 66;
+            textBoxС.Text = "0";
+            textBoxС.TextChanged += textBox_TextChanged_MaxValue;
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label19.Location = new Point(44, 992);
+            label19.Name = "label19";
+            label19.Size = new Size(360, 41);
+            label19.TabIndex = 65;
+            label19.Text = "Теплоємність повітря С";
             // 
             // textBoxkTypeFrame
             // 
@@ -383,33 +407,36 @@
             textBoxkTypeFrame.Size = new Size(208, 47);
             textBoxkTypeFrame.TabIndex = 63;
             textBoxkTypeFrame.Text = "0";
+            textBoxkTypeFrame.TextChanged += textBox_TextChanged_MaxValue;
             // 
             // label18
             // 
             label18.AutoSize = true;
-            label18.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            label18.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label18.Location = new Point(912, 865);
             label18.Name = "label18";
-            label18.Size = new Size(496, 41);
+            label18.Size = new Size(535, 41);
             label18.TabIndex = 63;
             label18.Text = "k - що залежить від характеру заск";
             // 
-            // textBox12
+            // textBoxValueFromTable18
             // 
-            textBox12.Location = new Point(651, 885);
-            textBox12.Name = "textBox12";
-            textBox12.Size = new Size(208, 47);
-            textBox12.TabIndex = 64;
-            textBox12.Text = "0";
+            textBoxValueFromTable18.Location = new Point(651, 885);
+            textBoxValueFromTable18.Name = "textBoxValueFromTable18";
+            textBoxValueFromTable18.Size = new Size(208, 47);
+            textBoxValueFromTable18.TabIndex = 64;
+            textBoxValueFromTable18.Text = "0";
+            textBoxValueFromTable18.TextChanged += textBox_TextChanged_MaxValue;
             // 
             // label17
             // 
             label17.AutoSize = true;
+            label17.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label17.Location = new Point(44, 891);
             label17.Name = "label17";
-            label17.Size = new Size(349, 41);
+            label17.Size = new Size(493, 41);
             label17.TabIndex = 63;
-            label17.Text = "Значення із Таблиці А18";
+            label17.Text = "Значення густини із Таблиці А18";
             // 
             // groupBox5
             // 
@@ -436,6 +463,7 @@
             textBox10.Size = new Size(208, 47);
             textBox10.TabIndex = 57;
             textBox10.Text = "0";
+            textBox10.TextChanged += textBox_TextChanged_MaxValue;
             // 
             // label15
             // 
@@ -453,6 +481,7 @@
             textBoxSZask.Size = new Size(208, 47);
             textBoxSZask.TabIndex = 62;
             textBoxSZask.Text = "0";
+            textBoxSZask.TextChanged += textBox_TextChanged_MaxValue;
             // 
             // comboBox4
             // 
@@ -504,6 +533,7 @@
             // 
             // groupBox4
             // 
+            groupBox4.Controls.Add(textBoxQEServer);
             groupBox4.Controls.Add(textBoxQEEquiment);
             groupBox4.Controls.Add(textBoxQETV);
             groupBox4.Controls.Add(textBoxQEpc);
@@ -517,6 +547,16 @@
             groupBox4.TabStop = false;
             groupBox4.Text = "4. Кількість теплоти, що виділяється ";
             // 
+            // textBoxQEServer
+            // 
+            textBoxQEServer.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            textBoxQEServer.Location = new Point(666, 283);
+            textBoxQEServer.Name = "textBoxQEServer";
+            textBoxQEServer.Size = new Size(208, 47);
+            textBoxQEServer.TabIndex = 64;
+            textBoxQEServer.Text = "0";
+            textBoxQEServer.TextChanged += textBox_TextChanged_MaxValue;
+            // 
             // textBoxQEEquiment
             // 
             textBoxQEEquiment.Anchor = AnchorStyles.Top | AnchorStyles.Right;
@@ -525,6 +565,7 @@
             textBoxQEEquiment.Size = new Size(208, 47);
             textBoxQEEquiment.TabIndex = 63;
             textBoxQEEquiment.Text = "0";
+            textBoxQEEquiment.TextChanged += textBox_TextChanged_MaxValue;
             // 
             // textBoxQETV
             // 
@@ -534,6 +575,7 @@
             textBoxQETV.Size = new Size(208, 47);
             textBoxQETV.TabIndex = 62;
             textBoxQETV.Text = "0";
+            textBoxQETV.TextChanged += textBox_TextChanged_MaxValue;
             // 
             // textBoxQEpc
             // 
@@ -543,6 +585,7 @@
             textBoxQEpc.Size = new Size(208, 47);
             textBoxQEpc.TabIndex = 61;
             textBoxQEpc.Text = "0";
+            textBoxQEpc.TextChanged += textBox_TextChanged_MaxValue;
             // 
             // label13
             // 
@@ -550,9 +593,9 @@
             label13.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label13.Location = new Point(6, 101);
             label13.Name = "label13";
-            label13.Size = new Size(342, 164);
+            label13.Size = new Size(342, 246);
             label13.TabIndex = 60;
-            label13.Text = "Від обладнання Qобл:\r\n - комп'ютер\r\n - телевізор\r\n - інша дрібна техніка";
+            label13.Text = "Від обладнання Qобл:\r\n - комп'ютер\r\n - телевізор\r\n - інша дрібна техніка\r\n - сервер\r\n\r\n";
             // 
             // textBoxQpeople
             // 
@@ -562,6 +605,7 @@
             textBoxQpeople.Size = new Size(208, 47);
             textBoxQpeople.TabIndex = 60;
             textBoxQpeople.Text = "0";
+            textBoxQpeople.TextChanged += textBox_TextChanged_MaxValue;
             // 
             // label12
             // 
@@ -600,6 +644,7 @@
             textBoxGCO2.Size = new Size(208, 47);
             textBoxGCO2.TabIndex = 59;
             textBoxGCO2.Text = "0";
+            textBoxGCO2.TextChanged += textBox_TextChanged_MaxValue;
             // 
             // label10
             // 
@@ -629,6 +674,7 @@
             textBoxCO2InLetAirConcentrationLimit.Size = new Size(208, 47);
             textBoxCO2InLetAirConcentrationLimit.TabIndex = 60;
             textBoxCO2InLetAirConcentrationLimit.Text = "0";
+            textBoxCO2InLetAirConcentrationLimit.TextChanged += textBox_TextChanged_MaxValue;
             // 
             // label9
             // 
@@ -657,6 +703,7 @@
             textBoxCO2AirConcentrationLimit.Size = new Size(208, 47);
             textBoxCO2AirConcentrationLimit.TabIndex = 58;
             textBoxCO2AirConcentrationLimit.Text = "0";
+            textBoxCO2AirConcentrationLimit.TextChanged += textBox_TextChanged_MaxValue;
             // 
             // label8
             // 
@@ -687,13 +734,14 @@
             label4.TabIndex = 50;
             label4.Text = "Місто, в якому знаходиться офіс";
             // 
-            // textBox4
+            // textBoxPAir
             // 
-            textBox4.Location = new Point(651, 807);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(208, 47);
-            textBox4.TabIndex = 56;
-            textBox4.Text = "0";
+            textBoxPAir.Location = new Point(651, 807);
+            textBoxPAir.Name = "textBoxPAir";
+            textBoxPAir.Size = new Size(208, 47);
+            textBoxPAir.TabIndex = 56;
+            textBoxPAir.Text = "0";
+            textBoxPAir.TextChanged += textBox_TextChanged_MaxValue;
             // 
             // label6
             // 
@@ -721,6 +769,7 @@
             textBoxQZask.Size = new Size(208, 47);
             textBoxQZask.TabIndex = 53;
             textBoxQZask.Text = "0";
+            textBoxQZask.TextChanged += textBox_TextChanged_MaxValue;
             // 
             // label7
             // 
@@ -756,6 +805,7 @@
             textBoxAirNormaltileBetween.Size = new Size(208, 47);
             textBoxAirNormaltileBetween.TabIndex = 17;
             textBoxAirNormaltileBetween.Text = "0";
+            textBoxAirNormaltileBetween.TextChanged += textBox_TextChanged_MaxValue;
             // 
             // label3
             // 
@@ -775,6 +825,7 @@
             textBoxminAirExchangeRateServer.Size = new Size(208, 47);
             textBoxminAirExchangeRateServer.TabIndex = 15;
             textBoxminAirExchangeRateServer.Text = "0";
+            textBoxminAirExchangeRateServer.TextChanged += textBox_TextChanged_MaxValue;
             // 
             // textBoxminAirExchangeRateOffice
             // 
@@ -784,6 +835,7 @@
             textBoxminAirExchangeRateOffice.Size = new Size(208, 47);
             textBoxminAirExchangeRateOffice.TabIndex = 14;
             textBoxminAirExchangeRateOffice.Text = "0";
+            textBoxminAirExchangeRateOffice.TextChanged += textBox_TextChanged_MaxValue;
             // 
             // label2
             // 
@@ -808,7 +860,7 @@
             // buttonWriteData
             // 
             buttonWriteData.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            buttonWriteData.Location = new Point(1349, 40);
+            buttonWriteData.Location = new Point(1349, 52);
             buttonWriteData.Name = "buttonWriteData";
             buttonWriteData.Size = new Size(188, 58);
             buttonWriteData.TabIndex = 2;
@@ -818,7 +870,7 @@
             // buttonCalculator
             // 
             buttonCalculator.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            buttonCalculator.Location = new Point(1566, 40);
+            buttonCalculator.Location = new Point(1566, 52);
             buttonCalculator.Name = "buttonCalculator";
             buttonCalculator.Size = new Size(188, 58);
             buttonCalculator.TabIndex = 1;
@@ -885,6 +937,7 @@
             textBoxOutputAir.Size = new Size(208, 47);
             textBoxOutputAir.TabIndex = 13;
             textBoxOutputAir.Text = "0";
+            textBoxOutputAir.TextChanged += textBox_TextChanged_numberFilter;
             // 
             // textBoxInputAir
             // 
@@ -894,6 +947,7 @@
             textBoxInputAir.Size = new Size(208, 47);
             textBoxInputAir.TabIndex = 12;
             textBoxInputAir.Text = "0";
+            textBoxInputAir.TextChanged += textBox_TextChanged_numberFilter;
             // 
             // labelOutputAir
             // 
@@ -933,6 +987,7 @@
             textBoxLengthServerRoom.Size = new Size(208, 47);
             textBoxLengthServerRoom.TabIndex = 6;
             textBoxLengthServerRoom.Text = "0";
+            textBoxLengthServerRoom.TextChanged += textBox_TextChanged_numberFilter;
             // 
             // labelWidthServerRoom
             // 
@@ -952,6 +1007,7 @@
             textBoxWidthServerRoom.Size = new Size(208, 47);
             textBoxWidthServerRoom.TabIndex = 4;
             textBoxWidthServerRoom.Text = "0";
+            textBoxWidthServerRoom.TextChanged += textBox_TextChanged_numberFilter;
             // 
             // labelCountServer
             // 
@@ -971,6 +1027,7 @@
             textBoxCountServer.Size = new Size(208, 47);
             textBoxCountServer.TabIndex = 2;
             textBoxCountServer.Text = "0";
+            textBoxCountServer.TextChanged += textBox_TextChanged_numberFilter;
             // 
             // labelCountPrinterProcent
             // 
@@ -990,6 +1047,7 @@
             textBoxCountPrinter.Size = new Size(208, 47);
             textBoxCountPrinter.TabIndex = 0;
             textBoxCountPrinter.Text = "0";
+            textBoxCountPrinter.TextChanged += textBox_TextChanged_MaxValue;
             // 
             // groupBoxInputOffice
             // 
@@ -1029,6 +1087,7 @@
             textBoxAverageRoomTemperature.Size = new Size(229, 47);
             textBoxAverageRoomTemperature.TabIndex = 16;
             textBoxAverageRoomTemperature.Text = "0";
+            textBoxAverageRoomTemperature.TextChanged += textBox_TextChanged_numberFilter;
             // 
             // labelCountWorkPlaceOfficeRoom
             // 
@@ -1048,6 +1107,7 @@
             textBoxCountWorkPlace.Size = new Size(229, 47);
             textBoxCountWorkPlace.TabIndex = 14;
             textBoxCountWorkPlace.Text = "0";
+            textBoxCountWorkPlace.TextChanged += textBox_TextChanged_numberFilter;
             // 
             // labelHeigthOfficeRoom
             // 
@@ -1067,6 +1127,7 @@
             textBoxHeigthOfficeRoom.Size = new Size(229, 47);
             textBoxHeigthOfficeRoom.TabIndex = 12;
             textBoxHeigthOfficeRoom.Text = "0";
+            textBoxHeigthOfficeRoom.TextChanged += textBox_TextChanged_numberFilter;
             // 
             // labelLengthOfficeRoom
             // 
@@ -1086,6 +1147,7 @@
             textBoxLengthOfficeRoom.Size = new Size(229, 47);
             textBoxLengthOfficeRoom.TabIndex = 10;
             textBoxLengthOfficeRoom.Text = "0";
+            textBoxLengthOfficeRoom.TextChanged += textBox_TextChanged_numberFilter;
             // 
             // labelWidthOfficeRoom
             // 
@@ -1105,6 +1167,7 @@
             textBoxWidthOfficeRoom.Size = new Size(228, 47);
             textBoxWidthOfficeRoom.TabIndex = 8;
             textBoxWidthOfficeRoom.Text = "0";
+            textBoxWidthOfficeRoom.TextChanged += textBox_TextChanged_numberFilter;
             // 
             // tabPageOutputData
             // 
@@ -1112,7 +1175,7 @@
             tabPageOutputData.Location = new Point(10, 58);
             tabPageOutputData.Name = "tabPageOutputData";
             tabPageOutputData.Padding = new Padding(3);
-            tabPageOutputData.Size = new Size(1778, 1763);
+            tabPageOutputData.Size = new Size(1778, 1870);
             tabPageOutputData.TabIndex = 1;
             tabPageOutputData.Text = "Обраховані дані";
             tabPageOutputData.UseVisualStyleBackColor = true;
@@ -1129,7 +1192,7 @@
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 1;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel2.Size = new Size(1772, 1757);
+            tableLayoutPanel2.Size = new Size(1772, 1864);
             tableLayoutPanel2.TabIndex = 0;
             // 
             // groupBoxLevel4_
@@ -1141,7 +1204,7 @@
             groupBoxLevel4_.Dock = DockStyle.Fill;
             groupBoxLevel4_.Location = new Point(737, 3);
             groupBoxLevel4_.Name = "groupBoxLevel4_";
-            groupBoxLevel4_.Size = new Size(1032, 1751);
+            groupBoxLevel4_.Size = new Size(1032, 1858);
             groupBoxLevel4_.TabIndex = 1;
             groupBoxLevel4_.TabStop = false;
             groupBoxLevel4_.Text = "4. Знайдемо повітрообмін для видалення надлишків тепла";
@@ -1246,7 +1309,7 @@
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Absolute, 450F));
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Absolute, 629F));
-            tableLayoutPanel3.Size = new Size(728, 1751);
+            tableLayoutPanel3.Size = new Size(728, 1858);
             tableLayoutPanel3.TabIndex = 2;
             // 
             // groupBoxLevel3_
@@ -1254,7 +1317,7 @@
             groupBoxLevel3_.Controls.Add(labelInfoCity);
             groupBoxLevel3_.Controls.Add(labelAirExchangeFromCO2Concentration);
             groupBoxLevel3_.Dock = DockStyle.Fill;
-            groupBoxLevel3_.Location = new Point(3, 1125);
+            groupBoxLevel3_.Location = new Point(3, 1232);
             groupBoxLevel3_.Name = "groupBoxLevel3_";
             groupBoxLevel3_.Size = new Size(722, 623);
             groupBoxLevel3_.TabIndex = 2;
@@ -1286,7 +1349,7 @@
             groupBoxLevel1_.Dock = DockStyle.Fill;
             groupBoxLevel1_.Location = new Point(3, 3);
             groupBoxLevel1_.Name = "groupBoxLevel1_";
-            groupBoxLevel1_.Size = new Size(722, 666);
+            groupBoxLevel1_.Size = new Size(722, 773);
             groupBoxLevel1_.TabIndex = 0;
             groupBoxLevel1_.TabStop = false;
             groupBoxLevel1_.Text = "1. Розрахуємо об’єм приміщення";
@@ -1315,7 +1378,7 @@
             groupBoxLevel2_.Controls.Add(labelAirExchangeRateServerRoom);
             groupBoxLevel2_.Controls.Add(labelAirExchangeRateOffice);
             groupBoxLevel2_.Dock = DockStyle.Fill;
-            groupBoxLevel2_.Location = new Point(3, 675);
+            groupBoxLevel2_.Location = new Point(3, 782);
             groupBoxLevel2_.Name = "groupBoxLevel2_";
             groupBoxLevel2_.Size = new Size(722, 444);
             groupBoxLevel2_.TabIndex = 1;
@@ -1354,7 +1417,7 @@
             tabPageViewPicture.Location = new Point(10, 58);
             tabPageViewPicture.Name = "tabPageViewPicture";
             tabPageViewPicture.Padding = new Padding(3);
-            tabPageViewPicture.Size = new Size(1778, 1763);
+            tabPageViewPicture.Size = new Size(1778, 1870);
             tabPageViewPicture.TabIndex = 2;
             tabPageViewPicture.Text = "Пропонована вентиляція";
             tabPageViewPicture.UseVisualStyleBackColor = true;
@@ -1372,7 +1435,7 @@
             // splitContainer4.Panel2
             // 
             splitContainer4.Panel2.Controls.Add(tabControlData);
-            splitContainer4.Size = new Size(2071, 1831);
+            splitContainer4.Size = new Size(2071, 1938);
             splitContainer4.SplitterDistance = 269;
             splitContainer4.TabIndex = 3;
             // 
@@ -1389,7 +1452,7 @@
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 1691F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel1.Size = new Size(269, 1831);
+            tableLayoutPanel1.Size = new Size(269, 1938);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // panel1
@@ -1399,13 +1462,13 @@
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(3, 3);
             panel1.Name = "panel1";
-            panel1.Size = new Size(263, 114);
+            panel1.Size = new Size(263, 221);
             panel1.TabIndex = 0;
             // 
             // numericUpDownVariant
             // 
             numericUpDownVariant.Dock = DockStyle.Bottom;
-            numericUpDownVariant.Location = new Point(0, 67);
+            numericUpDownVariant.Location = new Point(0, 174);
             numericUpDownVariant.Name = "numericUpDownVariant";
             numericUpDownVariant.Size = new Size(263, 47);
             numericUpDownVariant.TabIndex = 1;
@@ -1425,14 +1488,14 @@
             listBox1.Dock = DockStyle.Fill;
             listBox1.FormattingEnabled = true;
             listBox1.ItemHeight = 41;
-            listBox1.Location = new Point(3, 123);
+            listBox1.Location = new Point(3, 230);
             listBox1.Name = "listBox1";
             listBox1.Size = new Size(263, 1685);
             listBox1.TabIndex = 1;
             // 
             // MainForm
             // 
-            ClientSize = new Size(2071, 1880);
+            ClientSize = new Size(2071, 1987);
             Controls.Add(splitContainer4);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
@@ -1582,7 +1645,7 @@
         private GroupBox groupBox2;
         private TextBox textBoxAirNormaltileBetween;
         private Label label3;
-        private TextBox textBox4;
+        private TextBox textBoxPAir;
         private Label label6;
         internal CheckBox checkBox1;
         private TextBox textBoxQZask;
@@ -1608,7 +1671,7 @@
         private Label label8;
         private ComboBox comboBox1;
         private Label label4;
-        private TextBox textBox12;
+        private TextBox textBoxValueFromTable18;
         private Label label17;
         private TextBox textBoxSZask;
         private Label label16;
@@ -1620,5 +1683,8 @@
         private ListBox listBox1;
         private TextBox textBoxkTypeFrame;
         private Label label18;
+        private TextBox textBoxС;
+        private Label label19;
+        private TextBox textBoxQEServer;
     }
 }

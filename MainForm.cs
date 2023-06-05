@@ -1,8 +1,10 @@
-using VentilationCalculator.Components;
-using VentilationCalculator.Models;
-using VentilationCalculator.Logic;
-using VentilationCalculator.Text;
 using Microsoft.EntityFrameworkCore;
+using VentilationCalculator.Components;
+using VentilationCalculator.Logic;
+using VentilationCalculator.Logics;
+using VentilationCalculator.Models;
+using VentilationCalculator.Text;
+using TextBox = System.Windows.Forms.TextBox;
 
 namespace VentilationCalculator
 {
@@ -27,27 +29,28 @@ namespace VentilationCalculator
             textBoxCountWorkPlace.Text = Convert.ToString(20);
             textBoxAverageRoomTemperature.Text = Convert.ToString(0);
 
-           /* var airNormal = new Dictionary<int, string>
-                {
-                    { 1, "20-25"},
-                    { 2, "45"},
-                    { 3, "60"},
-                };
-            int selectValue = 1;
-            var test = new Normatile<int, string>(airNormal);
-            test.SetVerticalColumn(selectValue);
-            var result = test.GetComplexityValue() == airNormal[selectValue];
-            var r = result;
+            /* var airNormal = new Dictionary<int, string>
+                 {
+                     { 1, "20-25"},
+                     { 2, "45"},
+                     { 3, "60"},
+                 };
+             int selectValue = 1;
+             var test = new Normatile<int, string>(airNormal);
+             test.SetVerticalColumn(selectValue);
+             var result = test.GetComplexityValue() == airNormal[selectValue];
+             var r = result;
 
 
-            var inletTempWindowDict = new Dictionary<int, Dictionary<int, double>>
-                {
-                    {1, new Dictionary< int, double>{ {1,666 }}}
-                };
-            var test2 = new DuoNormatile<int, int, double>(inletTempWindowDict);
-            test2.SetHorizontalColumn(1, 1);
-            var result2 = inletTempWindowDict[selectValue][selectValue];
-            var r2 = result2;*/
+             var inletTempWindowDict = new Dictionary<int, Dictionary<int, double>>
+                 {
+                     {1, new Dictionary< int, double>{ {1,666 }}}
+                 };
+             var test2 = new DuoNormatile<int, int, double>(inletTempWindowDict);
+             test2.SetHorizontalColumn(1, 1);
+             var result2 = inletTempWindowDict[selectValue][selectValue];
+             var r2 = result2;*/
+
         }
 
         /// <summary>
@@ -188,166 +191,134 @@ namespace VentilationCalculator
             double LengthOfficeRoom = Convert.ToDouble(textBoxLengthOfficeRoom.Text);
             double HeigthOfficeRoom = Convert.ToDouble(textBoxHeigthOfficeRoom.Text);
             int CountWorkPlace = Convert.ToInt32(textBoxCountWorkPlace.Text);
-            double AverageRoomTemperature = Convert.ToDouble(textBoxAverageRoomTemperature.Text);
+            double AverageRoomTemperature = Convert.ToDouble(textBoxAverageRoomTemperature.Text); // це значення ще буде використовуватися для обрахунків
 
-            using (SystemContext db = new())
-            {
+            // Інші вхідні дані
+            double minAirExchangeRateOffice = Convert.ToDouble(textBoxminAirExchangeRateOffice.Text);
+            double minAirExchangeRateServer = Convert.ToDouble(textBoxminAirExchangeRateServer.Text);
+            double airNormaltileBetween = Convert.ToDouble(textBoxAirNormaltileBetween.Text); // значення, вибране при відповідній роботі відповідних межах
 
-                //1 
-                Room office = new(WidthOfficeRoom, LengthOfficeRoom, HeigthOfficeRoom);
-                Room server = new(WidthServerRoom, LengthServerRoom, HeigthOfficeRoom);
+            double CO2AirConcentrationLimit = Convert.ToDouble(textBoxCO2AirConcentrationLimit.Text); // Винести із БД.
+            // Хмельницький | місто | до 300 тис .
+            double CO2InLetAirConcentrationLimit = Convert.ToDouble(textBoxCO2InLetAirConcentrationLimit.Text); // Значення брати із таблиці міст. Залежить, яке місто вибрано. В даному випадку, Хмельницький. Потрібно також знати кількість населення(чи село, чи місто). Розмір населення, < 300000 осіб. 
+            double CO2CategoryWork = Convert.ToDouble(textBoxGCO2.Text);
+            double p = Convert.ToDouble(textBoxValueFromTable18.Text); // таблиця 18.
+            double c = Convert.ToDouble(textBoxС.Text); // це значення стале. Значення від 0 до 70 С. Занести в БД
 
-                double Voffice = office.GetVolume();
-                double Vserver = server.GetVolume();
+            double Qpeople = Convert.ToDouble(textBoxQpeople.Text);
+            double QEpc = Convert.ToDouble(textBoxQEpc.Text);
+            double QETV = Convert.ToDouble(textBoxQETV.Text);
+            double QEEquiment = Convert.ToDouble(textBoxQEEquiment.Text);
+            double QEServer = Convert.ToDouble(textBoxQEServer.Text);
 
-                //2 - Необхідна кратність повітря
-                double minAirExchangeRateOffice = Convert.ToDouble(textBoxminAirExchangeRateOffice.Text);
-                double minAirExchangeRateServer = Convert.ToDouble(textBoxminAirExchangeRateServer.Text);
+            double QZask = Convert.ToDouble(textBoxQZask.Text);
+            bool existSaveTool = checkBox1.Checked;
 
-                double Loffice = AirExchange.GetAirExchangeRate(Voffice, minAirExchangeRateOffice);
-                double LServer = AirExchange.GetAirExchangeRate(Vserver, minAirExchangeRateServer);
+            double kV = Convert.ToDouble(textBoxkTypeFrame.Text);
 
-                // тут цікава річ, так, що є відповідні категорії робіт. В цих робіт, є свої значення, які мають входити в межу допустимого.
-                // приклад
-                /*var airNormal = new Dictionary<int, string>
-                {
-                    { 1, "20-25"},
-                    { 2, "45"},
-                    { 3, "60"},
-                };
-                var airNormaltile = new Normatile<int, string>(airNormal); // пакуємо словарь. Ці значення використовуються для отримання межі
-                airNormaltile.SetVerticalColumn(selectCategoryWork);
-                */
-                var airNormal = "20-25"; // не використовується
+            var inletTempWindow = Convert.ToDouble(textBoxSZask.Text);
 
-                // при виділені вологи
-                double airNormaltileBetween = Convert.ToDouble(textBoxAirNormaltileBetween.Text); // значення, вибране при відповідній роботі відповідних межах
-                double AirMoistureExchangeOffce = AirExchange.GetAirMoistureExchange(airNormaltileBetween, CountWorkPlace);
+            ///
+            using SystemContext db = new();
 
-                //3
-                double CO2AirConcentrationLimit = Convert.ToDouble(textBoxCO2AirConcentrationLimit.Text); // Винести із БД.
-                // Хмельницький | місто | до 300 тис .
-                double CO2InLetAirConcentrationLimit = Convert.ToDouble(textBoxCO2InLetAirConcentrationLimit.Text); // Значення брати із таблиці міст. Залежить, яке місто вибрано. В даному випадку, Хмельницький. Потрібно також знати кількість населення(чи село, чи місто). Розмір населення, < 300000 осіб. 
+            //1 
+            Room office = new(WidthOfficeRoom, LengthOfficeRoom, HeigthOfficeRoom);
+            Room server = new(WidthServerRoom, LengthServerRoom, HeigthOfficeRoom);
 
-                // заповнимо харкодом Normatile
-                /*var categoryWork = new Dictionary<int, double>
-                {
-                    { 1, 14.25},
-                    { 2, 19.8},
-                    { 3, 25.6},
-                };
-                var CO2CategoryWork = new Normatile<int, double>(categoryWork);
-                CO2CategoryWork.SetVerticalColumn(selectCategoryWork);
-*/
-                double CO2CategoryWork = Convert.ToDouble(textBoxGCO2.Text);
-                double AirExchangeFromCO2Concentration = AirExchange.GetAirExchangeFromCO2Concentration(
-                    CO2CategoryWork, CountWorkPlace, CO2AirConcentrationLimit, CO2InLetAirConcentrationLimit
+            double Voffice = office.GetVolume();
+            double Vserver = server.GetVolume();
+
+            //2 - Необхідна кратність повітря
+            double Loffice = AirExchange.GetAirExchangeRate(Voffice, minAirExchangeRateOffice);
+            double LServer = AirExchange.GetAirExchangeRate(Vserver, minAirExchangeRateServer);
+            var airNormal = "20-25"; // не використовується
+                                     // при виділені вологи
+            double AirMoistureExchangeOffce = AirExchange.GetAirMoistureExchange(airNormaltileBetween, CountWorkPlace);
+
+            //3
+            double AirExchangeFromCO2Concentration = AirExchange.GetAirExchangeFromCO2Concentration(
+                CO2CategoryWork, CountWorkPlace, CO2AirConcentrationLimit, CO2InLetAirConcentrationLimit
+            );
+
+            //4
+            double inputH = InputTempAir;
+            double outputH = OutputTempAir;
+            int countTV = 1 + (selectVariant % 2); // парні - 2 телевізора, непарні - 1 телевізор
+
+            double QpeopleOffice = Heat.HumanBody(new Heatile() { Heat = Qpeople, Count = CountWorkPlace }); // значення беруться із таблиці 19
+
+            double QequirementOffice = Heat.Equipment(
+                new Heatile() { Heat = QEpc, Count = CountWorkPlace }, //значення із ЛР та кількість ПК. Мабуть, кількість ПК, це кількість робочих місць
+                new Heatile() { Heat = QETV, Count = countTV }, // винести значення HEAT окремо в БД, щоб можна було записувати. Потрібно врахувати, що кількість телевізорів залежить від вибраного варіанту. На початку ЛР це пише
+                new Heatile() { Heat = QEEquiment, Count = Convert.ToInt32(Math.Floor(CountWorkPlace * (CountPrinterProcent / 100.0))) }
+            );
+
+
+
+            //inletTempWindow.SetHorizontalColumn(1, 1);
+            double QaverageOffice = Heat.Solar(
+                countHeat: QZask,
+                inletTempWindow: inletTempWindow, // із таблиці 20. Потрібна таблиця
+                k: kV, // тип рами, береться із БД
+                exist: existSaveTool // значення вхідне. Це галочка
                 );
 
-                //4
-                double p = 1.162; // таблиця 18.
-                double c = 1.005; // це значення стале. Значення від 0 до 70 С. Занести в БД
-                double inputH = InputTempAir;
-                double outputH = OutputTempAir;
+            double QSumOffice = QpeopleOffice + QequirementOffice + QaverageOffice;// воно в Квт
+            double QSumServer = Heat.Equipment(
+                new Heatile() { Count = CountServer, Heat = QEServer }, // значення heat винести в БД
+                new Heatile(),
+                new Heatile()
+                );// воно в Квт
 
-                int countTV = 1 + (selectVariant % 2); // парні - 2 телевізора, непарні - 1 телевізор
+            double HeatExchangeRateOffice = AirExchange.GetHeatExchangeRate(QSumOffice, p, c, outputH, inputH);
+            double HeatExchangeRateServer = AirExchange.GetHeatExchangeRate(QSumServer, p, c, outputH, inputH);
 
-                double QpeopleOffice = Heat.HumanBody(new Heatile() { Heat = Convert.ToDouble(textBoxQpeople.Text), Count = CountWorkPlace }); // значення беруться із таблиці 19
+            double NeedWatOffice;
+            double NeedWatServerRoom;
 
-                double QequirementOffice = Heat.Equipment(
-                    new Heatile() { Heat = Convert.ToDouble(textBoxQEpc.Text), Count = CountWorkPlace }, //значення із ЛР та кількість ПК. Мабуть, кількість ПК, це кількість робочих місць
-                    new Heatile() { Heat = Convert.ToDouble(textBoxQETV.Text), Count = countTV }, // винести значення HEAT окремо в БД, щоб можна було записувати. Потрібно врахувати, що кількість телевізорів залежить від вибраного варіанту. На початку ЛР це пише
-                    new Heatile() { Heat = Convert.ToDouble(textBoxQEEquiment.Text), Count = Convert.ToInt32(Math.Floor(CountWorkPlace * (CountPrinterProcent / 100.0))) }
-                    );
-
-
-                //----//
-                double QZask = Convert.ToDouble(textBoxQZask.Text);
-                bool existSaveTool = checkBox1.Checked;
-
-                /*var inletTempWindowDict = new Dictionary<int, Dictionary<int, double>>
-                {
-                    {
-                        1, new Dictionary< int, double>
-                        {
-                            {1,666 }
-                        }
-                    }
-                };
-
-                var typeFrame = new Dictionary<int, double> // винести в БД
-                {
-                    { 1, 1.0},
-                    { 2, 1.15},
-                    { 3, 1.45},
-                };*/
-                //var typeRame = new Normatile<int, double>(typeFrame);
-                //typeRame.SetVerticalColumn(2);
-                var inletTempWindow = Convert.ToDouble(textBoxSZask.Text);
-                //inletTempWindow.SetHorizontalColumn(1, 1);
-                double QaverageOffice = Heat.Solar(
-                    countHeat: QZask,
-                    inletTempWindow: inletTempWindow, // із таблиці 20. Потрібна таблиця
-                    k: Convert.ToDouble(textBoxkTypeFrame.Text), // тип рами, береться із БД
-                    exist: existSaveTool // значення вхідне. Це галочка
-                    );
-
-                double QSumOffice = QpeopleOffice + QequirementOffice + QaverageOffice;// воно в Квт
-                double QSumServer = Heat.Equipment(
-                    new Heatile() { Count = CountServer, Heat = 0.5 }, // значення heat винести в БД
-                    new Heatile(),
-                    new Heatile()
-                    );// воно в Квт
-
-                double HeatExchangeRateOffice = AirExchange.GetHeatExchangeRate(QSumOffice, p, c, outputH, inputH);
-                double HeatExchangeRateServer = AirExchange.GetHeatExchangeRate(QSumServer, p, c, outputH, inputH);
-
-                double NeedWatOffice;
-                double NeedWatServerRoom;
-
-                if (Loffice > HeatExchangeRateOffice)
-                {
-                    NeedWatOffice = Loffice;
-                }
-                else
-                {
-                    NeedWatOffice = HeatExchangeRateOffice;
-                }
-
-                if (LServer > HeatExchangeRateServer)
-                {
-                    NeedWatServerRoom = LServer;
-                }
-                else
-                {
-                    NeedWatServerRoom = HeatExchangeRateServer;
-                }
-                //5
-
-                // дописати
-
-                //Result
-                //1
-                string templateText = ResultText.TEMPLATETEXT;
-                labelVolumeOffice.Text = ResultText.labelVolumeOffice.Replace(templateText, Voffice.ToString());
-                labelVolumeServerRoom.Text = ResultText.labelVolumeServerRoom.Replace(templateText, Vserver.ToString());
-                //2
-                labelAirExchangeRateOffice.Text = ResultText.labelAirExchangeRateOffice.Replace(templateText, Loffice.ToString());
-                labelAirExchangeRateServerRoom.Text = ResultText.labelAirExchangeRateServerRoom.Replace(templateText, LServer.ToString());
-                labelAirMoistureExchangeOffce.Text = ResultText.labelAirMoistureExchangeOffce.Replace(templateText, AirMoistureExchangeOffce.ToString());
-                //3
-                labelAirExchangeFromCO2Concentration.Text = ResultText.labelAirExchangeFromCO2Concentration.Replace(templateText, AirExchangeFromCO2Concentration.ToString());
-                //4
-                labelQpeopleOffice.Text = ResultText.labelQpeopleOffice.Replace(templateText, QpeopleOffice.ToString());
-                labelQequirementOffice.Text = ResultText.labelQequirementOffice.Replace(templateText, QequirementOffice.ToString());
-                labelQaverageOffice.Text = ResultText.labelQaverageOffice.Replace(templateText, QaverageOffice.ToString());
-
-                labelQSumOffice.Text = ResultText.labelQSumOffice.Replace(templateText, QSumOffice.ToString());
-                labelQoblServerRoom.Text = ResultText.labelQoblServerRoom.Replace(templateText, QSumServer.ToString());
-
-                labelNeedWatOffice.Text = ResultText.labelNeedWatOffice.Replace(templateText, NeedWatOffice.ToString());
-                labelNeedWatServerRoom.Text = ResultText.labelNeedWatServerRoom.Replace(templateText, NeedWatServerRoom.ToString());
+            if (Loffice > HeatExchangeRateOffice)
+            {
+                NeedWatOffice = Loffice;
             }
+            else
+            {
+                NeedWatOffice = HeatExchangeRateOffice;
+            }
+
+            if (LServer > HeatExchangeRateServer)
+            {
+                NeedWatServerRoom = LServer;
+            }
+            else
+            {
+                NeedWatServerRoom = HeatExchangeRateServer;
+            }
+            //5
+
+            // дописати
+
+            //Result
+            //1
+            string templateText = ResultText.TEMPLATETEXT;
+            labelVolumeOffice.Text = ResultText.labelVolumeOffice.Replace(templateText, Voffice.ToString());
+            labelVolumeServerRoom.Text = ResultText.labelVolumeServerRoom.Replace(templateText, Vserver.ToString());
+            //2
+            labelAirExchangeRateOffice.Text = ResultText.labelAirExchangeRateOffice.Replace(templateText, Loffice.ToString());
+            labelAirExchangeRateServerRoom.Text = ResultText.labelAirExchangeRateServerRoom.Replace(templateText, LServer.ToString());
+            labelAirMoistureExchangeOffce.Text = ResultText.labelAirMoistureExchangeOffce.Replace(templateText, AirMoistureExchangeOffce.ToString());
+            //3
+            labelAirExchangeFromCO2Concentration.Text = ResultText.labelAirExchangeFromCO2Concentration.Replace(templateText, AirExchangeFromCO2Concentration.ToString());
+            //4
+            labelQpeopleOffice.Text = ResultText.labelQpeopleOffice.Replace(templateText, QpeopleOffice.ToString());
+            labelQequirementOffice.Text = ResultText.labelQequirementOffice.Replace(templateText, QequirementOffice.ToString());
+            labelQaverageOffice.Text = ResultText.labelQaverageOffice.Replace(templateText, QaverageOffice.ToString());
+
+            labelQSumOffice.Text = ResultText.labelQSumOffice.Replace(templateText, QSumOffice.ToString());
+            labelQoblServerRoom.Text = ResultText.labelQoblServerRoom.Replace(templateText, QSumServer.ToString());
+
+            labelNeedWatOffice.Text = ResultText.labelNeedWatOffice.Replace(templateText, NeedWatOffice.ToString());
+            labelNeedWatServerRoom.Text = ResultText.labelNeedWatServerRoom.Replace(templateText, NeedWatServerRoom.ToString());
+
         }
 
         private void ToolStripMenuCreateMenu_Click(object sender, EventArgs e)
@@ -355,5 +326,21 @@ namespace VentilationCalculator
             using var context = new SystemContext();
             context.Database.Migrate();
         }
+
+
+        private void textBox_TextChanged_MaxValue(object sender, EventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+            Validation.intNumberFilter(textBox);
+            Validation.limitValue(textBox, 100);
+
+        }
+        private void textBox_TextChanged_numberFilter(object sender, EventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+            Validation.floatNumberFilter(textBox);
+
+        }
+
     }
 }
