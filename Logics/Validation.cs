@@ -53,7 +53,7 @@
             }
             else if (input.StartsWith("0") && input.Length > 1 && input[1] != ',')
             {
-                textBox.Text = input.Substring(1);
+                textBox.Text = input[1..];
                 textBox.SelectionStart = 1;
 
             }
@@ -96,17 +96,15 @@
             }
             else if (input.StartsWith("0") && input.Length > 1)
             {
-                textBox.Text = input.Substring(1);
+                textBox.Text = input[1..];
                 textBox.SelectionStart = 1;
 
             }
 
             int cursorPosition = textBox.SelectionStart;
-            string newValue = input;
             if (Convert.ToInt32(input) > maxValue)
             {
-                newValue = string.Concat(input.AsSpan(0, cursorPosition - 1), input.AsSpan(cursorPosition));
-                textBox.Text = newValue;
+                textBox.Text = string.Concat(input.AsSpan(0, cursorPosition - 1), input.AsSpan(cursorPosition));
                 if (cursorPosition > 1) textBox.SelectionStart = cursorPosition - 1;
 
             }

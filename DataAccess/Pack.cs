@@ -27,14 +27,14 @@ namespace VentilationCalculator.DataAccess
         {
             connect_db = db;
         }
-        public List<AirDensityTable> AirDensityTable()
+/*        public List<AirDensityTable> AirDensityTable()
         {
             return connect_db.AirDensityTables.ToList();
         }
         public List<InputDatum> inputData()
         {
             return connect_db.InputData.ToList();
-        }
+        }*/
 
 
     }

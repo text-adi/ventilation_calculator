@@ -8,6 +8,7 @@ namespace VentilationCalculator.DataAccess
         {
             try
             {
+                context.Database.ExecuteSqlRaw("SELECT name FROM sqlite_master WHERE type='table' AND name='';");
                 context.Set<T>().ToList();
                 return true;
             }

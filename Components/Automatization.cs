@@ -19,19 +19,19 @@ namespace VentilationCalculator.Components
         {
 
             TableForm.Text = item.Text;
-            InputDataDataGridView(TableForm);
+            //InputDataDataGridView(TableForm);
 
             TableForm.Show();
 
         }
         private void InputDataDataGridView(TableForm tableForm)
         {
-
+            tableForm.dataGridView1.Columns[0].Visible = false;
             if (Tool.CheckTableExists<T>(DBConnect))
             {
                 switch (DBtable)
                 {
-                    case AirDensityTable:
+                   /* case AirDensityTable:
                         {
                             var data = new UnPack(DBConnect);
                             tableForm.dataGridView1.DataSource = data.AirDensityTable();
@@ -43,11 +43,11 @@ namespace VentilationCalculator.Components
                             var data = DBtable.ToList();
                             tableForm.dataGridView1.DataSource = data;
                             break;
-                        }
+                        }*/
                 }
 
 
-                tableForm.dataGridView1.Columns[0].Visible = false;
+               
             }
             else
             {
