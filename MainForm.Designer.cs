@@ -28,12 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             menuStrip1 = new MenuStrip();
             fileToolStripMenuItem = new ToolStripMenuItem();
             ToolStripMenuCreateMenu = new ToolStripMenuItem();
             databaseToolStripMenuItem = new ToolStripMenuItem();
             importToolStripMenuItem = new ToolStripMenuItem();
             exportToolStripMenuItem = new ToolStripMenuItem();
+            InputBasicDataToolStripMenuItem = new ToolStripMenuItem();
             toolStripSeparator1 = new ToolStripSeparator();
             clearToolStripMenuItem = new ToolStripMenuItem();
             історіюВхіднихДанихToolStripMenuItem = new ToolStripMenuItem();
@@ -141,7 +143,8 @@
             groupBox2 = new GroupBox();
             numericUpDownVariant = new NumericUpDown();
             listBoxInputData = new ListBox();
-            InputBasicDataToolStripMenuItem = new ToolStripMenuItem();
+            contextMenuStripListVariant = new ContextMenuStrip(components);
+            оновитиToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             tabControlData.SuspendLayout();
             tabPageInputData.SuspendLayout();
@@ -167,6 +170,7 @@
             tableLayoutPanel1.SuspendLayout();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDownVariant).BeginInit();
+            contextMenuStripListVariant.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
@@ -190,7 +194,7 @@
             // ToolStripMenuCreateMenu
             // 
             ToolStripMenuCreateMenu.Name = "ToolStripMenuCreateMenu";
-            ToolStripMenuCreateMenu.Size = new Size(180, 22);
+            ToolStripMenuCreateMenu.Size = new Size(155, 22);
             ToolStripMenuCreateMenu.Text = "Створити нову";
             ToolStripMenuCreateMenu.Click += ToolStripMenuCreateMenu_Click;
             // 
@@ -198,7 +202,7 @@
             // 
             databaseToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { importToolStripMenuItem, exportToolStripMenuItem, InputBasicDataToolStripMenuItem });
             databaseToolStripMenuItem.Name = "databaseToolStripMenuItem";
-            databaseToolStripMenuItem.Size = new Size(180, 22);
+            databaseToolStripMenuItem.Size = new Size(155, 22);
             databaseToolStripMenuItem.Text = "База даних";
             // 
             // importToolStripMenuItem
@@ -213,16 +217,22 @@
             exportToolStripMenuItem.Size = new Size(255, 22);
             exportToolStripMenuItem.Text = "Екпорт";
             // 
+            // InputBasicDataToolStripMenuItem
+            // 
+            InputBasicDataToolStripMenuItem.Name = "InputBasicDataToolStripMenuItem";
+            InputBasicDataToolStripMenuItem.Size = new Size(255, 22);
+            InputBasicDataToolStripMenuItem.Text = "Заповнити початковими даними";
+            // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(177, 6);
+            toolStripSeparator1.Size = new Size(152, 6);
             // 
             // clearToolStripMenuItem
             // 
             clearToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { історіюВхіднихДанихToolStripMenuItem, усіТаблиціToolStripMenuItem, вхідніДаніДляОбрахункуToolStripMenuItem });
             clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            clearToolStripMenuItem.Size = new Size(180, 22);
+            clearToolStripMenuItem.Size = new Size(155, 22);
             clearToolStripMenuItem.Text = "Очистити ";
             // 
             // історіюВхіднихДанихToolStripMenuItem
@@ -1401,18 +1411,27 @@
             // listBoxInputData
             // 
             listBoxInputData.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            listBoxInputData.ContextMenuStrip = contextMenuStripListVariant;
             listBoxInputData.FormattingEnabled = true;
             listBoxInputData.ItemHeight = 15;
             listBoxInputData.Location = new Point(3, 61);
             listBoxInputData.Name = "listBoxInputData";
             listBoxInputData.Size = new Size(122, 529);
             listBoxInputData.TabIndex = 1;
+            listBoxInputData.DoubleClick += listBoxInputData_DoubleClick;
             // 
-            // InputBasicDataToolStripMenuItem
+            // contextMenuStripListVariant
             // 
-            InputBasicDataToolStripMenuItem.Name = "InputBasicDataToolStripMenuItem";
-            InputBasicDataToolStripMenuItem.Size = new Size(255, 22);
-            InputBasicDataToolStripMenuItem.Text = "Заповнити початковими даними";
+            contextMenuStripListVariant.Items.AddRange(new ToolStripItem[] { оновитиToolStripMenuItem });
+            contextMenuStripListVariant.Name = "contextMenuStripListVariant";
+            contextMenuStripListVariant.Size = new Size(123, 26);
+            contextMenuStripListVariant.ItemClicked += contextMenuStripListVariant_ItemClicked;
+            // 
+            // оновитиToolStripMenuItem
+            // 
+            оновитиToolStripMenuItem.Name = "оновитиToolStripMenuItem";
+            оновитиToolStripMenuItem.Size = new Size(122, 22);
+            оновитиToolStripMenuItem.Text = "Оновити";
             // 
             // MainForm
             // 
@@ -1460,6 +1479,7 @@
             tableLayoutPanel1.ResumeLayout(false);
             groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)numericUpDownVariant).EndInit();
+            contextMenuStripListVariant.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1584,5 +1604,7 @@
         private ComboBox comboBoxTypeCity;
         private ComboBox comboBoxSelectCity;
         private ToolStripMenuItem InputBasicDataToolStripMenuItem;
+        private ContextMenuStrip contextMenuStripListVariant;
+        private ToolStripMenuItem оновитиToolStripMenuItem;
     }
 }

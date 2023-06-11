@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using VentilationCalculator.DataAccess;
 using VentilationCalculator.Models;
 
 namespace VentilationCalculator.Components
@@ -24,35 +23,9 @@ namespace VentilationCalculator.Components
             TableForm.Show();
 
         }
-        private void InputDataDataGridView(TableForm tableForm)
+        
+        public void checkSelectComboBox()
         {
-            tableForm.dataGridView1.Columns[0].Visible = false;
-            if (Tool.CheckTableExists<T>(DBConnect))
-            {
-                switch (DBtable)
-                {
-                   /* case AirDensityTable:
-                        {
-                            var data = new UnPack(DBConnect);
-                            tableForm.dataGridView1.DataSource = data.AirDensityTable();
-                            break;
-                        }
-
-                    default:
-                        {
-                            var data = DBtable.ToList();
-                            tableForm.dataGridView1.DataSource = data;
-                            break;
-                        }*/
-                }
-
-
-               
-            }
-            else
-            {
-                MessageBox.Show("Помилка виконання операції: Дана таблиця відсутня. Вам потрібно створити її", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
 
         }
     }

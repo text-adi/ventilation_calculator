@@ -14,46 +14,13 @@ namespace VentilationCalculator
         public MainForm()
         {
             InitializeComponent();
+            UpdateListVariant();
 
+        }
+
+        private void UpdateListVariant()
+        {
             Databases.GetAllListVarian(listBoxInputData);
-
-
-            textBoxCountPrinter.Text = Convert.ToString(40);
-            textBoxCountServer.Text = Convert.ToString(1);
-            textBoxWidthServerRoom.Text = Convert.ToString(3);
-            textBoxLengthServerRoom.Text = Convert.ToString(3);
-
-            textBoxInputAir.Text = Convert.ToString(12);
-            textBoxOutputAir.Text = Convert.ToString(30);
-
-            textBoxWidthOfficeRoom.Text = Convert.ToString(12);
-            textBoxLengthOfficeRoom.Text = Convert.ToString(24);
-            textBoxHeigthOfficeRoom.Text = Convert.ToString(3.2);
-            textBoxCountWorkPlace.Text = Convert.ToString(20);
-            textBoxAverageRoomTemperature.Text = Convert.ToString(0);
-
-            /* var airNormal = new Dictionary<int, string>
-                 {
-                     { 1, "20-25"},
-                     { 2, "45"},
-                     { 3, "60"},
-                 };
-             int selectValue = 1;
-             var test = new Normatile<int, string>(airNormal);
-             test.SetVerticalColumn(selectValue);
-             var result = test.GetComplexityValue() == airNormal[selectValue];
-             var r = result;
-
-
-             var inletTempWindowDict = new Dictionary<int, Dictionary<int, double>>
-                 {
-                     {1, new Dictionary< int, double>{ {1,666 }}}
-                 };
-             var test2 = new DuoNormatile<int, int, double>(inletTempWindowDict);
-             test2.SetHorizontalColumn(1, 1);
-             var result2 = inletTempWindowDict[selectValue][selectValue];
-             var r2 = result2;*/
-
         }
 
         /// <summary>
@@ -420,9 +387,13 @@ namespace VentilationCalculator
         {
 
         }
-
-        private void buttonWriteData_Click(object sender, EventArgs e)
+        private void WriteAllTextBox()
         {
+            DialogResult result = MessageBox.Show("Заповнення даних із БД замінить уже введені дані. Продовжити?", "Заповнення даних", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (result == DialogResult.No)
+            {
+                return;
+            }
             if (listBoxInputData.SelectedIndex != -1)
             {
                 InputDataTable selectObject = (InputDataTable)listBoxInputData.SelectedItem;
@@ -448,6 +419,7 @@ namespace VentilationCalculator
                 textBoxAirNormaltileBetween.Text = selectObject.OutputAir.ToString(); // значення, вибране при відповідній роботі відповідних межах
 
                 textBoxCO2AirConcentrationLimit.Text = selectObject.TimeSavePlace.ToString(); // Винести із БД.
+
                 comboBoxSelectCity.SelectedIndex = Convert.ToInt32(selectObject.City);                                                                     // Хмельницький | місто | до 300 тис .
                 comboBoxSelectCity.SelectedIndex = Convert.ToInt32(selectObject.TypeCity);
                 textBoxCO2InLetAirConcentrationLimit.Text = selectObject.Concetration.ToString(); // Значення брати із таблиці міст. Залежить, яке місто вибрано. В даному випадку, Хмельницький. Потрібно також знати кількість населення(чи село, чи місто). Розмір населення, < 300000 осіб. 
@@ -476,10 +448,35 @@ namespace VentilationCalculator
 
                 textBoxkTypeFrame.Text = selectObject.CoefK.ToString();
 
-                ;
+                
             }
+        }
+        private void buttonWriteData_Click(object sender, EventArgs e)
+        {
+            WriteAllTextBox();
 
+        }
+        /// <summary>
+        /// Логіка кліку на контексне меню ListBox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void contextMenuStripListVariant_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            if (e.ClickedItem.Text == "Оновити")
+            {
+                UpdateListVariant();
+            }
+        }
 
+        /// <summary>
+        /// Клік на елемент із ListBox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void listBoxInputData_DoubleClick(object sender, EventArgs e)
+        {
+            WriteAllTextBox();
         }
     }
 }
