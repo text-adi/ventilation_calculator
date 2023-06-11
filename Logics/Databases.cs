@@ -22,5 +22,8 @@ namespace VentilationCalculator.Logics
             listBoxInputData.DisplayMember = "VariantId";
 
         }
+
+        
+
     }
 }

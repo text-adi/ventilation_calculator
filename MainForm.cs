@@ -448,9 +448,10 @@ namespace VentilationCalculator
 
                 textBoxkTypeFrame.Text = selectObject.CoefK.ToString();
 
-                
+
             }
         }
+
         private void buttonWriteData_Click(object sender, EventArgs e)
         {
             WriteAllTextBox();
@@ -477,6 +478,85 @@ namespace VentilationCalculator
         private void listBoxInputData_DoubleClick(object sender, EventArgs e)
         {
             WriteAllTextBox();
+        }
+
+        public void AddNewInputData()
+        {
+
+            using SystemContext db = new();
+
+            var inputData = db.InputData.FirstOrDefault(p => p.VariantId == numericUpDownVariant.Value);
+
+            if (inputData != null)
+            {
+                // Якщо такий варіант є
+                // оновлюємо інформацію
+                inputData.VariantId= Convert.ToInt64( numericUpDownVariant.Value);
+
+                inputData.CountPrinter = Convert.ToInt64(textBoxCountPrinter.Text);
+                inputData.CountServer=Convert.ToInt64(textBoxCountPrinter.Text);
+                inputData.WidthRoomServer=Convert.ToDouble(textBoxWidthServerRoom.Text);
+                inputData.LengthRoomServer = Convert.ToDouble(textBoxLengthServerRoom.Text);
+
+                inputData.InletTemp =Convert.ToInt64(textBoxInputAir.Text);
+                inputData.OutletTemp=Convert.ToInt64(textBoxOutputAir.Text);
+
+                inputData.WidthRoomOffice=Convert.ToDouble(textBoxWidthOfficeRoom.Text);
+                inputData.LengthRoomOffice=Convert.ToDouble(textBoxLengthOfficeRoom.Text);
+                inputData.HeigthRoomOffice=Convert.ToDouble(textBoxHeigthOfficeRoom.Text);
+                inputData.CountPlace=Convert.ToInt64(textBoxCountWorkPlace.Text);
+                inputData.AvgTemp=Convert.ToInt64(textBoxAverageRoomTemperature.Text);// це значення ще буде використовуватися для обрахунків
+
+                // Інші вхідні дані
+                inputData.OfficeAir=Convert.ToDouble(textBoxminAirExchangeRateOffice.Text);
+                inputData.ServerAir=Convert.ToDouble(textBoxminAirExchangeRateServer.Text);
+                inputData.OutputAir=Convert.ToDouble(textBoxAirNormaltileBetween.Text); // значення, вибране при відповідній роботі відповідних межах
+
+                inputData.TimeSavePlace=Convert.ToDouble(textBoxCO2AirConcentrationLimit.Text); // Винести із БД.
+
+                inputData.City=Convert.ToInt64(comboBoxSelectCity.SelectedIndex);                                                                     // Хмельницький | місто | до 300 тис .
+                inputData.TypeCity=Convert.ToInt64(comboBoxSelectCity.SelectedIndex);
+                inputData.Concetration=Convert.ToInt64(textBoxCO2InLetAirConcentrationLimit.Text); // Значення брати із таблиці міст. Залежить, яке місто вибрано. В даному випадку, Хмельницький. Потрібно також знати кількість населення(чи село, чи місто). Розмір населення, < 300000 осіб. 
+                inputData.GCO2=Convert.ToDouble(textBoxGCO2.Text);
+
+                inputData.OutputTempPeople=Convert.ToDouble(textBoxQpeople.Text);
+                inputData.OutputTempPC=Convert.ToDouble(textBoxQEpc.Text);
+                inputData.OutputTempTV=Convert.ToDouble(textBoxQETV.Text);
+                inputData.OutputTempAnother=Convert.ToDouble(textBoxQEEquiment.Text);
+                inputData.OutputTempServer=Convert.ToDouble(textBoxQEServer.Text);
+
+                inputData.TypeFrame=Convert.ToInt64(comboBoxTypeFrame.SelectedIndex);
+                inputData.SideWorld=Convert.ToInt64(comboBoxTypeWorld.SelectedIndex);
+                inputData.Coordinate= Convert.ToInt64(textBoxCompass.Text);
+                inputData.InputTempSolar=Convert.ToDouble(textBoxSZask.Text);
+
+                inputData.Zask=Convert.ToDouble(textBoxQZask.Text);
+
+                inputData.MaterialP=Convert.ToDouble(textBoxPAir.Text);
+                inputData.MaterialPFromTable=Convert.ToDouble(textBoxValueFromTable18.Text); // таблиця 18.
+                inputData.ReplaceTempC=Convert.ToDouble(textBoxС.Text); // це значення стале. Значення від 0 до 70 С. Занести в БД
+
+                inputData.SaveMaterialSolar=checkBox1.Checked;
+
+                inputData.CoefK=Convert.ToDouble(textBoxkTypeFrame.Text);
+
+
+            }
+            else
+            {
+                // Якщо такого варіанту немає
+                // додаємо новий
+                var newInputData = new InputDataTable
+                {
+                    //
+                };
+                db.InputData.Add(newInputData);
+            }
+            db.SaveChanges();
+        }
+        private void toolStripMenuItemSaveInputData_Click(object sender, EventArgs e)
+        {
+            AddNewInputData();
         }
     }
 }

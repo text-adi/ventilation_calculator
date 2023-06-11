@@ -53,6 +53,8 @@
             toolStripSeparator3 = new ToolStripSeparator();
             heatTransferFromSolarRadiationThroughGlazedSurfacesToolStripMenuItem = new ToolStripMenuItem();
             таблицяТипуРамToolStripMenuItem = new ToolStripMenuItem();
+            AnotherOrerationToolStripMenuItem = new ToolStripMenuItem();
+            toolStripMenuItemSaveInputData = new ToolStripMenuItem();
             tabControlData = new TabControl();
             tabPageInputData = new TabPage();
             buttonWriteData = new Button();
@@ -176,7 +178,7 @@
             // menuStrip1
             // 
             menuStrip1.ImageScalingSize = new Size(40, 40);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, tableToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, tableToolStripMenuItem, AnotherOrerationToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(5, 2, 0, 2);
@@ -257,8 +259,8 @@
             // 
             tableToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { Variants, toolStripSeparator2, airExchangeRateTableToolStripMenuItem, cO2ConcentrationTableToolStripMenuItem, toolStripSeparator4, tableOfAirDensityValuesToolStripMenuItem, toolStripSeparator5, heatReleaseTableToolStripMenuItem, toolStripSeparator3, heatTransferFromSolarRadiationThroughGlazedSurfacesToolStripMenuItem, таблицяТипуРамToolStripMenuItem });
             tableToolStripMenuItem.Name = "tableToolStripMenuItem";
-            tableToolStripMenuItem.Size = new Size(79, 20);
-            tableToolStripMenuItem.Text = "Редагувати";
+            tableToolStripMenuItem.Size = new Size(62, 20);
+            tableToolStripMenuItem.Text = "Таблиці";
             // 
             // Variants
             // 
@@ -328,6 +330,20 @@
             таблицяТипуРамToolStripMenuItem.Size = new Size(495, 22);
             таблицяТипуРамToolStripMenuItem.Text = "Таблиця типу рам";
             таблицяТипуРамToolStripMenuItem.Click += таблицяТипуРамToolStripMenuItem_Click;
+            // 
+            // AnotherOrerationToolStripMenuItem
+            // 
+            AnotherOrerationToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveInputData });
+            AnotherOrerationToolStripMenuItem.Name = "AnotherOrerationToolStripMenuItem";
+            AnotherOrerationToolStripMenuItem.Size = new Size(98, 20);
+            AnotherOrerationToolStripMenuItem.Text = "Додаткові дані";
+            // 
+            // toolStripMenuItemSaveInputData
+            // 
+            toolStripMenuItemSaveInputData.Name = "toolStripMenuItemSaveInputData";
+            toolStripMenuItemSaveInputData.Size = new Size(183, 22);
+            toolStripMenuItemSaveInputData.Text = "Зберегти вхідні дані";
+            toolStripMenuItemSaveInputData.Click += toolStripMenuItemSaveInputData_Click;
             // 
             // tabControlData
             // 
@@ -1606,5 +1622,7 @@
         private ToolStripMenuItem InputBasicDataToolStripMenuItem;
         private ContextMenuStrip contextMenuStripListVariant;
         private ToolStripMenuItem оновитиToolStripMenuItem;
+        private ToolStripMenuItem AnotherOrerationToolStripMenuItem;
+        private ToolStripMenuItem toolStripMenuItemSaveInputData;
     }
 }

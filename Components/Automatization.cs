@@ -23,11 +23,7 @@ namespace VentilationCalculator.Components
             TableForm.Show();
 
         }
-        
-        public void checkSelectComboBox()
-        {
 
-        }
     }
 
 }
