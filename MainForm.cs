@@ -255,25 +255,25 @@ namespace VentilationCalculator
 
             //Result
             //1
-            /*            string templateText = ResultText.TEMPLATETEXT;
-                        labelVolumeOffice.Text = ResultText.labelVolumeOffice.Replace(templateText, Voffice.ToString());
-                        labelVolumeServerRoom.Text = ResultText.labelVolumeServerRoom.Replace(templateText, Vserver.ToString());
-                        //2
-                        labelAirExchangeRateOffice.Text = ResultText.labelAirExchangeRateOffice.Replace(templateText, Loffice.ToString());
-                        labelAirExchangeRateServerRoom.Text = ResultText.labelAirExchangeRateServerRoom.Replace(templateText, LServer.ToString());
-                        labelAirMoistureExchangeOffce.Text = ResultText.labelAirMoistureExchangeOffce.Replace(templateText, AirMoistureExchangeOffce.ToString());
-                        //3
-                        labelAirExchangeFromCO2Concentration.Text = ResultText.labelAirExchangeFromCO2Concentration.Replace(templateText, AirExchangeFromCO2Concentration.ToString());
-                        //4
-                        labelQpeopleOffice.Text = ResultText.labelQpeopleOffice.Replace(templateText, QpeopleOffice.ToString());
-                        labelQequirementOffice.Text = ResultText.labelQequirementOffice.Replace(templateText, QequirementOffice.ToString());
-                        labelQaverageOffice.Text = ResultText.labelQaverageOffice.Replace(templateText, QaverageOffice.ToString());
+            string templateText = ResultText.TEMPLATETEXT;
+            labelVolumeOffice.Text = ResultText.labelVolumeOffice.Replace(templateText, Voffice.ToString());
+            labelVolumeServerRoom.Text = ResultText.labelVolumeServerRoom.Replace(templateText, Vserver.ToString());
+            //2
+            labelAirExchangeRateOffice.Text = ResultText.labelAirExchangeRateOffice.Replace(templateText, Loffice.ToString());
+            labelAirExchangeRateServerRoom.Text = ResultText.labelAirExchangeRateServerRoom.Replace(templateText, LServer.ToString());
+            labelAirMoistureExchangeOffce.Text = ResultText.labelAirMoistureExchangeOffce.Replace(templateText, AirMoistureExchangeOffce.ToString());
+            //3
+            labelAirExchangeFromCO2Concentration.Text = ResultText.labelAirExchangeFromCO2Concentration.Replace(templateText, AirExchangeFromCO2Concentration.ToString());
+            //4
+            labelQpeopleOffice.Text = ResultText.labelQpeopleOffice.Replace(templateText, QpeopleOffice.ToString());
+            labelQequirementOffice.Text = ResultText.labelQequirementOffice.Replace(templateText, QequirementOffice.ToString());
+            labelQaverageOffice.Text = ResultText.labelQaverageOffice.Replace(templateText, QaverageOffice.ToString());
 
-                        labelQSumOffice.Text = ResultText.labelQSumOffice.Replace(templateText, QSumOffice.ToString());
-                        labelQoblServerRoom.Text = ResultText.labelQoblServerRoom.Replace(templateText, QSumServer.ToString());
+            labelQSumOffice.Text = ResultText.labelQSumOffice.Replace(templateText, QSumOffice.ToString());
+            labelQoblServerRoom.Text = ResultText.labelQoblServerRoom.Replace(templateText, QSumServer.ToString());
 
-                        labelNeedWatOffice.Text = ResultText.labelNeedWatOffice.Replace(templateText, NeedWatOffice.ToString());
-                        labelNeedWatServerRoom.Text = ResultText.labelNeedWatServerRoom.Replace(templateText, NeedWatServerRoom.ToString());*/
+            labelNeedWatOffice.Text = ResultText.labelNeedWatOffice.Replace(templateText, NeedWatOffice.ToString());
+            labelNeedWatServerRoom.Text = ResultText.labelNeedWatServerRoom.Replace(templateText, NeedWatServerRoom.ToString());
 
         }
 
@@ -316,63 +316,6 @@ namespace VentilationCalculator
             TextBox textBox = (TextBox)sender;
             Validation.floatNumberFilter(textBox);
 
-        }
-
-
-        /// <summary>
-        /// Обробляємо збереження даних ведених із форми
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void MainForm_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.X && e.Control)
-            {
-                // Виконується код, якщо натиснуті клавіші - Ctrl + X
-                int selectVariant = Convert.ToInt32(numericUpDownVariant.Value); // вибраний варіант
-
-                int CountPrinterProcent = Convert.ToInt32(textBoxCountPrinter.Text);
-                int CountServer = Convert.ToInt32(textBoxCountServer.Text);
-                double WidthServerRoom = Convert.ToDouble(textBoxWidthServerRoom.Text);
-                double LengthServerRoom = Convert.ToDouble(textBoxLengthServerRoom.Text);
-
-                double InputTempAir = Convert.ToDouble(textBoxInputAir.Text);
-                double OutputTempAir = Convert.ToDouble(textBoxOutputAir.Text);
-
-                double WidthOfficeRoom = Convert.ToDouble(textBoxWidthOfficeRoom.Text);
-                double LengthOfficeRoom = Convert.ToDouble(textBoxLengthOfficeRoom.Text);
-                double HeigthOfficeRoom = Convert.ToDouble(textBoxHeigthOfficeRoom.Text);
-                int CountWorkPlace = Convert.ToInt32(textBoxCountWorkPlace.Text);
-                double AverageRoomTemperature = Convert.ToDouble(textBoxAverageRoomTemperature.Text); // це значення ще буде використовуватися для обрахунків
-
-                // Інші вхідні дані
-                double minAirExchangeRateOffice = Convert.ToDouble(textBoxminAirExchangeRateOffice.Text);
-                double minAirExchangeRateServer = Convert.ToDouble(textBoxminAirExchangeRateServer.Text);
-                double airNormaltileBetween = Convert.ToDouble(textBoxAirNormaltileBetween.Text); // значення, вибране при відповідній роботі відповідних межах
-
-                double CO2AirConcentrationLimit = Convert.ToDouble(textBoxCO2AirConcentrationLimit.Text); // Винести із БД.
-                                                                                                          // Хмельницький | місто | до 300 тис .
-                double CO2InLetAirConcentrationLimit = Convert.ToDouble(textBoxCO2InLetAirConcentrationLimit.Text); // Значення брати із таблиці міст. Залежить, яке місто вибрано. В даному випадку, Хмельницький. Потрібно також знати кількість населення(чи село, чи місто). Розмір населення, < 300000 осіб. 
-                double CO2CategoryWork = Convert.ToDouble(textBoxGCO2.Text);
-                double p = Convert.ToDouble(textBoxValueFromTable18.Text); // таблиця 18.
-                double c = Convert.ToDouble(textBoxС.Text); // це значення стале. Значення від 0 до 70 С. Занести в БД
-
-                double Qpeople = Convert.ToDouble(textBoxQpeople.Text);
-                double QEpc = Convert.ToDouble(textBoxQEpc.Text);
-                double QETV = Convert.ToDouble(textBoxQETV.Text);
-                double QEEquiment = Convert.ToDouble(textBoxQEEquiment.Text);
-                double QEServer = Convert.ToDouble(textBoxQEServer.Text);
-
-                double QZask = Convert.ToDouble(textBoxQZask.Text);
-                bool existSaveTool = checkBox1.Checked;
-
-                double kV = Convert.ToDouble(textBoxkTypeFrame.Text);
-
-                double inletTempWindow = Convert.ToDouble(textBoxSZask.Text);
-
-                MessageBox.Show("Click Ctrl+S");
-
-            }
         }
 
         private void таблицяТипуРамToolStripMenuItem_Click(object sender, EventArgs e)
@@ -491,54 +434,54 @@ namespace VentilationCalculator
             {
                 // Якщо такий варіант є
                 // оновлюємо інформацію
-                inputData.VariantId= Convert.ToInt64( numericUpDownVariant.Value);
+                inputData.VariantId = Convert.ToInt64(numericUpDownVariant.Value);
 
                 inputData.CountPrinter = Convert.ToInt64(textBoxCountPrinter.Text);
-                inputData.CountServer=Convert.ToInt64(textBoxCountPrinter.Text);
-                inputData.WidthRoomServer=Convert.ToDouble(textBoxWidthServerRoom.Text);
+                inputData.CountServer = Convert.ToInt64(textBoxCountPrinter.Text);
+                inputData.WidthRoomServer = Convert.ToDouble(textBoxWidthServerRoom.Text);
                 inputData.LengthRoomServer = Convert.ToDouble(textBoxLengthServerRoom.Text);
 
-                inputData.InletTemp =Convert.ToInt64(textBoxInputAir.Text);
-                inputData.OutletTemp=Convert.ToInt64(textBoxOutputAir.Text);
+                inputData.InletTemp = Convert.ToInt64(textBoxInputAir.Text);
+                inputData.OutletTemp = Convert.ToInt64(textBoxOutputAir.Text);
 
-                inputData.WidthRoomOffice=Convert.ToDouble(textBoxWidthOfficeRoom.Text);
-                inputData.LengthRoomOffice=Convert.ToDouble(textBoxLengthOfficeRoom.Text);
-                inputData.HeigthRoomOffice=Convert.ToDouble(textBoxHeigthOfficeRoom.Text);
-                inputData.CountPlace=Convert.ToInt64(textBoxCountWorkPlace.Text);
-                inputData.AvgTemp=Convert.ToInt64(textBoxAverageRoomTemperature.Text);// це значення ще буде використовуватися для обрахунків
+                inputData.WidthRoomOffice = Convert.ToDouble(textBoxWidthOfficeRoom.Text);
+                inputData.LengthRoomOffice = Convert.ToDouble(textBoxLengthOfficeRoom.Text);
+                inputData.HeigthRoomOffice = Convert.ToDouble(textBoxHeigthOfficeRoom.Text);
+                inputData.CountPlace = Convert.ToInt64(textBoxCountWorkPlace.Text);
+                inputData.AvgTemp = Convert.ToInt64(textBoxAverageRoomTemperature.Text);// це значення ще буде використовуватися для обрахунків
 
                 // Інші вхідні дані
-                inputData.OfficeAir=Convert.ToDouble(textBoxminAirExchangeRateOffice.Text);
-                inputData.ServerAir=Convert.ToDouble(textBoxminAirExchangeRateServer.Text);
-                inputData.OutputAir=Convert.ToDouble(textBoxAirNormaltileBetween.Text); // значення, вибране при відповідній роботі відповідних межах
+                inputData.OfficeAir = Convert.ToDouble(textBoxminAirExchangeRateOffice.Text);
+                inputData.ServerAir = Convert.ToDouble(textBoxminAirExchangeRateServer.Text);
+                inputData.OutputAir = Convert.ToDouble(textBoxAirNormaltileBetween.Text); // значення, вибране при відповідній роботі відповідних межах
 
-                inputData.TimeSavePlace=Convert.ToDouble(textBoxCO2AirConcentrationLimit.Text); // Винести із БД.
+                inputData.TimeSavePlace = Convert.ToDouble(textBoxCO2AirConcentrationLimit.Text); // Винести із БД.
 
-                inputData.City=Convert.ToInt64(comboBoxSelectCity.SelectedIndex);                                                                     // Хмельницький | місто | до 300 тис .
-                inputData.TypeCity=Convert.ToInt64(comboBoxSelectCity.SelectedIndex);
-                inputData.Concetration=Convert.ToInt64(textBoxCO2InLetAirConcentrationLimit.Text); // Значення брати із таблиці міст. Залежить, яке місто вибрано. В даному випадку, Хмельницький. Потрібно також знати кількість населення(чи село, чи місто). Розмір населення, < 300000 осіб. 
-                inputData.GCO2=Convert.ToDouble(textBoxGCO2.Text);
+                inputData.City = Convert.ToInt64(comboBoxSelectCity.SelectedIndex);                                                                     // Хмельницький | місто | до 300 тис .
+                inputData.TypeCity = Convert.ToInt64(comboBoxSelectCity.SelectedIndex);
+                inputData.Concetration = Convert.ToInt64(textBoxCO2InLetAirConcentrationLimit.Text); // Значення брати із таблиці міст. Залежить, яке місто вибрано. В даному випадку, Хмельницький. Потрібно також знати кількість населення(чи село, чи місто). Розмір населення, < 300000 осіб. 
+                inputData.GCO2 = Convert.ToDouble(textBoxGCO2.Text);
 
-                inputData.OutputTempPeople=Convert.ToDouble(textBoxQpeople.Text);
-                inputData.OutputTempPC=Convert.ToDouble(textBoxQEpc.Text);
-                inputData.OutputTempTV=Convert.ToDouble(textBoxQETV.Text);
-                inputData.OutputTempAnother=Convert.ToDouble(textBoxQEEquiment.Text);
-                inputData.OutputTempServer=Convert.ToDouble(textBoxQEServer.Text);
+                inputData.OutputTempPeople = Convert.ToDouble(textBoxQpeople.Text);
+                inputData.OutputTempPC = Convert.ToDouble(textBoxQEpc.Text);
+                inputData.OutputTempTV = Convert.ToDouble(textBoxQETV.Text);
+                inputData.OutputTempAnother = Convert.ToDouble(textBoxQEEquiment.Text);
+                inputData.OutputTempServer = Convert.ToDouble(textBoxQEServer.Text);
 
-                inputData.TypeFrame=Convert.ToInt64(comboBoxTypeFrame.SelectedIndex);
-                inputData.SideWorld=Convert.ToInt64(comboBoxTypeWorld.SelectedIndex);
-                inputData.Coordinate= Convert.ToInt64(textBoxCompass.Text);
-                inputData.InputTempSolar=Convert.ToDouble(textBoxSZask.Text);
+                inputData.TypeFrame = Convert.ToInt64(comboBoxTypeFrame.SelectedIndex);
+                inputData.SideWorld = Convert.ToInt64(comboBoxTypeWorld.SelectedIndex);
+                inputData.Coordinate = Convert.ToInt64(textBoxCompass.Text);
+                inputData.InputTempSolar = Convert.ToDouble(textBoxSZask.Text);
 
-                inputData.Zask=Convert.ToDouble(textBoxQZask.Text);
+                inputData.Zask = Convert.ToDouble(textBoxQZask.Text);
 
-                inputData.MaterialP=Convert.ToDouble(textBoxPAir.Text);
-                inputData.MaterialPFromTable=Convert.ToDouble(textBoxValueFromTable18.Text); // таблиця 18.
-                inputData.ReplaceTempC=Convert.ToDouble(textBoxС.Text); // це значення стале. Значення від 0 до 70 С. Занести в БД
+                inputData.MaterialP = Convert.ToDouble(textBoxPAir.Text);
+                inputData.MaterialPFromTable = Convert.ToDouble(textBoxValueFromTable18.Text); // таблиця 18.
+                inputData.ReplaceTempC = Convert.ToDouble(textBoxС.Text); // це значення стале. Значення від 0 до 70 С. Занести в БД
 
-                inputData.SaveMaterialSolar=checkBox1.Checked;
+                inputData.SaveMaterialSolar = checkBox1.Checked;
 
-                inputData.CoefK=Convert.ToDouble(textBoxkTypeFrame.Text);
+                inputData.CoefK = Convert.ToDouble(textBoxkTypeFrame.Text);
 
 
             }
