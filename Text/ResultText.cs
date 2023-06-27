@@ -24,6 +24,10 @@
 
         public const string labelNeedWatOffice = "Вентиляція в офісі повинна забезпечувати \r\n{INT_VALUE} м^3/год";
         public const string labelNeedWatServerRoom = "Вентиляція в серверній повинна забезпечувати \r\n{INT_VALUE} м^3/год";
+        
+        //5
+        public const string labelBetweenNeedWatOffice = "Потужність кондиціонера для офіса повинно бути в межах {INT_VALUE_1} кВт ... {INT_VALUE_2} кВт";
+        public const string labelBeetwenNeedWatServerRoom = "Потужність кондиціонера для серверної повинно бути в межах {INT_VALUE_1} кВт ... {INT_VALUE_2} кВт";
 
 
     }

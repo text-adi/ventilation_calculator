@@ -7,6 +7,7 @@ using VentilationCalculator.Components;
 using VentilationCalculator.Models;
 using VentilationCalculator;
 using System.Windows.Forms;
+using System.Collections;
 
 namespace VentilationCalculator.Logics
 {
@@ -18,12 +19,17 @@ namespace VentilationCalculator.Logics
 
             var inputData =  db.InputData.ToList();
 
-            listBoxInputData.DataSource=inputData;
-            listBoxInputData.DisplayMember = "VariantId";
+            for (int i = 0; i < inputData.Count; i++)
+            {
+                inputData[i].VariantText = inputData[i].VariantId.ToString() + " варіант";
+            }
+
+            listBoxInputData.DataSource = inputData;
+            listBoxInputData.DisplayMember = "VariantText";
 
         }
 
-        
+
 
     }
 }

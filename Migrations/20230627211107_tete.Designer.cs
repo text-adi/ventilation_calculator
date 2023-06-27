@@ -10,14 +10,14 @@ using VentilationCalculator.Models;
 namespace VentilationCalculator.Migrations
 {
     [DbContext(typeof(SystemContext))]
-    [Migration("20230610155209_TEst")]
-    partial class TEst
+    [Migration("20230627211107_tete")]
+    partial class tete
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "7.0.5");
+            modelBuilder.HasAnnotation("ProductVersion", "7.0.8");
 
             modelBuilder.Entity("VentilationCalculator.Models.CityTable", b =>
                 {
@@ -63,16 +63,10 @@ namespace VentilationCalculator.Migrations
                     b.Property<long>("AvgTemp")
                         .HasColumnType("INTEGER");
 
-                    b.Property<long>("City")
-                        .HasColumnType("INTEGER");
-
                     b.Property<double>("CoefK")
                         .HasColumnType("REAL");
 
                     b.Property<long>("Concetration")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("Coordinate")
                         .HasColumnType("INTEGER");
 
                     b.Property<long>("CountPlace")
@@ -102,9 +96,6 @@ namespace VentilationCalculator.Migrations
                     b.Property<double>("LengthRoomServer")
                         .HasColumnType("REAL");
 
-                    b.Property<double>("MaterialP")
-                        .HasColumnType("REAL");
-
                     b.Property<double>("MaterialPFromTable")
                         .HasColumnType("REAL");
 
@@ -117,19 +108,7 @@ namespace VentilationCalculator.Migrations
                     b.Property<double>("OutputAir")
                         .HasColumnType("REAL");
 
-                    b.Property<double>("OutputTempAnother")
-                        .HasColumnType("REAL");
-
-                    b.Property<double>("OutputTempPC")
-                        .HasColumnType("REAL");
-
                     b.Property<double>("OutputTempPeople")
-                        .HasColumnType("REAL");
-
-                    b.Property<double>("OutputTempServer")
-                        .HasColumnType("REAL");
-
-                    b.Property<double>("OutputTempTV")
                         .HasColumnType("REAL");
 
                     b.Property<double>("ReplaceTempC")
@@ -141,17 +120,8 @@ namespace VentilationCalculator.Migrations
                     b.Property<double>("ServerAir")
                         .HasColumnType("REAL");
 
-                    b.Property<long>("SideWorld")
-                        .HasColumnType("INTEGER");
-
                     b.Property<double>("TimeSavePlace")
                         .HasColumnType("REAL");
-
-                    b.Property<long>("TypeCity")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("TypeFrame")
-                        .HasColumnType("INTEGER");
 
                     b.Property<long>("VariantId")
                         .HasColumnType("INTEGER");
@@ -256,6 +226,24 @@ namespace VentilationCalculator.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TypeFrame");
+                });
+
+            modelBuilder.Entity("VentilationCalculator.Models.VentilatorTable", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("PathToFile")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<double>("Power")
+                        .HasColumnType("REAL");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("VirantVentilator");
                 });
 #pragma warning restore 612, 618
         }

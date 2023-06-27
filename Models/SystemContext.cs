@@ -21,6 +21,7 @@ public partial class SystemContext : DbContext
     public virtual DbSet<TypeFrameTable> TypeFrame { get; set; }
     public virtual DbSet<PTable> P { get; set; }
     public virtual DbSet<ConstantsTable> Constants { get; set; }
+    public virtual DbSet<VentilatorTable> VirantVentilator { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             => optionsBuilder.UseSqlite("Data Source=system.db");
     protected override void OnModelCreating(ModelBuilder modelBuilder)

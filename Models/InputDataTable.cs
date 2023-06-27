@@ -8,6 +8,7 @@ public partial class InputDataTable
     public long Id { get; set; }
     // Серверна
     public long VariantId { get; set; }
+    public string? VariantText { get; set; }
 
     public long CountPrinter { get; set; }
 
@@ -36,39 +37,25 @@ public partial class InputDataTable
 
     // 3. Гранично допустима концетрація
     public double TimeSavePlace { get; set; }
-    public long City { get; set; }
-    public long TypeCity { get; set; }
     public long Concetration { get; set; }
     public double GCO2 { get; set; }
     //4
 
     public double OutputTempPeople { get; set;}
-    public double OutputTempPC { get; set;}
-    public double OutputTempTV { get; set;}
-    public double OutputTempAnother { get; set;}
-    public double OutputTempServer { get; set;}
+
     //
     public double Zask { get; set;}
     //
-    public long TypeFrame { get; set;}
-    public long SideWorld { get; set;}
-    public long Coordinate { get; set;}
     public double InputTempSolar { get; set;}
     
     //
     public double CoefK { get; set;}
     public bool SaveMaterialSolar { get; set;}
-    public double MaterialP { get; set;}
     public double MaterialPFromTable { get; set;}
     public double ReplaceTempC { get; set;}
 
-
-
-
-
-
-
-
-
-
+    public static implicit operator InputDataTable(string v)
+    {
+        throw new NotImplementedException();
+    }
 }
