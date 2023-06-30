@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VentilationCalculator.Components;
-using VentilationCalculator.Models;
-using VentilationCalculator;
-using System.Windows.Forms;
-using System.Collections;
+﻿using VentilationCalculator.Models;
 
 namespace VentilationCalculator.Logics
 {
@@ -17,7 +8,7 @@ namespace VentilationCalculator.Logics
         {
             using SystemContext db = new();
 
-            var inputData =  db.InputData.ToList();
+            var inputData = db.InputData.ToList();
 
             for (int i = 0; i < inputData.Count; i++)
             {

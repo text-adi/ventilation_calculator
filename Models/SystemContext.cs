@@ -14,13 +14,7 @@ public partial class SystemContext : DbContext
     }
 
     public virtual DbSet<InputDataTable> InputData { get; set; }
-    public virtual DbSet<CityTable> City  { get; set; }
-    public virtual DbSet<TypeCityTable> TypeCity { get; set; }
-    public virtual DbSet<OutputTempPeopleTable> OutputTempPeople { get; set; }
-    public virtual DbSet<InputSolarTable> InputSolar { get; set; }
-    public virtual DbSet<TypeFrameTable> TypeFrame { get; set; }
-    public virtual DbSet<PTable> P { get; set; }
-    public virtual DbSet<ConstantsTable> Constants { get; set; }
+
     public virtual DbSet<VentilatorTable> VirantVentilator { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             => optionsBuilder.UseSqlite("Data Source=system.db");

@@ -1,19 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using VentilationCalculator.Logics;
-using VentilationCalculator.Models;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using Microsoft.EntityFrameworkCore;
+﻿using VentilationCalculator.Models;
 using TextBox = System.Windows.Forms.TextBox;
-using System.Text.RegularExpressions;
 
 namespace VentilationCalculator
 {
@@ -25,7 +11,7 @@ namespace VentilationCalculator
         {
             InitializeComponent();
             RefreshList();
-            
+
             RefreshPicture();
         }
 
@@ -74,12 +60,12 @@ namespace VentilationCalculator
         private void RefreshPicture()
         {
             VentilatorTable selectObject = (VentilatorTable)listBox1.SelectedItem;
-            if (selectObject!=null)
+            if (selectObject != null)
             {
                 textBoxEditVent.Text = selectObject.Power.ToString();
                 pictureBoxPhoto.Image = Image.FromFile(selectObject.PathToFile);
             }
-            
+
         }
         private void оновитиToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -177,7 +163,7 @@ namespace VentilationCalculator
                 e.Handled = true;
             }
 
- 
+
 
 
         }

@@ -31,6 +31,8 @@
             components = new System.ComponentModel.Container();
             tableLayoutPanel1 = new TableLayoutPanel();
             panel1 = new Panel();
+            label7 = new Label();
+            textBox2 = new TextBox();
             label3 = new Label();
             listBox1 = new ListBox();
             contextMenuStrip1 = new ContextMenuStrip(components);
@@ -41,6 +43,8 @@
             label1 = new Label();
             pictureBoxPhoto = new PictureBox();
             panel2 = new Panel();
+            label6 = new Label();
+            textBox1 = new TextBox();
             button2 = new Button();
             label5 = new Label();
             textBoxPower = new TextBox();
@@ -70,6 +74,8 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(label7);
+            panel1.Controls.Add(textBox2);
             panel1.Controls.Add(label3);
             panel1.Controls.Add(listBox1);
             panel1.Controls.Add(label2);
@@ -82,14 +88,32 @@
             panel1.Size = new Size(1642, 786);
             panel1.TabIndex = 0;
             // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(664, 230);
+            label7.Name = "label7";
+            label7.Size = new Size(213, 41);
+            label7.TabIndex = 7;
+            label7.Text = "Вартість в грн.";
+            // 
+            // textBox2
+            // 
+            textBox2.Location = new Point(664, 288);
+            textBox2.Name = "textBox2";
+            textBox2.ReadOnly = true;
+            textBox2.Size = new Size(395, 47);
+            textBox2.TabIndex = 6;
+            textBox2.Text = "0";
+            // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Location = new Point(53, 70);
             label3.Name = "label3";
-            label3.Size = new Size(274, 41);
+            label3.Size = new Size(214, 41);
             label3.TabIndex = 5;
-            label3.Text = "Список доступних ";
+            label3.Text = "Кондиціонери";
             // 
             // listBox1
             // 
@@ -126,18 +150,18 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(664, 70);
+            label2.Location = new Point(664, 81);
             label2.Name = "label2";
-            label2.Size = new Size(396, 41);
+            label2.Size = new Size(247, 41);
             label2.TabIndex = 3;
-            label2.Text = "Потужність вентиляції в кВт";
+            label2.Text = "Потужність в кВт";
             // 
             // textBoxEditVent
             // 
             textBoxEditVent.Location = new Point(664, 139);
             textBoxEditVent.Name = "textBoxEditVent";
             textBoxEditVent.ReadOnly = true;
-            textBoxEditVent.Size = new Size(396, 47);
+            textBoxEditVent.Size = new Size(395, 47);
             textBoxEditVent.TabIndex = 2;
             textBoxEditVent.Text = "0";
             textBoxEditVent.TextChanged += textBox_TextChanged_floatFilter;
@@ -163,6 +187,8 @@
             // 
             // panel2
             // 
+            panel2.Controls.Add(label6);
+            panel2.Controls.Add(textBox1);
             panel2.Controls.Add(button2);
             panel2.Controls.Add(label5);
             panel2.Controls.Add(textBoxPower);
@@ -174,30 +200,47 @@
             panel2.Size = new Size(1642, 223);
             panel2.TabIndex = 1;
             // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(841, 42);
+            label6.Name = "label6";
+            label6.Size = new Size(213, 41);
+            label6.TabIndex = 7;
+            label6.Text = "Вартість в грн.";
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(841, 102);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(396, 47);
+            textBox1.TabIndex = 6;
+            textBox1.Text = "0";
+            // 
             // button2
             // 
-            button2.Location = new Point(1083, 79);
+            button2.Location = new Point(1463, 79);
             button2.Name = "button2";
-            button2.Size = new Size(514, 70);
+            button2.Size = new Size(170, 70);
             button2.TabIndex = 5;
-            button2.Text = "Додати нову вентиляцію";
+            button2.Text = "Додати ";
             button2.UseVisualStyleBackColor = true;
             button2.Click += SaveVentilation_Click;
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(362, 94);
+            label5.Location = new Point(358, 42);
             label5.Name = "label5";
-            label5.Size = new Size(396, 41);
+            label5.Size = new Size(247, 41);
             label5.TabIndex = 4;
-            label5.Text = "Потужність вентиляції в кВт";
+            label5.Text = "Потужність в кВт";
             // 
             // textBoxPower
             // 
-            textBoxPower.Location = new Point(785, 91);
+            textBoxPower.Location = new Point(358, 102);
             textBoxPower.Name = "textBoxPower";
-            textBoxPower.Size = new Size(250, 47);
+            textBoxPower.Size = new Size(396, 47);
             textBoxPower.TabIndex = 3;
             textBoxPower.Text = "0";
             textBoxPower.TextChanged += textBox_TextChanged_floatFilter;
@@ -231,7 +274,7 @@
             ClientSize = new Size(1648, 1021);
             Controls.Add(tableLayoutPanel1);
             Name = "TableSaveVentilation";
-            Text = "Таблиця збереження вернтиляцій";
+            Text = "Таблиця збереження кондиціонерів";
             tableLayoutPanel1.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
@@ -261,5 +304,9 @@
         private ContextMenuStrip contextMenuStrip1;
         private ToolStripMenuItem оновитиToolStripMenuItem;
         private ToolStripMenuItem видалитиВентиляціюToolStripMenuItem;
+        private Label label6;
+        private TextBox textBox1;
+        private Label label7;
+        private TextBox textBox2;
     }
 }

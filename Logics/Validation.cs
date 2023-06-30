@@ -19,7 +19,8 @@
             string input = textBox.Text;
             int cursorPosition = textBox.SelectionStart;
             if (string.IsNullOrEmpty(input))
-            { textBox.Text = "0";
+            {
+                textBox.Text = "0";
                 textBox.SelectionStart = 1;
 
                 return;
@@ -63,7 +64,7 @@
                 textBox.SelectionStart = 1;
             }
 
-            var value = input.Where(c => char.IsDigit(c) || c==',');
+            var value = input.Where(c => char.IsDigit(c) || c == ',');
 
             string digitsOnly = new(value.ToArray());
 

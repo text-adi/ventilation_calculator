@@ -1,6 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using System.Security.AccessControl;
-using System.Windows.Forms;
 using VentilationCalculator.Components;
 using VentilationCalculator.Logic;
 using VentilationCalculator.Logics;
@@ -15,6 +13,24 @@ namespace VentilationCalculator
         public MainForm()
         {
             InitializeComponent();
+
+            string displayMember = "Name";
+            comboBoxCategoryWork.DataSource = Tables.categoryWorks;
+            comboBoxCategoryWork.DisplayMember = displayMember;
+
+            comboBoxRoom.DataSource = Tables.Table17Room;
+            comboBoxRoom.DisplayMember = displayMember;
+
+            comboBoxTypeRame.DataSource = Tables.typeRama;
+            comboBoxTypeRame.DisplayMember = displayMember;
+
+            comboBoxWord.DataSource = Tables.Word;
+            comboBoxWord.DisplayMember = displayMember;
+
+            comboBoxP.DataSource = Tables.p;
+
+
+
             UpdateListVariant();
             textBoxCountPrinter.BringToFront();
             textBoxCountServer.BringToFront();
@@ -28,13 +44,7 @@ namespace VentilationCalculator
             textBoxCountWorkPlace.BringToFront();
             textBoxAverageRoomTemperature.BringToFront();
             //2
-            textBoxGCO2.BringToFront();
-            textBoxAirNormaltileBetween.BringToFront();
-            textBoxCO2AirConcentrationLimit.BringToFront();
-            textBoxCO2InLetAirConcentrationLimit.BringToFront();
-            textBoxQZask.BringToFront();
-            textBoxSZask.BringToFront();
-            textBoxkTypeFrame.BringToFront();
+
         }
 
         private void UpdateListVariant()
@@ -55,71 +65,9 @@ namespace VentilationCalculator
             automatization.ShowTables(Variants);
 
         }
-        private void CityTableToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using SystemContext db = new();
-
-            var automatization = new Automatization<CityTable>(db, db.City);
-            automatization.ShowTables(Variants);
-
-        }
-        /// <summary>
-        /// Таблиця 17
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void cO2ConcentrationTableToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-            using SystemContext db = new();
-
-            var automatization = new Automatization<TypeCityTable>(db, db.TypeCity);
-            automatization.ShowTables(Variants);
-
-        }
-        /// <summary>
-        /// Таблиця 18
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void tableOfAirDensityValuesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-            using SystemContext db = new();
-
-            var automatization = new Automatization<PTable>(db, db.P);
-            automatization.ShowTables(Variants);
 
 
 
-        }
-        /// <summary>
-        /// Таблиця 19
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void heatReleaseTableToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using SystemContext db = new();
-
-            var automatization = new Automatization<OutputTempPeopleTable>(db, db.OutputTempPeople);
-            automatization.ShowTables(Variants);
-
-        }
-
-        /// <summary>
-        /// Таблиця 20
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void heatTransferFromSolarRadiationThroughGlazedSurfacesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using SystemContext db = new();
-
-            var automatization = new Automatization<InputSolarTable>(db, db.InputSolar);
-            automatization.ShowTables(Variants);
-
-        }
 
         /// <summary>
         /// Очищення бази даних від даних
@@ -174,25 +122,66 @@ namespace VentilationCalculator
             double minAirExchangeRateServer = Convert.ToDouble(textBoxminAirExchangeRateServer.Text);
             double airNormaltileBetween = Convert.ToDouble(textBoxAirNormaltileBetween.Text); // значення, вибране при відповідній роботі відповідних межах
 
-            double CO2AirConcentrationLimit = Convert.ToDouble(textBoxCO2AirConcentrationLimit.Text); // Винести із БД.
-            // Хмельницький | місто | до 300 тис .
-            double CO2InLetAirConcentrationLimit = Convert.ToDouble(textBoxCO2InLetAirConcentrationLimit.Text); // Значення брати із таблиці міст. Залежить, яке місто вибрано. В даному випадку, Хмельницький. Потрібно також знати кількість населення(чи село, чи місто). Розмір населення, < 300000 осіб. 
-            double CO2CategoryWork = Convert.ToDouble(textBoxGCO2.Text);
-            double p = Convert.ToDouble(textBoxValueFromTable18.Text); // таблиця 18.
-            double c = Convert.ToDouble(textBoxС.Text); // це значення стале. Значення від 0 до 70 С. Занести в БД
+            var comboBoxRoomItem = (Duo)comboBoxRoom.SelectedItem;
+            double CO2AirConcentrationLimit = comboBoxRoomItem.Value;
 
-            double Qpeople = Convert.ToDouble(textBoxQpeople.Text);
-            /*double QEpc = Convert.ToDouble(textBoxQEpc.Text);
-            double QETV = Convert.ToDouble(textBoxQETV.Text);
-            double QEEquiment = Convert.ToDouble(textBoxQEEquiment.Text);
-            double QEServer = Convert.ToDouble(textBoxQEServer.Text);*/
+            var comboBoxTypeRameItem = (TypeRama)comboBoxTypeRame.SelectedItem;
+            int comboBoxTypeRameID = comboBoxTypeRameItem.ID;
 
-            double QZask = Convert.ToDouble(textBoxQZask.Text);
+            var comboBoxWordItem = (Duo)comboBoxWord.SelectedItem;
+            int comboBoxWordValue = Convert.ToInt32( comboBoxWordItem.Value);
+
+
+            // For office L
+            int many_people = Convert.ToInt32(textBoxPeopleInCity.Text);
+            List<City> table17City = new List<City>(Tables.Table17City);
+            table17City.Reverse();
+            City seletedItem = new("", 0, 0);
+            foreach (City item in table17City)
+            {
+                if (item.Value <= many_people)
+                {
+                    seletedItem = item;
+                    break;
+                }
+            }
+            double CO2InLetAirConcentrationLimit = seletedItem.Value;
+            var comboBoxCategoryWorkItem = (CategoryWork)comboBoxCategoryWork.SelectedItem;
+            //Категорія роботи
+            int categoryWork = comboBoxCategoryWorkItem.Level;
+
+            double CO2CategoryWork = Tables.CO2Output[categoryWork]; // Використовується для обрахунку GCo2
+            //For server room L
+
+
+            double targetTemp = Func.FindShortPoint(Tables.Table19Temp[categoryWork].Keys.ToArray(), AverageRoomTemperature); // визначаємо, до якого числа блище
+
+            //^ визначили вище значення, до якого воно відноситься
+
+
+            double Qpeople = Tables.Table19Temp[categoryWork][targetTemp]; // кВт
+            double QEpc = 0.3;
+            int countTV = 1 + (selectVariant % 2); // парні - 2 телевізора, непарні - 1 телевізор
+            double QETV = 0.2;
+            double QEEquiment = 0.1;
+            double QEServer = 0.5;
+
+
+
+
+            double QZask = Tables.Table20Word[comboBoxTypeRameID][comboBoxWordValue];
             bool existSaveTool = checkBox1.Checked;
 
-            double kV = Convert.ToDouble(textBoxkTypeFrame.Text);
+
+            //double kV = Convert.ToDouble(textBoxkTypeFrame.Text);
 
             var inletTempWindow = Convert.ToDouble(textBoxSZask.Text);
+
+            double kV = Tables.kTypeRame[comboBoxTypeRameID];
+
+
+            double p = Convert.ToDouble(comboBoxP.SelectedValue);
+            double c = Convert.ToDouble(textBoxС.Text);
 
             ///
             using SystemContext db = new();
@@ -219,16 +208,15 @@ namespace VentilationCalculator
             //4
             double inputH = InputTempAir;
             double outputH = OutputTempAir;
-            int countTV = 1 + (selectVariant % 2); // парні - 2 телевізора, непарні - 1 телевізор
+
 
             double QpeopleOffice = Heat.HumanBody(new Heatile() { Heat = Qpeople, Count = CountWorkPlace }); // значення беруться із таблиці 19
 
-            double QequirementOffice = Convert.ToDouble(textBoxQobloffce.Text);
-            /*Heat.Equipment(
+            double QequirementOffice = Heat.Equipment(
                 new Heatile() { Heat = QEpc, Count = CountWorkPlace }, //значення із ЛР та кількість ПК. Мабуть, кількість ПК, це кількість робочих місць
                 new Heatile() { Heat = QETV, Count = countTV }, // винести значення HEAT окремо в БД, щоб можна було записувати. Потрібно врахувати, що кількість телевізорів залежить від вибраного варіанту. На початку ЛР це пише
                 new Heatile() { Heat = QEEquiment, Count = Convert.ToInt32(Math.Floor(CountWorkPlace * (CountPrinterProcent / 100.0))) }
-            );*/
+            );
 
 
 
@@ -241,12 +229,11 @@ namespace VentilationCalculator
                 );
 
             double QSumOffice = QpeopleOffice + QequirementOffice + QaverageOffice;// воно в Квт
-            double QSumServer = Convert.ToDouble(textBoxQoblserver.Text);
-            /*Heat.Equipment(
+            double QSumServer = Heat.Equipment(
             new Heatile() { Count = CountServer, Heat = QEServer }, // значення heat винести в БД
             new Heatile(),
             new Heatile()
-            );// воно в Квт*/
+            );// воно в Квт
 
             double HeatExchangeRateOffice = AirExchange.GetHeatExchangeRate(QSumOffice, p, c, outputH, inputH);
             double HeatExchangeRateServer = AirExchange.GetHeatExchangeRate(QSumServer, p, c, outputH, inputH);
@@ -290,7 +277,7 @@ namespace VentilationCalculator
             labelAirMoistureExchangeOffce.Text = ResultText.labelAirMoistureExchangeOffce.Replace(templateText, AirMoistureExchangeOffce.ToString());
             //3
             labelAirExchangeFromCO2Concentration.Text = ResultText.labelAirExchangeFromCO2Concentration.Replace(templateText, AirExchangeFromCO2Concentration.ToString());
-            //4
+
             labelQpeopleOffice.Text = ResultText.labelQpeopleOffice.Replace(templateText, QpeopleOffice.ToString());
             labelQequirementOffice.Text = ResultText.labelQequirementOffice.Replace(templateText, QequirementOffice.ToString());
             labelQaverageOffice.Text = ResultText.labelQaverageOffice.Replace(templateText, QaverageOffice.ToString());
@@ -309,6 +296,7 @@ namespace VentilationCalculator
             labelBetweenNeedWatOffice.Text = ResultText.labelBetweenNeedWatOffice.Replace(templateText_2, maxNeedWatOffice.ToString());
             labelBeetwenNeedWatServerRoom.Text = ResultText.labelBeetwenNeedWatServerRoom.Replace(templateText_1, minNeedWatServerRoom.ToString());
             labelBeetwenNeedWatServerRoom.Text = ResultText.labelBeetwenNeedWatServerRoom.Replace(templateText_2, maxNeedWatServerRoom.ToString());
+
         }
 
         private void ToolStripMenuCreateMenu_Click(object sender, EventArgs e)
@@ -352,13 +340,6 @@ namespace VentilationCalculator
 
         }
 
-        private void таблицяТипуРамToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using SystemContext db = new();
-
-            var automatization = new Automatization<TypeFrameTable>(db, db.TypeFrame);
-            automatization.ShowTables(Variants);
-        }
 
         private void tableLayoutPanel4_Paint(object sender, PaintEventArgs e)
         {
@@ -395,14 +376,14 @@ namespace VentilationCalculator
                 textBoxminAirExchangeRateServer.Text = selectObject.ServerAir.ToString();
                 textBoxAirNormaltileBetween.Text = selectObject.OutputAir.ToString(); // значення, вибране при відповідній роботі відповідних межах
 
-                textBoxCO2AirConcentrationLimit.Text = selectObject.TimeSavePlace.ToString(); // Винести із БД.
+                //textBoxCO2AirConcentrationLimit.Text = selectObject.TimeSavePlace.ToString(); // Винести із БД.
 
-                textBoxCO2InLetAirConcentrationLimit.Text = selectObject.Concetration.ToString(); // Значення брати із таблиці міст. Залежить, яке місто вибрано. В даному випадку, Хмельницький. Потрібно також знати кількість населення(чи село, чи місто). Розмір населення, < 300000 осіб. 
-                textBoxGCO2.Text = selectObject.GCO2.ToString();
+                //textBoxCO2InLetAirConcentrationLimit.Text = selectObject.Concetration.ToString(); // Значення брати із таблиці міст. Залежить, яке місто вибрано. В даному випадку, Хмельницький. Потрібно також знати кількість населення(чи село, чи місто). Розмір населення, < 300000 осіб. 
+                //textBoxGCO2.Text = selectObject.GCO2.ToString();
 
 
 
-                textBoxQpeople.Text = selectObject.OutputTempPeople.ToString();
+                //textBoxQpeople.Text = selectObject.OutputTempPeople.ToString();
                 /*                textBoxQEpc.Text = selectObject.OutputTempPC.ToString();
                                 textBoxQETV.Text = selectObject.OutputTempTV.ToString();
                                 textBoxQEEquiment.Text = selectObject.OutputTempAnother.ToString();
@@ -410,14 +391,14 @@ namespace VentilationCalculator
 
                 textBoxSZask.Text = selectObject.InputTempSolar.ToString();
 
-                textBoxQZask.Text = selectObject.Zask.ToString();
+                //textBoxQZask.Text = selectObject.Zask.ToString();
 
-                textBoxValueFromTable18.Text = selectObject.MaterialPFromTable.ToString(); // таблиця 18.
+                //textBoxValueFromTable18.Text = selectObject.MaterialPFromTable.ToString(); // таблиця 18.
                 textBoxС.Text = selectObject.ReplaceTempC.ToString(); // це значення стале. Значення від 0 до 70 С. Занести в БД
 
                 checkBox1.Checked = Convert.ToBoolean(selectObject.SaveMaterialSolar);
 
-                textBoxkTypeFrame.Text = selectObject.CoefK.ToString();
+                //textBoxkTypeFrame.Text = selectObject.CoefK.ToString();
 
 
             }
@@ -467,12 +448,12 @@ namespace VentilationCalculator
             inputData.ServerAir = Convert.ToDouble(textBoxminAirExchangeRateServer.Text);
             inputData.OutputAir = Convert.ToDouble(textBoxAirNormaltileBetween.Text); // значення, вибране при відповідній роботі відповідних межах
 
-            inputData.TimeSavePlace = Convert.ToDouble(textBoxCO2AirConcentrationLimit.Text); // Винести із БД.
+            //inputData.TimeSavePlace = Convert.ToDouble(textBoxCO2AirConcentrationLimit.Text); // Винести із БД.
 
-            inputData.Concetration = Convert.ToInt64(textBoxCO2InLetAirConcentrationLimit.Text); // Значення брати із таблиці міст. Залежить, яке місто вибрано. В даному випадку, Хмельницький. Потрібно також знати кількість населення(чи село, чи місто). Розмір населення, < 300000 осіб. 
-            inputData.GCO2 = Convert.ToDouble(textBoxGCO2.Text);
+            //inputData.Concetration = Convert.ToInt64(textBoxCO2InLetAirConcentrationLimit.Text); // Значення брати із таблиці міст. Залежить, яке місто вибрано. В даному випадку, Хмельницький. Потрібно також знати кількість населення(чи село, чи місто). Розмір населення, < 300000 осіб. 
+            //inputData.GCO2 = Convert.ToDouble(textBoxGCO2.Text);
 
-            inputData.OutputTempPeople = Convert.ToDouble(textBoxQpeople.Text);
+            //inputData.OutputTempPeople = Convert.ToDouble(textBoxQpeople.Text);
             /*            inputData.OutputTempPC = Convert.ToDouble(textBoxQEpc.Text);
                         inputData.OutputTempTV = Convert.ToDouble(textBoxQETV.Text);
                         inputData.OutputTempAnother = Convert.ToDouble(textBoxQEEquiment.Text);
@@ -480,14 +461,14 @@ namespace VentilationCalculator
 
             inputData.InputTempSolar = Convert.ToDouble(textBoxSZask.Text);
 
-            inputData.Zask = Convert.ToDouble(textBoxQZask.Text);
+            //inputData.Zask = Convert.ToDouble(textBoxQZask.Text);
 
-            inputData.MaterialPFromTable = Convert.ToDouble(textBoxValueFromTable18.Text); // таблиця 18.
+            //inputData.MaterialPFromTable = Convert.ToDouble(textBoxValueFromTable18.Text); // таблиця 18.
             inputData.ReplaceTempC = Convert.ToDouble(textBoxС.Text); // це значення стале. Значення від 0 до 70 С. Занести в БД
 
             inputData.SaveMaterialSolar = checkBox1.Checked;
 
-            inputData.CoefK = Convert.ToDouble(textBoxkTypeFrame.Text);
+            //inputData.CoefK = Convert.ToDouble(textBoxkTypeFrame.Text);
 
 
         }
