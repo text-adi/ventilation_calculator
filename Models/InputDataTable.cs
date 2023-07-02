@@ -34,22 +34,20 @@ public partial class InputDataTable
     public double OutputAir { get; set; }
 
     // 3. Гранично допустима концетрація
-    public double TimeSavePlace { get; set; }
-    public long Concetration { get; set; }
-    public double GCO2 { get; set; }
-    //4
-
-    public double OutputTempPeople { get; set; }
+    public int comboBoxCategoryWork { get; set; }
+    public int comboBoxRoom { get; set; }
+    public int textBoxPeopleInCity { get; set; }
+    public int comboBoxTypeRame { get; set; }
+    public int comboBoxWord { get; set; }
+    public int comboBoxP { get; set; }
 
     //
-    public double Zask { get; set; }
     //
     public double InputTempSolar { get; set; }
 
     //
-    public double CoefK { get; set; }
+
     public bool SaveMaterialSolar { get; set; }
-    public double MaterialPFromTable { get; set; }
     public double ReplaceTempC { get; set; }
 
     public static implicit operator InputDataTable(string v)

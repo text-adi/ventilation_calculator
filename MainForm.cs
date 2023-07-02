@@ -10,9 +10,12 @@ namespace VentilationCalculator
 {
     public partial class MainForm : Form
     {
+        static string catogoryWorkStatic = "";
         public MainForm()
         {
             InitializeComponent();
+            using var context = new SystemContext();
+            context.Database.Migrate();
 
             string displayMember = "Name";
             comboBoxCategoryWork.DataSource = Tables.categoryWorks;
@@ -44,6 +47,7 @@ namespace VentilationCalculator
             textBoxCountWorkPlace.BringToFront();
             textBoxAverageRoomTemperature.BringToFront();
             //2
+
 
         }
 
@@ -120,6 +124,7 @@ namespace VentilationCalculator
             // Інші вхідні дані
             double minAirExchangeRateOffice = Convert.ToDouble(textBoxminAirExchangeRateOffice.Text);
             double minAirExchangeRateServer = Convert.ToDouble(textBoxminAirExchangeRateServer.Text);
+
             double airNormaltileBetween = Convert.ToDouble(textBoxAirNormaltileBetween.Text); // значення, вибране при відповідній роботі відповідних межах
 
             var comboBoxRoomItem = (Duo)comboBoxRoom.SelectedItem;
@@ -129,7 +134,7 @@ namespace VentilationCalculator
             int comboBoxTypeRameID = comboBoxTypeRameItem.ID;
 
             var comboBoxWordItem = (Duo)comboBoxWord.SelectedItem;
-            int comboBoxWordValue = Convert.ToInt32( comboBoxWordItem.Value);
+            int comboBoxWordValue = Convert.ToInt32(comboBoxWordItem.Value);
 
 
             // For office L
@@ -180,8 +185,9 @@ namespace VentilationCalculator
             double kV = Tables.kTypeRame[comboBoxTypeRameID];
 
 
-            double p = Convert.ToDouble(comboBoxP.SelectedValue);
-            double c = Convert.ToDouble(textBoxС.Text);
+            double p = Tables.Table18P[(int)targetTemp][(int)comboBoxP.SelectedValue];
+            //double c = Convert.ToDouble(textBoxС.Text);
+            double c = 1.005;
 
             ///
             using SystemContext db = new();
@@ -196,8 +202,6 @@ namespace VentilationCalculator
             //2 - Необхідна кратність повітря
             double Loffice = AirExchange.GetAirExchangeRate(Voffice, minAirExchangeRateOffice);
             double LServer = AirExchange.GetAirExchangeRate(Vserver, minAirExchangeRateServer);
-            var airNormal = "20-25"; // не використовується
-                                     // при виділені вологи
             double AirMoistureExchangeOffce = AirExchange.GetAirMoistureExchange(airNormaltileBetween, CountWorkPlace);
 
             //3
@@ -266,6 +270,7 @@ namespace VentilationCalculator
             double minNeedWatServerRoom = QSumServer - QSumServer * 0.05;
             double maxNeedWatServerRoom = QSumServer + QSumServer * 0.15;
 
+
             //Result
             //1
             string templateText = ResultText.TEMPLATETEXT;
@@ -284,18 +289,50 @@ namespace VentilationCalculator
 
             labelQSumOffice.Text = ResultText.labelQSumOffice.Replace(templateText, QSumOffice.ToString());
             labelQoblServerRoom.Text = ResultText.labelQoblServerRoom.Replace(templateText, QSumServer.ToString());
+            //  CO2AirConcentrationLimit, CO2InLetAirConcentrationLimit
+            labelInfoCity.Text = ResultText.labelInfoCity.Replace(templateText, CO2InLetAirConcentrationLimit.ToString());
 
             labelNeedWatOffice.Text = ResultText.labelNeedWatOffice.Replace(templateText, NeedWatOffice.ToString());
             labelNeedWatServerRoom.Text = ResultText.labelNeedWatServerRoom.Replace(templateText, NeedWatServerRoom.ToString());
             //5
 
-            string templateText_1 = "INT_VALUE_1";
-            string templateText_2 = "INT_VALUE_2";
+            string templateText_1 = "{INT_VALUE_1}";
+            string templateText_2 = "{INT_VALUE_2}";
 
             labelBetweenNeedWatOffice.Text = ResultText.labelBetweenNeedWatOffice.Replace(templateText_1, minNeedWatOffice.ToString());
-            labelBetweenNeedWatOffice.Text = ResultText.labelBetweenNeedWatOffice.Replace(templateText_2, maxNeedWatOffice.ToString());
+            labelBetweenNeedWatOffice.Text = labelBetweenNeedWatOffice.Text.Replace(templateText_2, maxNeedWatOffice.ToString());
             labelBeetwenNeedWatServerRoom.Text = ResultText.labelBeetwenNeedWatServerRoom.Replace(templateText_1, minNeedWatServerRoom.ToString());
-            labelBeetwenNeedWatServerRoom.Text = ResultText.labelBeetwenNeedWatServerRoom.Replace(templateText_2, maxNeedWatServerRoom.ToString());
+            labelBeetwenNeedWatServerRoom.Text = labelBeetwenNeedWatServerRoom.Text.Replace(templateText_2, maxNeedWatServerRoom.ToString());
+
+
+            var value = NeedVentilator.GetVariadnVentialot(QSumOffice, minNeedWatOffice, maxNeedWatOffice);
+            if (value.Need != null)
+            {
+                labelResultOffice.Text = SelectText.labelResult.Replace("{SELECT}", value.Need.Power.ToString());
+                labelResultOffice.Text = labelResultOffice.Text.Replace("{SELECT_1}", value.Count.ToString());
+                labelResultOffice.Text = labelResultOffice.Text.Replace("{PRICE}", value.Need.Price.ToString());
+                labelResultOffice.Text = labelResultOffice.Text.Replace("{PRICE_1}", Convert.ToString(value.Need.Price * value.Count));
+                pictureBoxOffice.Image = Image.FromFile(value.Need.PathToFile);
+            }
+            else
+            {
+                pictureBoxOffice.Image = null;
+
+            }
+            var valueServer = NeedVentilator.GetVariadnVentialot(QSumServer, minNeedWatServerRoom, maxNeedWatServerRoom);
+
+            if (valueServer.Need != null)
+            {
+                labelResultServerRoom.Text = SelectText.labelResult.Replace("{SELECT}", valueServer.Need.Power.ToString());
+                labelResultServerRoom.Text = labelResultServerRoom.Text.Replace("{SELECT_1}", valueServer.Count.ToString());
+                labelResultServerRoom.Text = labelResultServerRoom.Text.Replace("{PRICE}", valueServer.Need.Price.ToString());
+                labelResultServerRoom.Text = labelResultServerRoom.Text.Replace("{PRICE_1}", Convert.ToString(valueServer.Need.Price * value.Count));
+                pictureBoxOffice.Image = Image.FromFile(valueServer.Need.PathToFile);
+            }
+            else
+            {
+                pictureBoxServerRoom.Image = null;
+            }
 
         }
 
@@ -307,44 +344,7 @@ namespace VentilationCalculator
         }
 
 
-        /// <summary>
-        /// Валідатор даних для поля із процентами
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public void textBoxProcent_TextChanged(object sender, EventArgs e)
-        {
-            TextBox textBox = (TextBox)sender;
-            Validation.intNumberFilter(textBox);
-            Validation.limitValue(textBox, 100);
 
-        }
-        public void textBox_TextChanged_Compass(object sender, EventArgs e)
-        {
-            TextBox textBox = (TextBox)sender;
-            Validation.intNumberFilter(textBox);
-            Validation.limitValue(textBox, 360);
-
-        }
-        public void textBox_TextChanged_intValue(object sender, EventArgs e)
-        {
-            TextBox textBox = (TextBox)sender;
-            Validation.intNumberFilter(textBox);
-            Validation.limitValue(textBox, 100);
-
-        }
-        public void textBox_TextChanged_floatFilter(object sender, EventArgs e)
-        {
-            TextBox textBox = (TextBox)sender;
-            Validation.floatNumberFilter(textBox);
-
-        }
-
-
-        private void tableLayoutPanel4_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
         private void WriteAllTextBox()
         {
             DialogResult result = MessageBox.Show("Заповнення даних із БД замінить уже введені дані. Продовжити?", "Заповнення даних", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -374,31 +374,27 @@ namespace VentilationCalculator
                 // Інші вхідні дані
                 textBoxminAirExchangeRateOffice.Text = selectObject.OfficeAir.ToString();
                 textBoxminAirExchangeRateServer.Text = selectObject.ServerAir.ToString();
+
+                comboBoxCategoryWork.SelectedIndex = selectObject.comboBoxCategoryWork;
+
                 textBoxAirNormaltileBetween.Text = selectObject.OutputAir.ToString(); // значення, вибране при відповідній роботі відповідних межах
 
-                //textBoxCO2AirConcentrationLimit.Text = selectObject.TimeSavePlace.ToString(); // Винести із БД.
+                comboBoxRoom.SelectedIndex = selectObject.comboBoxRoom;
 
-                //textBoxCO2InLetAirConcentrationLimit.Text = selectObject.Concetration.ToString(); // Значення брати із таблиці міст. Залежить, яке місто вибрано. В даному випадку, Хмельницький. Потрібно також знати кількість населення(чи село, чи місто). Розмір населення, < 300000 осіб. 
-                //textBoxGCO2.Text = selectObject.GCO2.ToString();
-
-
-
-                //textBoxQpeople.Text = selectObject.OutputTempPeople.ToString();
-                /*                textBoxQEpc.Text = selectObject.OutputTempPC.ToString();
-                                textBoxQETV.Text = selectObject.OutputTempTV.ToString();
-                                textBoxQEEquiment.Text = selectObject.OutputTempAnother.ToString();
-                                textBoxQEServer.Text = selectObject.OutputTempServer.ToString();*/
+                textBoxPeopleInCity.Text = selectObject.textBoxPeopleInCity.ToString();
 
                 textBoxSZask.Text = selectObject.InputTempSolar.ToString();
+                comboBoxTypeRame.SelectedIndex = selectObject.comboBoxTypeRame;
 
-                //textBoxQZask.Text = selectObject.Zask.ToString();
+                comboBoxWord.SelectedIndex = selectObject.comboBoxWord;
+                comboBoxP.SelectedIndex = selectObject.comboBoxP;
 
-                //textBoxValueFromTable18.Text = selectObject.MaterialPFromTable.ToString(); // таблиця 18.
-                textBoxС.Text = selectObject.ReplaceTempC.ToString(); // це значення стале. Значення від 0 до 70 С. Занести в БД
+
+                //textBoxС.Text = selectObject.ReplaceTempC.ToString(); // це значення стале. Значення від 0 до 70 С. Занести в БД
 
                 checkBox1.Checked = Convert.ToBoolean(selectObject.SaveMaterialSolar);
 
-                //textBoxkTypeFrame.Text = selectObject.CoefK.ToString();
+
 
 
             }
@@ -430,7 +426,7 @@ namespace VentilationCalculator
             inputData.VariantId = Convert.ToInt64(numericUpDownVariant.Value);
 
             inputData.CountPrinter = Convert.ToInt64(textBoxCountPrinter.Text);
-            inputData.CountServer = Convert.ToInt64(textBoxCountPrinter.Text);
+            inputData.CountServer = Convert.ToInt64(textBoxCountServer.Text);
             inputData.WidthRoomServer = Convert.ToDouble(textBoxWidthServerRoom.Text);
             inputData.LengthRoomServer = Convert.ToDouble(textBoxLengthServerRoom.Text);
 
@@ -443,33 +439,33 @@ namespace VentilationCalculator
             inputData.CountPlace = Convert.ToInt64(textBoxCountWorkPlace.Text);
             inputData.AvgTemp = Convert.ToInt64(textBoxAverageRoomTemperature.Text);// це значення ще буде використовуватися для обрахунків
 
+
+
             // Інші вхідні дані
             inputData.OfficeAir = Convert.ToDouble(textBoxminAirExchangeRateOffice.Text);
             inputData.ServerAir = Convert.ToDouble(textBoxminAirExchangeRateServer.Text);
+
+            inputData.comboBoxCategoryWork = comboBoxCategoryWork.SelectedIndex;
+
             inputData.OutputAir = Convert.ToDouble(textBoxAirNormaltileBetween.Text); // значення, вибране при відповідній роботі відповідних межах
 
-            //inputData.TimeSavePlace = Convert.ToDouble(textBoxCO2AirConcentrationLimit.Text); // Винести із БД.
+            inputData.comboBoxRoom = comboBoxRoom.SelectedIndex;
 
-            //inputData.Concetration = Convert.ToInt64(textBoxCO2InLetAirConcentrationLimit.Text); // Значення брати із таблиці міст. Залежить, яке місто вибрано. В даному випадку, Хмельницький. Потрібно також знати кількість населення(чи село, чи місто). Розмір населення, < 300000 осіб. 
-            //inputData.GCO2 = Convert.ToDouble(textBoxGCO2.Text);
-
-            //inputData.OutputTempPeople = Convert.ToDouble(textBoxQpeople.Text);
-            /*            inputData.OutputTempPC = Convert.ToDouble(textBoxQEpc.Text);
-                        inputData.OutputTempTV = Convert.ToDouble(textBoxQETV.Text);
-                        inputData.OutputTempAnother = Convert.ToDouble(textBoxQEEquiment.Text);
-                        inputData.OutputTempServer = Convert.ToDouble(textBoxQEServer.Text);*/
+            inputData.textBoxPeopleInCity = Convert.ToInt32(textBoxPeopleInCity.Text);
 
             inputData.InputTempSolar = Convert.ToDouble(textBoxSZask.Text);
 
-            //inputData.Zask = Convert.ToDouble(textBoxQZask.Text);
+            inputData.comboBoxTypeRame = comboBoxTypeRame.SelectedIndex;
 
-            //inputData.MaterialPFromTable = Convert.ToDouble(textBoxValueFromTable18.Text); // таблиця 18.
-            inputData.ReplaceTempC = Convert.ToDouble(textBoxС.Text); // це значення стале. Значення від 0 до 70 С. Занести в БД
+            inputData.comboBoxWord = comboBoxWord.SelectedIndex;
+
+            inputData.comboBoxP = comboBoxP.SelectedIndex;
+
+            //inputData.ReplaceTempC = Convert.ToDouble(textBoxС.Text); // це значення стале. Значення від 0 до 70 С. Занести в БД
 
             inputData.SaveMaterialSolar = checkBox1.Checked;
 
-            //inputData.CoefK = Convert.ToDouble(textBoxkTypeFrame.Text);
-
+            UpdateTextBox();
 
         }
 
@@ -553,6 +549,141 @@ namespace VentilationCalculator
         private void оновитиToolStripMenuItem_Click(object sender, EventArgs e)
         {
             UpdateListVariant();
+        }
+        private void UpdateTextBox()
+        {
+            string templateText = "{SELECT}";
+            var comboBoxRoomItem = (Duo)comboBoxRoom.SelectedItem;
+            if (comboBoxRoomItem != null)
+                labelYgdk.Text = SelectText.labelYgdk.Replace(templateText, comboBoxRoomItem.Value.ToString());
+
+            var comboBoxCategoryWorkItem = (CategoryWork)comboBoxCategoryWork.SelectedItem;
+            labelSelectCategoryWork.Text = SelectText.labelSelectCategoryWork.Replace(templateText, Tables.CO2Output[comboBoxCategoryWorkItem.Level].ToString());
+
+            int countPeopleInCity = Convert.ToInt32(textBoxPeopleInCity.Text);
+            foreach (var item in Tables.Table17City)
+            {
+                if (item.People >= countPeopleInCity)
+                {
+                    labelCity.Text = SelectText.labelCity.Replace(templateText, item.Name.ToString());
+                    labelCO2Concetracion.Text = SelectText.labelCO2Concetracion.Replace(templateText, item.Value.ToString());
+                    break;
+                }
+            }
+        }
+        private void comboBoxRoom_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                UpdateTextBox();
+            }
+            catch (Exception)
+            {
+                return;
+            }
+
+
+        }
+
+        private void comboBoxCategoryWork_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                var comboBoxCategoryWorkItem = (CategoryWork)comboBoxCategoryWork.SelectedItem;
+                catogoryWorkStatic = Tables.AirNormal[comboBoxCategoryWorkItem.Level];
+                updatetextBoxAirNormaltileBetween();
+                UpdateTextBox();
+
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+
+        private void textBoxPeopleInCity_Leave(object sender, EventArgs e)
+        {
+            try
+            {
+                UpdateTextBox();
+            }
+            catch (Exception)
+            {
+                return;
+            }
+
+
+        }
+
+        private void textBoxPeopleInCity_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                UpdateTextBox();
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+
+
+        private void textBox_IntLeave(object sender, EventArgs e)
+        {
+            new Validator(sender).Leave(e);
+        }
+
+        private void textBox_IntKeyPress(object sender, KeyPressEventArgs e)
+        {
+            new IntValidator(sender).KeyPress(e);
+        }
+        private void textBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            new Validator(sender).KeyPress(e);
+        }
+
+
+        private void textBoxCountPrinter_KeyUp(object sender, KeyEventArgs e)
+        {
+            new IntValidator(sender).KeyUP(e, 0, 100);
+        }
+
+        private void textBoxminAirExchangeRateOffice_KeyUp(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        private void textBoxminAirExchangeRateServer_KeyUp(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        private void textBoxAirNormaltileBetween_KeyUp(object sender, KeyEventArgs e)
+        {
+
+
+        }
+
+        private void textBoxminAirExchangeRateOffice_Leave(object sender, EventArgs e)
+        {
+            new Validator(sender).KeyUP(5, 7);
+        }
+
+        private void textBoxminAirExchangeRateServer_Leave(object sender, EventArgs e)
+        {
+            new Validator(sender).KeyUP(5, 10);
+        }
+
+
+        private void updatetextBoxAirNormaltileBetween()
+        {
+            string[] parts = catogoryWorkStatic.Split('-');
+
+            new Validator(textBoxAirNormaltileBetween).KeyUP(Convert.ToInt32(parts[0]), Convert.ToInt32(parts[1]));
+        }
+        private void textBoxAirNormaltileBetween_Leave(object sender, EventArgs e)
+        {
+            updatetextBoxAirNormaltileBetween();
         }
     }
 }

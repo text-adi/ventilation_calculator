@@ -91,8 +91,6 @@
             panel3 = new Panel();
             groupBox6 = new GroupBox();
             comboBoxP = new ComboBox();
-            textBoxС = new TextBox();
-            label19 = new Label();
             label17 = new Label();
             groupBox5 = new GroupBox();
             comboBoxWord = new ComboBox();
@@ -104,10 +102,10 @@
             label16 = new Label();
             panel2 = new Panel();
             groupBox3 = new GroupBox();
-            label22 = new Label();
-            label21 = new Label();
-            label15 = new Label();
-            label14 = new Label();
+            labelSelectCategoryWork = new Label();
+            labelCO2Concetracion = new Label();
+            labelYgdk = new Label();
+            labelCity = new Label();
             label11 = new Label();
             textBoxPeopleInCity = new TextBox();
             label8 = new Label();
@@ -147,14 +145,16 @@
             tabPageViewPicture = new TabPage();
             tableLayoutPanel3 = new TableLayoutPanel();
             panel1 = new Panel();
-            label4 = new Label();
-            comboBox2 = new ComboBox();
             labelBeetwenNeedWatServerRoom = new Label();
             labelBetweenNeedWatOffice = new Label();
             label20 = new Label();
             tableLayoutPanel6 = new TableLayoutPanel();
             panel5 = new Panel();
+            labelResultOffice = new Label();
+            pictureBoxOffice = new PictureBox();
             panel6 = new Panel();
+            labelResultServerRoom = new Label();
+            pictureBoxServerRoom = new PictureBox();
             splitContainer4 = new SplitContainer();
             tableLayoutPanel1 = new TableLayoutPanel();
             groupBox2 = new GroupBox();
@@ -189,6 +189,10 @@
             tableLayoutPanel3.SuspendLayout();
             panel1.SuspendLayout();
             tableLayoutPanel6.SuspendLayout();
+            panel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxOffice).BeginInit();
+            panel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxServerRoom).BeginInit();
             ((System.ComponentModel.ISupportInitialize)splitContainer4).BeginInit();
             splitContainer4.Panel1.SuspendLayout();
             splitContainer4.Panel2.SuspendLayout();
@@ -206,7 +210,7 @@
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(12, 5, 0, 5);
-            menuStrip1.Size = new Size(2325, 55);
+            menuStrip1.Size = new Size(2325, 58);
             menuStrip1.TabIndex = 1;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -214,14 +218,13 @@
             // 
             fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { ToolStripMenuCreateMenu, databaseToolStripMenuItem, toolStripSeparator1, clearToolStripMenuItem });
             fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            fileToolStripMenuItem.Size = new Size(112, 45);
+            fileToolStripMenuItem.Size = new Size(112, 48);
             fileToolStripMenuItem.Text = "Файл";
-            fileToolStripMenuItem.Visible = false;
             // 
             // ToolStripMenuCreateMenu
             // 
             ToolStripMenuCreateMenu.Name = "ToolStripMenuCreateMenu";
-            ToolStripMenuCreateMenu.Size = new Size(387, 54);
+            ToolStripMenuCreateMenu.Size = new Size(448, 54);
             ToolStripMenuCreateMenu.Text = "Створити нову";
             ToolStripMenuCreateMenu.Click += ToolStripMenuCreateMenu_Click;
             // 
@@ -229,8 +232,9 @@
             // 
             databaseToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { importToolStripMenuItem, exportToolStripMenuItem, InputBasicDataToolStripMenuItem });
             databaseToolStripMenuItem.Name = "databaseToolStripMenuItem";
-            databaseToolStripMenuItem.Size = new Size(387, 54);
+            databaseToolStripMenuItem.Size = new Size(448, 54);
             databaseToolStripMenuItem.Text = "База даних";
+            databaseToolStripMenuItem.Visible = false;
             // 
             // importToolStripMenuItem
             // 
@@ -253,14 +257,16 @@
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(384, 6);
+            toolStripSeparator1.Size = new Size(445, 6);
+            toolStripSeparator1.Visible = false;
             // 
             // clearToolStripMenuItem
             // 
             clearToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { історіюВхіднихДанихToolStripMenuItem, усіТаблиціToolStripMenuItem, вхідніДаніДляОбрахункуToolStripMenuItem });
             clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            clearToolStripMenuItem.Size = new Size(387, 54);
+            clearToolStripMenuItem.Size = new Size(448, 54);
             clearToolStripMenuItem.Text = "Очистити ";
+            clearToolStripMenuItem.Visible = false;
             // 
             // історіюВхіднихДанихToolStripMenuItem
             // 
@@ -284,7 +290,7 @@
             // 
             tableToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { Variants, toolStripSeparator2, airExchangeRateTableToolStripMenuItem, cO2ConcentrationTableToolStripMenuItem, toolStripSeparator4, tableOfAirDensityValuesToolStripMenuItem, toolStripSeparator5, heatReleaseTableToolStripMenuItem, toolStripSeparator3, heatTransferFromSolarRadiationThroughGlazedSurfacesToolStripMenuItem, таблицяТипуРамToolStripMenuItem, toolStripSeparator6, VentialtionStripMenuItem1 });
             tableToolStripMenuItem.Name = "tableToolStripMenuItem";
-            tableToolStripMenuItem.Size = new Size(148, 45);
+            tableToolStripMenuItem.Size = new Size(148, 48);
             tableToolStripMenuItem.Text = "Таблиці";
             // 
             // Variants
@@ -378,7 +384,7 @@
             // 
             AnotherOrerationToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveInputData });
             AnotherOrerationToolStripMenuItem.Name = "AnotherOrerationToolStripMenuItem";
-            AnotherOrerationToolStripMenuItem.Size = new Size(243, 45);
+            AnotherOrerationToolStripMenuItem.Size = new Size(243, 48);
             AnotherOrerationToolStripMenuItem.Text = "Додаткові дані";
             // 
             // toolStripMenuItemSaveInputData
@@ -399,7 +405,7 @@
             tabControlData.Margin = new Padding(5);
             tabControlData.Name = "tabControlData";
             tabControlData.SelectedIndex = 0;
-            tabControlData.Size = new Size(2007, 1325);
+            tabControlData.Size = new Size(2007, 1322);
             tabControlData.TabIndex = 0;
             // 
             // tabPageInputData
@@ -410,7 +416,7 @@
             tabPageInputData.Margin = new Padding(5);
             tabPageInputData.Name = "tabPageInputData";
             tabPageInputData.Padding = new Padding(5);
-            tabPageInputData.Size = new Size(1987, 1257);
+            tabPageInputData.Size = new Size(1987, 1254);
             tabPageInputData.TabIndex = 0;
             tabPageInputData.Text = "Вхідні дані";
             tabPageInputData.UseVisualStyleBackColor = true;
@@ -418,7 +424,7 @@
             // buttonWriteData
             // 
             buttonWriteData.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            buttonWriteData.Location = new Point(1725, 1178);
+            buttonWriteData.Location = new Point(1725, 1175);
             buttonWriteData.Margin = new Padding(5);
             buttonWriteData.Name = "buttonWriteData";
             buttonWriteData.Size = new Size(252, 72);
@@ -490,7 +496,8 @@
             textBoxOutputAir.Size = new Size(229, 47);
             textBoxOutputAir.TabIndex = 5;
             textBoxOutputAir.Text = "0";
-            textBoxOutputAir.TextChanged += textBox_TextChanged_floatFilter;
+            textBoxOutputAir.KeyPress += textBox_KeyPress;
+            textBoxOutputAir.Leave += textBox_IntLeave;
             // 
             // textBoxInputAir
             // 
@@ -501,7 +508,8 @@
             textBoxInputAir.Size = new Size(229, 47);
             textBoxInputAir.TabIndex = 4;
             textBoxInputAir.Text = "0";
-            textBoxInputAir.TextChanged += textBox_TextChanged_floatFilter;
+            textBoxInputAir.KeyPress += textBox_KeyPress;
+            textBoxInputAir.Leave += textBox_IntLeave;
             // 
             // labelOutputAir
             // 
@@ -545,7 +553,7 @@
             textBoxLengthServerRoom.Size = new Size(229, 47);
             textBoxLengthServerRoom.TabIndex = 3;
             textBoxLengthServerRoom.Text = "0";
-            textBoxLengthServerRoom.TextChanged += textBox_TextChanged_floatFilter;
+            textBoxLengthServerRoom.KeyPress += textBox_KeyPress;
             // 
             // labelWidthServerRoom
             // 
@@ -567,7 +575,8 @@
             textBoxWidthServerRoom.Size = new Size(229, 47);
             textBoxWidthServerRoom.TabIndex = 2;
             textBoxWidthServerRoom.Text = "0";
-            textBoxWidthServerRoom.TextChanged += textBox_TextChanged_floatFilter;
+            textBoxWidthServerRoom.KeyPress += textBox_KeyPress;
+            textBoxWidthServerRoom.Leave += textBox_IntLeave;
             // 
             // labelCountServer
             // 
@@ -589,7 +598,8 @@
             textBoxCountServer.Size = new Size(229, 47);
             textBoxCountServer.TabIndex = 1;
             textBoxCountServer.Text = "0";
-            textBoxCountServer.TextChanged += textBox_TextChanged_intValue;
+            textBoxCountServer.KeyPress += textBox_IntKeyPress;
+            textBoxCountServer.Leave += textBox_IntLeave;
             // 
             // labelCountPrinterProcent
             // 
@@ -611,7 +621,9 @@
             textBoxCountPrinter.Size = new Size(229, 47);
             textBoxCountPrinter.TabIndex = 0;
             textBoxCountPrinter.Text = "0";
-            textBoxCountPrinter.TextChanged += textBoxProcent_TextChanged;
+            textBoxCountPrinter.KeyPress += textBox_IntKeyPress;
+            textBoxCountPrinter.KeyUp += textBoxCountPrinter_KeyUp;
+            textBoxCountPrinter.Leave += textBox_IntLeave;
             // 
             // groupBoxInputOffice
             // 
@@ -649,13 +661,14 @@
             // textBoxAverageRoomTemperature
             // 
             textBoxAverageRoomTemperature.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            textBoxAverageRoomTemperature.Location = new Point(732, 305);
+            textBoxAverageRoomTemperature.Location = new Point(735, 305);
             textBoxAverageRoomTemperature.Margin = new Padding(5);
             textBoxAverageRoomTemperature.Name = "textBoxAverageRoomTemperature";
-            textBoxAverageRoomTemperature.Size = new Size(206, 47);
+            textBoxAverageRoomTemperature.Size = new Size(203, 47);
             textBoxAverageRoomTemperature.TabIndex = 10;
             textBoxAverageRoomTemperature.Text = "0";
-            textBoxAverageRoomTemperature.TextChanged += textBox_TextChanged_floatFilter;
+            textBoxAverageRoomTemperature.KeyPress += textBox_KeyPress;
+            textBoxAverageRoomTemperature.Leave += textBox_IntLeave;
             // 
             // labelCountWorkPlaceOfficeRoom
             // 
@@ -671,13 +684,14 @@
             // textBoxCountWorkPlace
             // 
             textBoxCountWorkPlace.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            textBoxCountWorkPlace.Location = new Point(735, 235);
+            textBoxCountWorkPlace.Location = new Point(732, 235);
             textBoxCountWorkPlace.Margin = new Padding(5);
             textBoxCountWorkPlace.Name = "textBoxCountWorkPlace";
-            textBoxCountWorkPlace.Size = new Size(206, 47);
+            textBoxCountWorkPlace.Size = new Size(209, 47);
             textBoxCountWorkPlace.TabIndex = 9;
             textBoxCountWorkPlace.Text = "0";
-            textBoxCountWorkPlace.TextChanged += textBox_TextChanged_floatFilter;
+            textBoxCountWorkPlace.KeyPress += textBox_IntKeyPress;
+            textBoxCountWorkPlace.Leave += textBox_IntLeave;
             // 
             // labelHeigthOfficeRoom
             // 
@@ -699,7 +713,8 @@
             textBoxHeigthOfficeRoom.Size = new Size(206, 47);
             textBoxHeigthOfficeRoom.TabIndex = 8;
             textBoxHeigthOfficeRoom.Text = "0";
-            textBoxHeigthOfficeRoom.TextChanged += textBox_TextChanged_floatFilter;
+            textBoxHeigthOfficeRoom.KeyPress += textBox_KeyPress;
+            textBoxHeigthOfficeRoom.Leave += textBox_IntLeave;
             // 
             // labelLengthOfficeRoom
             // 
@@ -721,7 +736,8 @@
             textBoxLengthOfficeRoom.Size = new Size(206, 47);
             textBoxLengthOfficeRoom.TabIndex = 7;
             textBoxLengthOfficeRoom.Text = "0";
-            textBoxLengthOfficeRoom.TextChanged += textBox_TextChanged_floatFilter;
+            textBoxLengthOfficeRoom.KeyPress += textBox_KeyPress;
+            textBoxLengthOfficeRoom.Leave += textBox_IntLeave;
             // 
             // labelWidthOfficeRoom
             // 
@@ -743,7 +759,8 @@
             textBoxWidthOfficeRoom.Size = new Size(204, 47);
             textBoxWidthOfficeRoom.TabIndex = 6;
             textBoxWidthOfficeRoom.Text = "0";
-            textBoxWidthOfficeRoom.TextChanged += textBox_TextChanged_floatFilter;
+            textBoxWidthOfficeRoom.KeyPress += textBox_KeyPress;
+            textBoxWidthOfficeRoom.Leave += textBox_IntLeave;
             // 
             // tabPage1
             // 
@@ -773,7 +790,6 @@
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Absolute, 130F));
             tableLayoutPanel4.Size = new Size(1987, 1257);
             tableLayoutPanel4.TabIndex = 0;
-            tableLayoutPanel4.Paint += tableLayoutPanel4_Paint;
             // 
             // panel3
             // 
@@ -789,8 +805,6 @@
             // groupBox6
             // 
             groupBox6.Controls.Add(comboBoxP);
-            groupBox6.Controls.Add(textBoxС);
-            groupBox6.Controls.Add(label19);
             groupBox6.Controls.Add(label17);
             groupBox6.Dock = DockStyle.Fill;
             groupBox6.Location = new Point(0, 532);
@@ -811,28 +825,6 @@
             comboBoxP.Size = new Size(566, 49);
             comboBoxP.TabIndex = 75;
             comboBoxP.Text = "Не вибрано";
-            // 
-            // textBoxС
-            // 
-            textBoxС.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            textBoxС.Location = new Point(829, 184);
-            textBoxС.Margin = new Padding(5);
-            textBoxС.Name = "textBoxС";
-            textBoxС.Size = new Size(234, 47);
-            textBoxС.TabIndex = 16;
-            textBoxС.Text = "0";
-            textBoxС.TextChanged += textBox_TextChanged_floatFilter;
-            // 
-            // label19
-            // 
-            label19.AutoSize = true;
-            label19.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label19.Location = new Point(28, 190);
-            label19.Margin = new Padding(5, 0, 5, 0);
-            label19.Name = "label19";
-            label19.Size = new Size(380, 41);
-            label19.TabIndex = 65;
-            label19.Text = "С - Теплоємність повітря";
             // 
             // label17
             // 
@@ -920,7 +912,8 @@
             textBoxSZask.Size = new Size(232, 47);
             textBoxSZask.TabIndex = 12;
             textBoxSZask.Text = "0";
-            textBoxSZask.TextChanged += textBox_TextChanged_floatFilter;
+            textBoxSZask.KeyPress += textBox_KeyPress;
+            textBoxSZask.Leave += textBox_IntLeave;
             // 
             // label16
             // 
@@ -946,10 +939,10 @@
             // 
             // groupBox3
             // 
-            groupBox3.Controls.Add(label22);
-            groupBox3.Controls.Add(label21);
-            groupBox3.Controls.Add(label15);
-            groupBox3.Controls.Add(label14);
+            groupBox3.Controls.Add(labelSelectCategoryWork);
+            groupBox3.Controls.Add(labelCO2Concetracion);
+            groupBox3.Controls.Add(labelYgdk);
+            groupBox3.Controls.Add(labelCity);
             groupBox3.Controls.Add(label11);
             groupBox3.Controls.Add(textBoxPeopleInCity);
             groupBox3.Controls.Add(label8);
@@ -965,43 +958,43 @@
             groupBox3.TabStop = false;
             groupBox3.Text = "3. Визначення повітрообміну, залежно від гранично допустимої концентрації вуглекислого газу";
             // 
-            // label22
+            // labelSelectCategoryWork
             // 
-            label22.AutoSize = true;
-            label22.Location = new Point(29, 294);
-            label22.Name = "label22";
-            label22.Size = new Size(573, 82);
-            label22.TabIndex = 74;
-            label22.Text = "При вибраній категорії робіт виділення \r\nC02 становить: Невідома категорія робіт";
+            labelSelectCategoryWork.AutoSize = true;
+            labelSelectCategoryWork.Location = new Point(29, 294);
+            labelSelectCategoryWork.Name = "labelSelectCategoryWork";
+            labelSelectCategoryWork.Size = new Size(696, 82);
+            labelSelectCategoryWork.TabIndex = 74;
+            labelSelectCategoryWork.Text = "Уп – вміст газу у припливному повітрі: \r\nНевідоме приміщення в якому знаходяться люди";
             // 
-            // label21
+            // labelCO2Concetracion
             // 
-            label21.AutoSize = true;
-            label21.Location = new Point(27, 629);
-            label21.Name = "label21";
-            label21.Size = new Size(606, 82);
-            label21.TabIndex = 73;
-            label21.Text = "Концетрація фуглекислого газу становить: \r\nНевідомий населений пункт";
+            labelCO2Concetracion.AutoSize = true;
+            labelCO2Concetracion.Location = new Point(27, 629);
+            labelCO2Concetracion.Name = "labelCO2Concetracion";
+            labelCO2Concetracion.Size = new Size(606, 82);
+            labelCO2Concetracion.TabIndex = 73;
+            labelCO2Concetracion.Text = "Концетрація фуглекислого газу становить: \r\nНевідомий населений пункт";
             // 
-            // label15
+            // labelYgdk
             // 
-            label15.AutoSize = true;
-            label15.Location = new Point(36, 403);
-            label15.Name = "label15";
-            label15.Size = new Size(845, 41);
-            label15.TabIndex = 72;
-            label15.Text = "Угдк - гранично допустима конц...: Невідома категорія робіт";
+            labelYgdk.AutoSize = true;
+            labelYgdk.Location = new Point(29, 376);
+            labelYgdk.Name = "labelYgdk";
+            labelYgdk.Size = new Size(575, 82);
+            labelYgdk.TabIndex = 72;
+            labelYgdk.Text = "Угдк - вміст газу у припливному повітрі: \r\nНевідома категорія робіт";
             // 
-            // label14
+            // labelCity
             // 
-            label14.AutoSize = true;
-            label14.ImageAlign = ContentAlignment.MiddleRight;
-            label14.Location = new Point(452, 566);
-            label14.Name = "label14";
-            label14.Size = new Size(431, 41);
-            label14.TabIndex = 71;
-            label14.Text = "Невідома кількість  населення";
-            label14.TextAlign = ContentAlignment.MiddleCenter;
+            labelCity.AutoSize = true;
+            labelCity.ImageAlign = ContentAlignment.MiddleRight;
+            labelCity.Location = new Point(452, 566);
+            labelCity.Name = "labelCity";
+            labelCity.Size = new Size(431, 41);
+            labelCity.TabIndex = 71;
+            labelCity.Text = "Невідома кількість  населення";
+            labelCity.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label11
             // 
@@ -1020,6 +1013,8 @@
             textBoxPeopleInCity.Size = new Size(250, 47);
             textBoxPeopleInCity.TabIndex = 69;
             textBoxPeopleInCity.Text = "0";
+            textBoxPeopleInCity.KeyPress += textBox_IntKeyPress;
+            textBoxPeopleInCity.Leave += textBox_IntLeave;
             // 
             // label8
             // 
@@ -1049,6 +1044,7 @@
             comboBoxRoom.Size = new Size(849, 49);
             comboBoxRoom.TabIndex = 62;
             comboBoxRoom.Text = "Не вибрано";
+            comboBoxRoom.SelectedIndexChanged += comboBoxRoom_SelectedIndexChanged;
             // 
             // groupBox1
             // 
@@ -1080,7 +1076,9 @@
             textBoxAirNormaltileBetween.Size = new Size(249, 47);
             textBoxAirNormaltileBetween.TabIndex = 2;
             textBoxAirNormaltileBetween.Text = "0";
-            textBoxAirNormaltileBetween.TextChanged += textBox_TextChanged_floatFilter;
+            textBoxAirNormaltileBetween.KeyPress += textBox_KeyPress;
+            textBoxAirNormaltileBetween.KeyUp += textBoxAirNormaltileBetween_KeyUp;
+            textBoxAirNormaltileBetween.Leave += textBoxAirNormaltileBetween_Leave;
             // 
             // label3
             // 
@@ -1102,7 +1100,9 @@
             textBoxminAirExchangeRateServer.Size = new Size(249, 47);
             textBoxminAirExchangeRateServer.TabIndex = 1;
             textBoxminAirExchangeRateServer.Text = "0";
-            textBoxminAirExchangeRateServer.TextChanged += textBox_TextChanged_floatFilter;
+            textBoxminAirExchangeRateServer.KeyPress += textBox_KeyPress;
+            textBoxminAirExchangeRateServer.KeyUp += textBoxminAirExchangeRateServer_KeyUp;
+            textBoxminAirExchangeRateServer.Leave += textBoxminAirExchangeRateServer_Leave;
             // 
             // textBoxminAirExchangeRateOffice
             // 
@@ -1113,7 +1113,9 @@
             textBoxminAirExchangeRateOffice.Size = new Size(249, 47);
             textBoxminAirExchangeRateOffice.TabIndex = 0;
             textBoxminAirExchangeRateOffice.Text = "0";
-            textBoxminAirExchangeRateOffice.TextChanged += textBox_TextChanged_floatFilter;
+            textBoxminAirExchangeRateOffice.KeyPress += textBox_KeyPress;
+            textBoxminAirExchangeRateOffice.KeyUp += textBoxminAirExchangeRateOffice_KeyUp;
+            textBoxminAirExchangeRateOffice.Leave += textBoxminAirExchangeRateOffice_Leave;
             // 
             // label2
             // 
@@ -1156,6 +1158,7 @@
             comboBoxCategoryWork.Size = new Size(242, 49);
             comboBoxCategoryWork.TabIndex = 67;
             comboBoxCategoryWork.Text = "Не вибрано";
+            comboBoxCategoryWork.SelectedIndexChanged += comboBoxCategoryWork_SelectedIndexChanged;
             // 
             // panel4
             // 
@@ -1374,9 +1377,9 @@
             labelInfoCity.Location = new Point(35, 98);
             labelInfoCity.Margin = new Padding(2, 0, 2, 0);
             labelInfoCity.Name = "labelInfoCity";
-            labelInfoCity.Size = new Size(990, 82);
+            labelInfoCity.Size = new Size(691, 41);
             labelInfoCity.TabIndex = 0;
-            labelInfoCity.Text = "Місто/У місті \"Не вказано\". Населення: \"Не вказано\" чол. (Не вибрано)\r\nГранична концентрація \"Не обраховано\" л/м^3\"";
+            labelInfoCity.Text = "Гранична концентрація \"Не обраховано\" л/м^3\"";
             // 
             // groupBox7
             // 
@@ -1441,8 +1444,6 @@
             // 
             // panel1
             // 
-            panel1.Controls.Add(label4);
-            panel1.Controls.Add(comboBox2);
             panel1.Controls.Add(labelBeetwenNeedWatServerRoom);
             panel1.Controls.Add(labelBetweenNeedWatOffice);
             panel1.Controls.Add(label20);
@@ -1452,28 +1453,10 @@
             panel1.Size = new Size(1971, 243);
             panel1.TabIndex = 5;
             // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(1753, 111);
-            label4.Name = "label4";
-            label4.Size = new Size(321, 41);
-            label4.TabIndex = 5;
-            label4.Text = "Комбінації вентиляцій";
-            // 
-            // comboBox2
-            // 
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new Point(1753, 173);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(321, 49);
-            comboBox2.TabIndex = 4;
-            comboBox2.Text = "Не вибрано";
-            // 
             // labelBeetwenNeedWatServerRoom
             // 
             labelBeetwenNeedWatServerRoom.AutoSize = true;
-            labelBeetwenNeedWatServerRoom.Location = new Point(17, 191);
+            labelBeetwenNeedWatServerRoom.Location = new Point(17, 140);
             labelBeetwenNeedWatServerRoom.Margin = new Padding(2, 0, 2, 0);
             labelBeetwenNeedWatServerRoom.Name = "labelBeetwenNeedWatServerRoom";
             labelBeetwenNeedWatServerRoom.Size = new Size(1494, 41);
@@ -1483,7 +1466,7 @@
             // labelBetweenNeedWatOffice
             // 
             labelBetweenNeedWatOffice.AutoSize = true;
-            labelBetweenNeedWatOffice.Location = new Point(17, 111);
+            labelBetweenNeedWatOffice.Location = new Point(17, 87);
             labelBetweenNeedWatOffice.Margin = new Padding(2, 0, 2, 0);
             labelBetweenNeedWatOffice.Name = "labelBetweenNeedWatOffice";
             labelBetweenNeedWatOffice.Size = new Size(1429, 41);
@@ -1517,24 +1500,65 @@
             // 
             // panel5
             // 
+            panel5.Controls.Add(labelResultOffice);
+            panel5.Controls.Add(pictureBoxOffice);
             panel5.Dock = DockStyle.Fill;
             panel5.Location = new Point(3, 3);
             panel5.Name = "panel5";
             panel5.Size = new Size(979, 986);
             panel5.TabIndex = 0;
             // 
+            // labelResultOffice
+            // 
+            labelResultOffice.AutoSize = true;
+            labelResultOffice.Location = new Point(14, 15);
+            labelResultOffice.Name = "labelResultOffice";
+            labelResultOffice.Size = new Size(511, 82);
+            labelResultOffice.TabIndex = 4;
+            labelResultOffice.Text = "Не має підходящого кондиціонеру, \r\nабо список кондиціонерів відсутній\r\n";
+            // 
+            // pictureBoxOffice
+            // 
+            pictureBoxOffice.Location = new Point(0, 247);
+            pictureBoxOffice.Name = "pictureBoxOffice";
+            pictureBoxOffice.Size = new Size(979, 739);
+            pictureBoxOffice.SizeMode = PictureBoxSizeMode.CenterImage;
+            pictureBoxOffice.TabIndex = 0;
+            pictureBoxOffice.TabStop = false;
+            // 
             // panel6
             // 
+            panel6.Controls.Add(labelResultServerRoom);
+            panel6.Controls.Add(pictureBoxServerRoom);
             panel6.Dock = DockStyle.Fill;
             panel6.Location = new Point(988, 3);
             panel6.Name = "panel6";
             panel6.Size = new Size(980, 986);
             panel6.TabIndex = 1;
             // 
+            // labelResultServerRoom
+            // 
+            labelResultServerRoom.AutoSize = true;
+            labelResultServerRoom.Location = new Point(25, 15);
+            labelResultServerRoom.Name = "labelResultServerRoom";
+            labelResultServerRoom.Size = new Size(511, 82);
+            labelResultServerRoom.TabIndex = 5;
+            labelResultServerRoom.Text = "Не має підходящого кондиціонеру, \r\nабо список кондиціонерів відсутній\r\n";
+            // 
+            // pictureBoxServerRoom
+            // 
+            pictureBoxServerRoom.Dock = DockStyle.Bottom;
+            pictureBoxServerRoom.Location = new Point(0, 247);
+            pictureBoxServerRoom.Name = "pictureBoxServerRoom";
+            pictureBoxServerRoom.Size = new Size(980, 739);
+            pictureBoxServerRoom.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBoxServerRoom.TabIndex = 1;
+            pictureBoxServerRoom.TabStop = false;
+            // 
             // splitContainer4
             // 
             splitContainer4.Dock = DockStyle.Fill;
-            splitContainer4.Location = new Point(0, 55);
+            splitContainer4.Location = new Point(0, 58);
             splitContainer4.Margin = new Padding(5);
             splitContainer4.Name = "splitContainer4";
             // 
@@ -1545,7 +1569,7 @@
             // splitContainer4.Panel2
             // 
             splitContainer4.Panel2.Controls.Add(tabControlData);
-            splitContainer4.Size = new Size(2325, 1325);
+            splitContainer4.Size = new Size(2325, 1322);
             splitContainer4.SplitterDistance = 310;
             splitContainer4.SplitterWidth = 8;
             splitContainer4.TabIndex = 3;
@@ -1674,6 +1698,12 @@
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             tableLayoutPanel6.ResumeLayout(false);
+            panel5.ResumeLayout(false);
+            panel5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxOffice).EndInit();
+            panel6.ResumeLayout(false);
+            panel6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxServerRoom).EndInit();
             splitContainer4.Panel1.ResumeLayout(false);
             splitContainer4.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainer4).EndInit();
@@ -1749,8 +1779,6 @@
         private Panel panel3;
         private Panel panel2;
         private GroupBox groupBox6;
-        private TextBox textBoxС;
-        private Label label19;
         private Label label17;
         private GroupBox groupBox5;
         private GroupBox groupBox3;
@@ -1804,8 +1832,6 @@
         private Panel panel6;
         private ToolStripSeparator toolStripSeparator6;
         private ToolStripMenuItem VentialtionStripMenuItem1;
-        private ComboBox comboBox2;
-        private Label label4;
         public TabControl tabControlData;
         private ToolStripMenuItem toolStripMenuItem1;
         private Label label6;
@@ -1814,15 +1840,19 @@
         private Label label11;
         private TextBox textBoxPeopleInCity;
         private Label label8;
-        private Label label14;
-        private Label label15;
-        private Label label21;
-        private Label label22;
+        private Label labelCity;
+        private Label labelYgdk;
+        private Label labelCO2Concetracion;
+        private Label labelSelectCategoryWork;
         private Label label12;
         private Label label10;
         private ComboBox comboBoxWord;
         private TextBox textBoxSZask;
         private Label label16;
         private ComboBox comboBoxP;
+        private Label labelResultServerRoom;
+        private Label labelResultOffice;
+        private PictureBox pictureBoxOffice;
+        private PictureBox pictureBoxServerRoom;
     }
 }

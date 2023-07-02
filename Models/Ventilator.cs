@@ -9,7 +9,11 @@ public partial class VentilatorTable
 
     [Required]
     public string? PathToFile { get; set; }
+    public string Name { get; set; }
     public double Power { get; set; }
+    public int Price { get; set; }
+
+
 
 
 

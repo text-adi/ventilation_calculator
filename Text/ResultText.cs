@@ -1,5 +1,13 @@
 ﻿namespace VentilationCalculator.Text
 {
+    public static class SelectText
+    {
+        public const string labelSelectCategoryWork = "Уп – вміст газу у припливному повітрі: {SELECT}";
+        public const string labelYgdk = "Угдк - вміст газу у припливному повітрі: {SELECT}";
+        public const string labelCity = "{SELECT}";
+        public const string labelCO2Concetracion = "Концетрація фуглекислого газу становить: {SELECT}";
+        public const string labelResult = "Для офісу використовується кондиціонер з потужністю {SELECT} кВт. \nВартість  {PRICE} грн. \nКількість кондиціонерів {SELECT_1}. \nЗагальна ціна {PRICE_1}";
+    }
     public static class ResultText
     {
         public const string TEMPLATETEXT = "{INT_VALUE}";
@@ -12,7 +20,7 @@
         public const string labelAirExchangeRateServerRoom = "Серверна L = {INT_VALUE}";
         public const string labelAirMoistureExchangeOffce = "Офіс L = {INT_VALUE}";
 
-        public const string labelInfoCity = "Місто/У місті {CITY}. Населення: {INT_VALUE_1} чол. ({TYPE_CITY})\r\nГранична концентрація {INT_VALUE_2} л/м^3";
+        public const string labelInfoCity = "Гранична концентрація {INT_VALUE} л/м^3";
         public const string labelAirExchangeFromCO2Concentration = "L = {INT_VALUE}";
 
         public const string labelQpeopleOffice = "Qл = {INT_VALUE}";

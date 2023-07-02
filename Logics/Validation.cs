@@ -1,4 +1,8 @@
-﻿namespace VentilationCalculator.Logics
+﻿using System.Net.NetworkInformation;
+using System.Text;
+using static System.Net.Mime.MediaTypeNames;
+
+namespace VentilationCalculator.Logics
 {
     internal class Validation
     {
@@ -114,5 +118,183 @@
 
         }
 
+    }
+    public class IntValidator
+    {
+        object sender;
+        TextBox textBox;
+        public IntValidator(object sender)
+        {
+            this.textBox = (TextBox)sender;
+            this.sender = sender;
+
+        }
+        public void Leave(EventArgs e)
+        { 
+            if (string.IsNullOrWhiteSpace(textBox.Text))
+            {
+                //встановити 0, якщо textBox пустий
+                textBox.Text = "0";
+            }
+        }
+        public void KeyUP(KeyEventArgs e, double min, double max)
+        {
+            if (Convert.ToDouble(textBox.Text) > max)
+            {
+                textBox.Text = max.ToString();
+                textBox.SelectionStart = 999;
+                e.Handled = true;
+
+            }
+            KeyUP(e, min);
+        }
+        public void KeyUP(KeyEventArgs e, double min)
+        {
+            if (Convert.ToDouble(textBox.Text) < min)
+            {
+                textBox.Text = min.ToString();
+                textBox.SelectionStart = 999;
+                e.Handled = true;
+
+            }
+
+        }
+
+        public void KeyPress(KeyPressEventArgs e)
+        {
+            try
+            {
+                StringBuilder stringBuilder = new StringBuilder(textBox.Text);
+
+                if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
+                {
+                    // Заборонити введення текстових символів
+                    e.Handled = true;
+                    return;
+                }
+                if (e.KeyChar == ',')
+                {
+                    // заборонити ведення більше одної коми
+                    e.Handled = true;
+                    return;
+                }
+
+                // замінити одне число, якщо видалемо
+                if (e.KeyChar == '\b' && textBox.Text.Length == 1)
+                {
+                    stringBuilder[0] = '0';
+                    textBox.Text = stringBuilder.ToString();
+                    textBox.SelectionStart = 1;
+                    e.Handled = true;
+                    return;
+                }
+                // замінити при натискані на число, 0, але проігнорити кому
+                if (textBox.Text[0] == '0' && textBox.Text.Length == 1)
+                {
+                    stringBuilder.Remove(0, 1);
+                    textBox.Text = stringBuilder.ToString();
+                    return;
+                }
+
+            }
+            catch { }
+
+
+        }
+    }
+    public class Validator
+    {
+        TextBox textBox;
+        public Validator(object sender)
+        {
+            this.textBox = (TextBox)sender;
+  
+
+        }
+        public Validator(TextBox textBox)
+        {
+            this.textBox = textBox;
+
+        }
+
+        public void Leave(EventArgs e)
+        {
+            if (textBox.Text.EndsWith(","))
+            {
+                // Видалити кому з кінця тексту
+                textBox.Text = textBox.Text.TrimEnd(',');
+            }
+            if (string.IsNullOrWhiteSpace(textBox.Text) || textBox.Text.StartsWith(","))
+            {
+                //встановити 0, якщо textBox пустий
+                textBox.Text = "0";
+            }
+        }
+
+
+        public void KeyUP( double min, double max)
+        {
+            if (Convert.ToDouble(textBox.Text) > max)
+            {
+                textBox.Text = max.ToString();
+                textBox.SelectionStart = 999;
+
+            }
+            KeyUP(min);
+        }
+        public void KeyUP(double min)
+        {
+            if (Convert.ToDouble(textBox.Text) < min)
+            {
+                textBox.Text = min.ToString();
+                textBox.SelectionStart = 999;
+
+            }
+
+        }
+
+        public void KeyPress(KeyPressEventArgs e)
+        {
+            try
+            {
+                string[] parts = textBox.Text.Split(',');
+                StringBuilder stringBuilder = new StringBuilder(textBox.Text);
+
+
+                if (!char.IsDigit(e.KeyChar) && e.KeyChar != ',' && !char.IsControl(e.KeyChar))
+                {
+                    // Заборонити введення текстових символів
+                    e.Handled = true;
+                    return;
+                }
+                if (e.KeyChar == ',' && textBox.Text.Count(c => c == ',') > 0)
+                {
+                    // заборонити ведення більше одної коми
+                    e.Handled = true;
+                    return;
+                }
+
+                // замінити одне число, якщо видалемо
+                if (e.KeyChar == '\b' && textBox.Text.Length == 1)
+                {
+                    stringBuilder[0] = '0';
+                    textBox.Text = stringBuilder.ToString();
+                    textBox.SelectionStart = 1;
+                    e.Handled = true;
+                    return;
+                }
+                // замінити при натискані на число, 0, але проігнорити кому
+                if (textBox.Text[0] == '0' && textBox.Text.Length == 1 && e.KeyChar != ',')
+                {
+                    stringBuilder.Remove(0, 1);
+                    textBox.Text = stringBuilder.ToString();
+                    return;
+                }
+
+            }
+            catch { }
+
+
+        }
     }
 }

@@ -32,7 +32,7 @@
             tableLayoutPanel1 = new TableLayoutPanel();
             panel1 = new Panel();
             label7 = new Label();
-            textBox2 = new TextBox();
+            textBoxPriceView = new TextBox();
             label3 = new Label();
             listBox1 = new ListBox();
             contextMenuStrip1 = new ContextMenuStrip(components);
@@ -43,8 +43,10 @@
             label1 = new Label();
             pictureBoxPhoto = new PictureBox();
             panel2 = new Panel();
+            label8 = new Label();
+            textBoxName = new TextBox();
             label6 = new Label();
-            textBox1 = new TextBox();
+            textBoxPrice = new TextBox();
             button2 = new Button();
             label5 = new Label();
             textBoxPower = new TextBox();
@@ -68,14 +70,14 @@
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 2;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 24.8775711F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 792F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 726F));
             tableLayoutPanel1.Size = new Size(1648, 1021);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // panel1
             // 
             panel1.Controls.Add(label7);
-            panel1.Controls.Add(textBox2);
+            panel1.Controls.Add(textBoxPriceView);
             panel1.Controls.Add(label3);
             panel1.Controls.Add(listBox1);
             panel1.Controls.Add(label2);
@@ -83,9 +85,9 @@
             panel1.Controls.Add(label1);
             panel1.Controls.Add(pictureBoxPhoto);
             panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(3, 232);
+            panel1.Location = new Point(3, 298);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1642, 786);
+            panel1.Size = new Size(1642, 720);
             panel1.TabIndex = 0;
             // 
             // label7
@@ -97,14 +99,14 @@
             label7.TabIndex = 7;
             label7.Text = "Вартість в грн.";
             // 
-            // textBox2
+            // textBoxPriceView
             // 
-            textBox2.Location = new Point(664, 288);
-            textBox2.Name = "textBox2";
-            textBox2.ReadOnly = true;
-            textBox2.Size = new Size(395, 47);
-            textBox2.TabIndex = 6;
-            textBox2.Text = "0";
+            textBoxPriceView.Location = new Point(664, 288);
+            textBoxPriceView.Name = "textBoxPriceView";
+            textBoxPriceView.ReadOnly = true;
+            textBoxPriceView.Size = new Size(395, 47);
+            textBoxPriceView.TabIndex = 6;
+            textBoxPriceView.Text = "0";
             // 
             // label3
             // 
@@ -187,8 +189,10 @@
             // 
             // panel2
             // 
+            panel2.Controls.Add(label8);
+            panel2.Controls.Add(textBoxName);
             panel2.Controls.Add(label6);
-            panel2.Controls.Add(textBox1);
+            panel2.Controls.Add(textBoxPrice);
             panel2.Controls.Add(button2);
             panel2.Controls.Add(label5);
             panel2.Controls.Add(textBoxPower);
@@ -197,8 +201,24 @@
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(3, 3);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1642, 223);
+            panel2.Size = new Size(1642, 289);
             panel2.TabIndex = 1;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(21, 177);
+            label8.Name = "label8";
+            label8.Size = new Size(98, 41);
+            label8.TabIndex = 9;
+            label8.Text = "Назва";
+            // 
+            // textBoxName
+            // 
+            textBoxName.Location = new Point(21, 221);
+            textBoxName.Name = "textBoxName";
+            textBoxName.Size = new Size(304, 47);
+            textBoxName.TabIndex = 8;
             // 
             // label6
             // 
@@ -209,17 +229,19 @@
             label6.TabIndex = 7;
             label6.Text = "Вартість в грн.";
             // 
-            // textBox1
+            // textBoxPrice
             // 
-            textBox1.Location = new Point(841, 102);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(396, 47);
-            textBox1.TabIndex = 6;
-            textBox1.Text = "0";
+            textBoxPrice.Location = new Point(841, 102);
+            textBoxPrice.Name = "textBoxPrice";
+            textBoxPrice.Size = new Size(396, 47);
+            textBoxPrice.TabIndex = 6;
+            textBoxPrice.Text = "0";
+            textBoxPrice.KeyPress += textBox_IntKeyPress;
+            textBoxPrice.Leave += textBox_IntLeave;
             // 
             // button2
             // 
-            button2.Location = new Point(1463, 79);
+            button2.Location = new Point(358, 198);
             button2.Name = "button2";
             button2.Size = new Size(170, 70);
             button2.TabIndex = 5;
@@ -244,9 +266,8 @@
             textBoxPower.TabIndex = 3;
             textBoxPower.Text = "0";
             textBoxPower.TextChanged += textBox_TextChanged_floatFilter;
-            textBoxPower.KeyDown += textBoxPower_KeyDown;
-            textBoxPower.KeyPress += textBoxPower_KeyPress;
-            textBoxPower.Leave += textBoxPower_Leave;
+            textBoxPower.KeyPress += textBox_KeyPress;
+            textBoxPower.Leave += textBox_IntLeave;
             // 
             // button1
             // 
@@ -305,8 +326,11 @@
         private ToolStripMenuItem оновитиToolStripMenuItem;
         private ToolStripMenuItem видалитиВентиляціюToolStripMenuItem;
         private Label label6;
-        private TextBox textBox1;
+        private TextBox textBoxPrice;
         private Label label7;
         private TextBox textBox2;
+        private Label label8;
+        private TextBox textBoxName;
+        private TextBox textBoxPriceView;
     }
 }

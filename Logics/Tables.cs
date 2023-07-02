@@ -100,15 +100,28 @@
         };
         public static readonly List<City> Table17City = new()
         {
-            new City("Населені пункти (селища, смт)", 0.33, 100),
+            new City("Населені пункти (селища, смт)", 0.33, 50000),
             new City("Малі міста (до 300 000 осіб)", 0.4, 300000),
-            new City("Населені пункти (селища, смт)", 0.5, double.MaxValue),
+            new City("Великі міста", 0.5, double.MaxValue),
         };
         public static readonly Dictionary<int, Dictionary<double, int>> Table19Temp = new Dictionary<int, Dictionary<double, int>>()
         {
             { 1, new Dictionary<double, int> { {10,650 },{15,566},{20,545},{25,524},{30,524}, {35,524} } },
             { 2, new Dictionary<double, int>{ { 10, 775 }, { 15, 754}, { 20, 733}, { 25, 712}, { 30, 712 }, { 35, 712  } } },
             { 3, new Dictionary<double, int>{ { 10, 925 }, { 15, 921 }, { 20, 917 }, { 25, 906 }, { 30, 906 }, { 35, 906 } } },
+        };
+        public static readonly Dictionary<int, Dictionary<int, double>> Table18P = new Dictionary<int, Dictionary<int, double>>()
+        {
+            { 0, new Dictionary<int, double> { { 760, 1.293 }, { 745, 1.267 }, } },
+            { 5, new Dictionary<int, double> { { 760, 1.270 }, { 745, 1.244 }, } },
+            { 10, new Dictionary<int, double> { { 760, 1.248 }, { 745, 1.223 }, } },
+            { 15, new Dictionary<int, double> { { 760, 1.226 }, { 745, 1.202 }, } },
+            { 20, new Dictionary<int, double> { { 760, 1.205 }, { 745, 1.181 }, } },
+            { 25, new Dictionary<int, double> { { 760, 1.185 }, { 745, 1.162 }, } },
+            { 30, new Dictionary<int, double> { { 760, 1.165 }, { 745, 1.141 }, } },
+            { 35, new Dictionary<int, double> { { 760, 1.146 }, { 745, 1.123 }, } },
+            { 40, new Dictionary<int, double> { { 760, 1.128 }, { 745, 1.106 }, } },
+
         };
         public static readonly Dictionary<int, Dictionary<int, int>> Table20Word = new Dictionary<int, Dictionary<int, int>>()
         {
@@ -134,6 +147,12 @@
             {2, 19.8},
             {3, 25.6},
         };
+        public static readonly Dictionary<int, string> AirNormal = new Dictionary<int, string>()
+        {
+            {1, "20-25"},
+            {2, "45-45"},
+            {3, "60-60"},
+        };  
 
         public static readonly List<TypeRama> typeRama = new()
         {

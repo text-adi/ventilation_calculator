@@ -9,8 +9,12 @@ dotnet ef dbcontext scaffold "Data Source=mydatabase.db" Microsoft.EntityFramewo
 1. Ініціація файла міграції
 ```
 dotnet ef migrations add <Name migration>
+
+Add-Migration
 ```
 2. Виконуємо міграцію
 ```
 dotnet ef database update
+
+Update-Database
 ```

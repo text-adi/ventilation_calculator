@@ -1,4 +1,5 @@
-﻿using VentilationCalculator.Models;
+﻿using VentilationCalculator.Logics;
+using VentilationCalculator.Models;
 using TextBox = System.Windows.Forms.TextBox;
 
 namespace VentilationCalculator
@@ -22,11 +23,12 @@ namespace VentilationCalculator
             openFileDialog.Filter = "Images Files(*.jpg;*.jpeg;*.png;*.gif;*.bmp)|*.jpg;*.jpeg;*.png;*.gif;*.bmp|All Files (*.*)|*.*";  // Фільтр файлів, які можна вибрати
             DialogResult result = openFileDialog.ShowDialog();
 
-            if (result == DialogResult.OK)
+            /*if (result == DialogResult.OK)
             {
+                return;
                 label4.Text = openFileDialog.FileName;
 
-            }
+            }*/
         }
 
         private void SaveVentilation_Click(object sender, EventArgs e)
@@ -34,17 +36,39 @@ namespace VentilationCalculator
             using SystemContext db = new();
             if (openFileDialog == null)
             {
-                MessageBox.Show("Не можна зберегти дані, так як фото вентиляції не вибрано", "Збереження вентиляції", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Не можна зберегти дані, так як фото кондиціонера не вибрано", "Збереження кондиціонера", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            var newInputData = new VentilatorTable
+            if (textBoxName.Text == "")
             {
-                PathToFile = openFileDialog.FileName,
-                Power = Convert.ToDouble(textBoxPower.Text)
-            };
-            db.VirantVentilator.Add(newInputData);
-            db.SaveChanges();
-            RefreshList();
+                MessageBox.Show("Не можна зберегти дані, так як назва кондиціонера не вказана", "Збереження кондиціонера", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            try
+            {
+                DateTime currentTime = DateTime.UtcNow;
+                long timestamp = currentTime.Ticks / TimeSpan.TicksPerSecond;
+                Directory.CreateDirectory("images");
+                string path = "images\\" + timestamp + ".png";
+                File.Copy(openFileDialog.FileName, path);
+
+                var newInputData = new VentilatorTable
+                {
+
+                    PathToFile = path,
+
+                    Power = Convert.ToDouble(textBoxPower.Text),
+                    Price = Convert.ToInt32(textBoxPrice.Text),
+                    Name = textBoxName.Text,
+                };
+                db.VirantVentilator.Add(newInputData);
+                db.SaveChanges();
+                RefreshList();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Помилка при копіюванні та збереженні фото: " + ex.Message);
+            }
         }
         private void RefreshList()
         {
@@ -53,7 +77,7 @@ namespace VentilationCalculator
             var inputData = db.VirantVentilator.ToList();
 
             listBox1.DataSource = inputData;
-            listBox1.DisplayMember = "Power";
+            listBox1.DisplayMember = "Name";
             listBox1.SelectedItem = -1;
 
         }
@@ -63,7 +87,12 @@ namespace VentilationCalculator
             if (selectObject != null)
             {
                 textBoxEditVent.Text = selectObject.Power.ToString();
+                textBoxPriceView.Text = selectObject.Price.ToString();
                 pictureBoxPhoto.Image = Image.FromFile(selectObject.PathToFile);
+            }
+            else
+            {
+                pictureBoxPhoto.Image = null;
             }
 
         }
@@ -183,14 +212,20 @@ namespace VentilationCalculator
 
         }
 
-        private void textBoxPower_KeyDown(object sender, KeyEventArgs e)
+        private void textBox_IntLeave(object sender, EventArgs e)
         {
-
+            new Validator(sender).Leave(e);
         }
 
-        private void listBox1_MouseClick(object sender, MouseEventArgs e)
+        private void textBox_IntKeyPress(object sender, KeyPressEventArgs e)
         {
-
+            new IntValidator(sender).KeyPress(e);
         }
+        private void textBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            new Validator(sender).KeyPress(e);
+        }
+
+
     }
 }

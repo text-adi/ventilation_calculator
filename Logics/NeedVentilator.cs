@@ -1,13 +1,46 @@
-﻿namespace VentilationCalculator.Logics
+﻿using VentilationCalculator.Models;
+
+namespace VentilationCalculator.Logics
 {
-    public class NeedVentilator
+    public class NeedOneVentilator
     {
-        public static void GetVariadnVentialot(double NeedValue)
+        public VentilatorTable Need { get; }
+        public int Count { get; }
+        public NeedOneVentilator(VentilatorTable Need, int Count)
         {
-            // 1. Зробит вибірку до БД, та отримати весь список вентиляцій
-            // 2. В нас є 200, 300, 150,(потрібно 100) визначаємо, яке значення із запропонованих найблище до 100.
-            //    Якщо в нас є 2,5,7,9, 5,5 і потрібно 20, то формується спочатку найбільш підходящі комбінації, типу 5 5 5 5, 5 5 9 , 2 7 5 5, 2 7 9. із видаленям дублікатів відповідей
-            //    Чи зробити щоб кожної потужності писало 
+            this.Need = Need;
+            this.Count = Count;
+        }
+    }
+    public class  NeedVentilator
+    {
+        
+        public static NeedOneVentilator GetVariadnVentialot(double NeedValue, double min, double max)
+        {
+            VentilatorTable needVentilator = null;
+            using SystemContext db = new();
+            int countVentilator = 0;
+            foreach (var item in db.VirantVentilator)
+            {
+                double procent = (NeedValue / item.Power) % 1; // отримуємо дробове число, яке вистапає в ролі точності. Чим менше дробове число, тим точний результат
+
+                if ( needVentilator is null || procent < needVentilator.Power)
+                {
+                    int count = (int)(NeedValue /item.Power); // отримуємо кількість вентиляцій
+                    double vat = item.Power * count; // обраховуємо остаточну потужність
+                    if (vat < min || max < vat) // перевіряємо чи потужність входить в межі, якщо ні, то не записуємо
+                    {
+                        continue;
+                    }
+                    countVentilator = count;
+                    needVentilator = item;
+                }
+
+
+            }
+            return new NeedOneVentilator(needVentilator, countVentilator);
+            
+
         }
     }
 }
