@@ -174,9 +174,9 @@
             label1.AutoSize = true;
             label1.Location = new Point(1088, 70);
             label1.Name = "label1";
-            label1.Size = new Size(237, 41);
+            label1.Size = new Size(288, 41);
             label1.TabIndex = 1;
-            label1.Text = "Фото вентиляції";
+            label1.Text = "Фото кондиціонера";
             // 
             // pictureBoxPhoto
             // 

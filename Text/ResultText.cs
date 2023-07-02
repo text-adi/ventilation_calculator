@@ -30,8 +30,8 @@
 
         public const string labelQoblServerRoom = "Qобл = {INT_VALUE}";
 
-        public const string labelNeedWatOffice = "Вентиляція в офісі повинна забезпечувати \r\n{INT_VALUE} м^3/год";
-        public const string labelNeedWatServerRoom = "Вентиляція в серверній повинна забезпечувати \r\n{INT_VALUE} м^3/год";
+        public const string labelNeedWatOffice = "Кондиціонер в офісі повинен забезпечувати \r\n{INT_VALUE} м^3/год";
+        public const string labelNeedWatServerRoom = "Кондиціонер в серверній повинен забезпечувати \r\n{INT_VALUE} м^3/год";
 
         //5
         public const string labelBetweenNeedWatOffice = "Потужність кондиціонера для офіса повинно бути в межах {INT_VALUE_1} кВт ... {INT_VALUE_2} кВт";

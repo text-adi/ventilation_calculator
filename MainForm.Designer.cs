@@ -210,7 +210,7 @@
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(12, 5, 0, 5);
-            menuStrip1.Size = new Size(2325, 58);
+            menuStrip1.Size = new Size(2325, 55);
             menuStrip1.TabIndex = 1;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -377,7 +377,7 @@
             // 
             VentialtionStripMenuItem1.Name = "VentialtionStripMenuItem1";
             VentialtionStripMenuItem1.Size = new Size(1241, 54);
-            VentialtionStripMenuItem1.Text = "Таблиця вентиляцій";
+            VentialtionStripMenuItem1.Text = "Таблиця кондиціонерів";
             VentialtionStripMenuItem1.Click += VentialtionStripMenuItem1_Click;
             // 
             // AnotherOrerationToolStripMenuItem
@@ -405,7 +405,7 @@
             tabControlData.Margin = new Padding(5);
             tabControlData.Name = "tabControlData";
             tabControlData.SelectedIndex = 0;
-            tabControlData.Size = new Size(2007, 1322);
+            tabControlData.Size = new Size(2007, 1325);
             tabControlData.TabIndex = 0;
             // 
             // tabPageInputData
@@ -416,7 +416,7 @@
             tabPageInputData.Margin = new Padding(5);
             tabPageInputData.Name = "tabPageInputData";
             tabPageInputData.Padding = new Padding(5);
-            tabPageInputData.Size = new Size(1987, 1254);
+            tabPageInputData.Size = new Size(1987, 1257);
             tabPageInputData.TabIndex = 0;
             tabPageInputData.Text = "Вхідні дані";
             tabPageInputData.UseVisualStyleBackColor = true;
@@ -424,7 +424,7 @@
             // buttonWriteData
             // 
             buttonWriteData.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            buttonWriteData.Location = new Point(1725, 1175);
+            buttonWriteData.Location = new Point(1725, 1178);
             buttonWriteData.Margin = new Padding(5);
             buttonWriteData.Name = "buttonWriteData";
             buttonWriteData.Size = new Size(252, 72);
@@ -1238,9 +1238,9 @@
             labelNeedWatServerRoom.Location = new Point(35, 585);
             labelNeedWatServerRoom.Margin = new Padding(2, 0, 2, 0);
             labelNeedWatServerRoom.Name = "labelNeedWatServerRoom";
-            labelNeedWatServerRoom.Size = new Size(679, 82);
+            labelNeedWatServerRoom.Size = new Size(709, 82);
             labelNeedWatServerRoom.TabIndex = 6;
-            labelNeedWatServerRoom.Text = "Вентиляція в серверній повинна забезпечувати \r\n\"Не обраховано\" м^3/год";
+            labelNeedWatServerRoom.Text = "Кондиціонер в серверній повинен забезпечувати \r\n\"Не обраховано\" м^3/год";
             // 
             // labelNeedWatOffice
             // 
@@ -1248,9 +1248,9 @@
             labelNeedWatOffice.Location = new Point(35, 465);
             labelNeedWatOffice.Margin = new Padding(2, 0, 2, 0);
             labelNeedWatOffice.Name = "labelNeedWatOffice";
-            labelNeedWatOffice.Size = new Size(607, 82);
+            labelNeedWatOffice.Size = new Size(637, 82);
             labelNeedWatOffice.TabIndex = 5;
-            labelNeedWatOffice.Text = "Вентиляція в офісі повинна забезпечувати \r\n\"Не обраховано\" м^3/год";
+            labelNeedWatOffice.Text = "Кондиціонер в офісі повинен забезпечувати \r\n\"Не обраховано\" м^3/год";
             // 
             // labelQoblServerRoom
             // 
@@ -1424,7 +1424,7 @@
             tabPageViewPicture.Padding = new Padding(5);
             tabPageViewPicture.Size = new Size(1987, 1257);
             tabPageViewPicture.TabIndex = 2;
-            tabPageViewPicture.Text = "Пропонована вентиляція";
+            tabPageViewPicture.Text = "Пропонований кондиціонер";
             tabPageViewPicture.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel3
@@ -1558,7 +1558,7 @@
             // splitContainer4
             // 
             splitContainer4.Dock = DockStyle.Fill;
-            splitContainer4.Location = new Point(0, 58);
+            splitContainer4.Location = new Point(0, 55);
             splitContainer4.Margin = new Padding(5);
             splitContainer4.Name = "splitContainer4";
             // 
@@ -1569,7 +1569,7 @@
             // splitContainer4.Panel2
             // 
             splitContainer4.Panel2.Controls.Add(tabControlData);
-            splitContainer4.Size = new Size(2325, 1322);
+            splitContainer4.Size = new Size(2325, 1325);
             splitContainer4.SplitterDistance = 310;
             splitContainer4.SplitterWidth = 8;
             splitContainer4.TabIndex = 3;
@@ -1656,7 +1656,7 @@
             MainMenuStrip = menuStrip1;
             Margin = new Padding(5);
             Name = "MainForm";
-            Text = "Калькулятор ";
+            Text = "Обрахунок кондиціонеру";
             Load += MainForm_Load;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
